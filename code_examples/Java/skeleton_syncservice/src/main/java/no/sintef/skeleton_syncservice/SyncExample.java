@@ -27,6 +27,9 @@ public class SyncExample {
     // Right click on the project in the left pane, choose "Properties" and rename
     // group id, artifact id and name.
     
+    // Access container configuration via environment variables
+    private final static String config_value = System.getenv("MY_CONFIG_VALUE");
+    
     
     // Name your service here, and add your required input and output parameters.
     // Note that output parameters should be of Holder objects.
@@ -51,7 +54,8 @@ public class SyncExample {
         // Edit the input and output parameters above to fit your need, and program the method body according to your wishes.
         
         // The value of the output parameters are sat like this:
-        myOut.value = input1 + " " + input2;
+        myOut.value = "Config was: " + config_value + "; input was: " + input1 
+                + " " + input2;
     }
     
     // Now, only thing left is to modify the proxy filter.
