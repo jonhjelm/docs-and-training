@@ -2,10 +2,15 @@ Java skeleton for a synchronous service
 =======================================
 
 This is a bare-bone skeleton of a Java synchronous-service application, wrapped
-in a Docker container.
+in a Docker container containig a Glassfish 5.0 Java application server.
 
 ## Prerequisites
-You only need to have Docker installed on your machine, all the rest is handled by Docker containers.
+To build, run, and test this skeleton service, you only need to have Docker
+installed on your machine. All required software is already bundled in Docker
+containers.
+
+For further development based on this skeleton, it is highly recommended to
+use a Java IDE such as Netbeans.
 
 ## Build, configure, and run the service
 ### Build
@@ -64,3 +69,20 @@ cd test_client
 You can make changes to `test_service.py` to test other methods or other
 deployment locations. Rebuilding the container is not necessary after such
 changes.
+
+## Use this skeleton as a template
+When using this skeleton as a code template for other services, please make sure
+to follow the instructions for renaming the service found in the Java source code.
+
+Afterwards, also edit `Dockerfile` and update the name of the `.war` compiled package
+accordingly.
+
+## Modifying the Glassfish application server
+The Glassfish application server is pre-configured to run without problems in
+any deployment environment. Should you need to modify its configuration, edit
+the entrypoint script `docker_entrypoint.sh` and rebuild the container.
+
+Note that by default, Glassfish's admin-console port 4848 is _not_ exposed. If
+you need access to the admin console, edit `Dockerfile` accordingly, run the
+container with an additional `-p 4848:4848` port mapping, and grab the admin
+password from the container startup log.
