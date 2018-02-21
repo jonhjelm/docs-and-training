@@ -1,3 +1,9 @@
+# Custom maven temp files
+.m2/
+
+# Netbeans
+nb-configuration.xml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
