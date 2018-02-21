@@ -25,7 +25,7 @@ def soap_call(wsdl_url, methodname, method_args):
 def main():
     url = "http://localhost:8080/sintef/examples/syncservice/SyncExample?wsdl"
 
-    print(soap_call(url, "basicIO", ["Hello", "World"]))
+    print(soap_call(url, "basicIO", ["serviceID", "sessionToken", "Hello", "World"]))
 
 if __name__ == "__main__":
     main()
