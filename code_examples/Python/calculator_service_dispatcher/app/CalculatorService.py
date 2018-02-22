@@ -3,8 +3,6 @@
 This simple service utilizes the "flask_spyne" package to create a SOAP service
 with just a few lines of code.
 """
-from werkzeug.contrib.fixers import ProxyFix
-
 from flask import Flask
 from flask_spyne import Spyne
 from spyne.protocol.soap import Soap11
@@ -12,7 +10,6 @@ from spyne.model.primitive import Float
 
 app = Flask(__name__)
 spyne = Spyne(app)
-app.wsgi_app = ProxyFix(app.wsgi_app)
 
 
 @app.route('/')
