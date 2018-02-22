@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Simple test client to call the calculator SOAP service"""
 
 from suds.client import Client
 from suds.cache import NoCache
@@ -23,20 +24,27 @@ def soap_call(wsdl_url, methodname, method_args):
 
 
 def main():
-    url = "http://localhost:5000/sintef/examples/calculator/Calculator?wsdl"
-    url = "https://caxman.clesgo.net/sintef/docker_services/calculator/Calculator?wsdl"
+    """Makes a series of test calls and prints their outputs."""
+
+    # URL of the SOAP service to test. Modify this if the deployment location
+    # changes.
+    url = "http://localhost:8080/sintef/docker_services/calculator/Calculator?wsdl"
 
     a = 11
     b = 31
+
+    print("Testing addition:")
     response = soap_call(url, "add", [a, b])
     print("{} + {} = {}".format(a, b, response))
 
+    print("Testing subtraction:")
     response = soap_call(url, "subtract", [a, b])
     print("{} - {} = {}".format(a, b, response))
 
+    print("Testing multiplication:")
     response = soap_call(url, "multiply", [a, b])
     print("{} * {} = {}".format(a, b, response))
 
+
 if __name__ == "__main__":
     main()
-
