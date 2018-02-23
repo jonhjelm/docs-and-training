@@ -1,3 +1,11 @@
+"""Simple script which waits for a given amount of time.
+
+While waiting, it regularly updates a status file.
+Once finished waiting, it writes "FINISHED" into a result file.
+
+In a more realistic scenario, this waiter would be replaced by a complex
+calculation or similar.
+"""
 import sys
 import time
 

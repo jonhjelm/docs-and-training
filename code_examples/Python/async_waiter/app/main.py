@@ -1,4 +1,4 @@
-"""Main entrypoint of the Python-based SOAP service
+"""Main entrypoint of the Python-based SOAP webapp
 
 Here, the dispatcher middleware is created and all required parts of the app
 are "hooked in".
@@ -8,6 +8,7 @@ import os
 
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.serving import run_simple
+
 from frontend import app as frontend
 from Waiter import app as waiter
 
