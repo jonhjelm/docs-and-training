@@ -7,9 +7,11 @@ from flask import Flask
 from flask_spyne import Spyne
 from spyne.protocol.soap import Soap11
 from spyne.model.primitive import Float
+from werkzeug.contrib.fixers import ProxyFix
 
 app = Flask(__name__)
 spyne = Spyne(app)
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 
 @app.route('/')
