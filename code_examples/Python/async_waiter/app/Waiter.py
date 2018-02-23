@@ -12,12 +12,15 @@ import subprocess
 import base64
 import datetime
 from flask import Flask
+from flask import request
 from flask_spyne import Spyne
 from spyne.protocol.soap import Soap11
 from spyne.model.primitive import Unicode, Integer, Boolean
+from werkzeug.contrib.fixers import ProxyFix
 
 app = Flask(__name__)
 spyne = Spyne(app)
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 
 # Read environment variables to obtain configuration values
