@@ -14,7 +14,7 @@ import datetime
 from flask import Flask
 from flask_spyne import Spyne
 from spyne.protocol.soap import Soap11
-from spyne.model.primitive import Unicode, Integer
+from spyne.model.primitive import Unicode, Integer, Boolean
 
 app = Flask(__name__)
 spyne = Spyne(app)
@@ -117,6 +117,20 @@ class WaiterService(spyne.Service):
         output_file = "UNSET"
         status = base64.b64encode(create_html_progressbar(int(current_status)))
         return (status, output_file)
+
+    @spyne.srpc(Unicode, Unicode, _returns=Boolean,
+                _out_variable_name="success")
+    def abortService(serviceID, sessionToken):
+        """Aborts the currently running service (not implemented, returns false)
+        """
+
+        # This method offers the option to abort long-running asynchronous
+        # services. In this example, we do not implement this functionality
+        # and thus always return False.
+        # In a more realistic scenario, this method would terminate the
+        # background computation process gracefully.
+
+        return False
 
 
 def create_html_progressbar(progress):
