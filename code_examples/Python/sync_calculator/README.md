@@ -11,16 +11,7 @@ containers.
 For further development based on this skeleton, it is highly recommended to
 use a local Python environment.
 
-## Build, configure, and run the service
-### Build
-To compile service source code and pack it into a Docker container, run
-```
-./build.sh
-```
-On the first run, this might take a while since the base container images need
-to be downloaded and dependencies need to be installed. Subsequent builds will
-complete significantly faster.
-
+## Configure, build, and run the service
 ### Configuration
 Prior to running the service, have a look at the file `env`. This file defines
 environment variables which will be passed into the container. The first one,
@@ -31,18 +22,26 @@ hosting the service is reachable.
 You can define further configuration variables which then can be used in the
 application source code.
 
-### Running
-To run the container locally, simply execute
+### Build and run
+To compile service source code, pack it into a Docker container, and run the
+container, run
 ```
-./run.sh
+./rebuildandrun.sh <port>
 ```
+Choose a port number that is available on your machine.
+
+On the first run, this might take a while since the base container images need
+to be downloaded and dependencies need to be installed. Subsequent builds will
+complete significantly faster.
+
 This run script starts the container in daemon mode, meaning that the command
 returns immediately and that logs are not immediately visible.
 
 Alternatively, run the container interactively via:
 ```
-docker run -p 8080:80 --env-file=env calculator
+docker run -p <port>:80 --env-file=env calculator
 ```
+Again, choose a fitting port number
 
 ### Testing the service
 Once the container is running, it can be tested by using its published wsdl
