@@ -5,11 +5,17 @@ Here, you will find code examples as well as tutorials for service development
 on the CloudFlow infrastructure stack.
 
 ## General documentation
-Besides the code examples and tutorials, more documentation is available on
-some general topics. This is a loose collection without too much structure.
+Besides code examples and tutorials (see below), documentation is available on
+some general topics which are beneficial for the understanding of why services
+are developed in certain ways.
 
-* [CloudFlow service types](general_documentation/service_types.md): Short
-  description of synchronous services, asynchronous services, and applications
+* [CloudFlow nomenclature](general_documentation/nomenclature.md): 
+  A short description of the most important terms for CloudFlow service
+  development. Read this to understand what's written in the tutorials.
+* [CloudFlow service types](general_documentation/service_types.md): 
+  Description and requirements of synchronous services, asynchronous services,
+  and applications. Read this if you're wondering what kind of service you 
+  need to develop for a certain use case.
 
 ## Code examples
 Have a look in the [code examples folder](code_examples). Currently, examples
