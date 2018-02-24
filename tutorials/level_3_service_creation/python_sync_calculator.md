@@ -31,7 +31,7 @@ The Calculator webservice is now deployable.
 
 ## Step 2: Build and deploy the webservice
 To build and deploy the calculator webservice's Docker container, run:
-```
+```bash
 ./rebuildandrun.sh <port>
 ```
 `<port>` defines the port the container will listen on for incoming connections
@@ -46,7 +46,7 @@ image needs to be downloaded. Subsequent builds will perform much faster.
 The script runs the container in daemon mode, meaning that once started, no 
 container output will be displayed in the terminal. To confirm that the 
 container is running, execute:
-```
+```bash
 docker ps
 ```
 
@@ -60,7 +60,7 @@ container ID or by its name (last column of the output), which is `calculator`
 in this example.
 
 To inspect the container's startup log, execute:
-```
+```bash
 docker logs calculator
 ```
 You will see the startup log from nginx (the webserver hosting the webservice
@@ -78,7 +78,7 @@ installed. Alternatively, the test client also comes wrapped in a Docker
 container.
 
 To build and run this test-client container, execute:
-```
+```bash
 cd test_client
 ./build.sh
 ./run.sh <port>
@@ -87,7 +87,7 @@ Use the same port number for `<port>` as you used when building the webservice
 container above. If you don't specify a port, port 8080 will be used. 
 
 You should see output similar to this:
-```
+```bash
 $ ./run.sh 8080
 Using port 8080
 wsdl URL is http://localhost:8080/sintef/docker_services/calculator/Calculator?wsdl
@@ -124,7 +124,7 @@ did in `env` when deploying the calculator service.
 The browser should display an xml file. This file describes the interface of
 the calculator webservice with all its callable methods. Pay special attention
 to the following block:
-```
+```xml
 <wsdl:portType name="CalculatorService">
   <wsdl:operation name="multiply" parameterOrder="multiply">
     <wsdl:input name="multiply" message="tns:multiply"/>
@@ -156,7 +156,7 @@ namely the division of two numbers.
 To do so, edit `app/CalculatorService.py`. In the `CalculatorService` class 
 definition, there are three methods implemented for the three operations `add`,
 `subtract`, and `multiply`. Add another, very similar method below:
-```
+```python
     @spyne.srpc(Float, Float, _returns=Float)
     def divide(a, b):
         return a/b
@@ -171,7 +171,7 @@ started successfully.
 
 Now, edit `test_client/test_calculator.py` and add the following code at the
 end of the function `main()`:
-```
+```python
     print("Testing division:")
     response = soap_call(url, "divide", [a, b])
     print("{} * {} = {}".format(a, b, response))
