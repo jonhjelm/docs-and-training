@@ -4,6 +4,13 @@ Welcome to the CloudFlow training resources!
 Here, you will find code examples as well as tutorials for service development
 on the CloudFlow infrastructure stack.
 
+## General documentation
+Besides the code examples and tutorials, more documentation is available on
+some general topics. This is a loose collection without too much structure.
+
+* [CloudFlow service types](general_documentation/service_types.md): Short
+  description of synchronous services, asynchronous services, and applications
+
 ## Code examples
 Have a look in the [code examples folder](code_examples). Currently, examples
 are available for Python and for Java.
@@ -28,10 +35,3 @@ The tutorials are currently divided into three levels:
 [Level 2: Modifying workflows using the GUI](tutorials/level_2_modifying_workflows/)
 
 [Level 3: Creating new services](tutorials/level_3_service_creation/)
-
-## Other documentation
-Besides the code examples and tutorials, more documentation is available on
-some general topics. This is a loose collection without too much structure.
-
-* [CloudFlow service types](other_documentation/service_types.md): Short
-  description of synchronous services, asynchronous services, and applications
