@@ -1,3 +1,3 @@
 #! /bin/bash
 
-docker build -t calculator_testclient .
+docker build -t waiter_testclient .

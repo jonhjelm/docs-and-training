@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """Simple test client to call the waiter SOAP service"""
 
+import os
 import sys
 
 from suds.client import Client
@@ -40,16 +41,32 @@ def status(url):
 
 
 def main():
-    # URL of the SOAP service to test. Modify this if the deployment location
-    # changes.
-    url = "http://localhost:8080/sintef/docker_services/waiter/Waiter?wsdl"
+    try:
+        port = int(sys.argv[1])
+        print("Using port {}".format(port))
+    except:
+        print("Couldn't get port from commandline argument, using 8080.")
+        port = 8080
+
+    try:
+        context_root = os.environ["CONTEXT_ROOT"]
+    except KeyError:
+        print("Error: environment variable CONTEXT_ROOT not set.")
+        exit(1)
+
+    url = "http://localhost:{}{}/waiter/Waiter?wsdl".format(port, context_root)
+    print("wsdl URL is {}".format(url))
+
+    if len(sys.argv) != 2:
+        print("Expected [start|status] as argument.")
+        exit(1)
 
     if sys.argv[1] == 'start':
         start(url)
     elif sys.argv[1] == 'status':
         status(url)
     else:
-        pass
+        print('Unknown argument.')
 
 
 if __name__ == "__main__":

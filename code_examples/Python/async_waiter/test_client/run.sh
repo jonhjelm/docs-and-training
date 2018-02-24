@@ -1,3 +1,3 @@
 #! /bin/bash
 
-docker run --net="host" -v "$PWD":/usr/src/test_client -w /usr/src/test_client test_client python test_waiter.py
+docker run --net="host" --env-file=../env -v "$PWD":/usr/src/test_client -w /usr/src/test_client waiter_testclient python test_waiter.py $1
