@@ -17,7 +17,7 @@ Synchronous services fit best for simple tasks which don't take a long time to
 complete. They can be compared to simple command-line commands which take some
 input and immediately return some output.
 
-<img src="service_types_img/sync_service_execution.png" alt="Execution diagram of a synchronous service" style="width: 50%;"/>
+<img src="service_types_img/sync_service_execution.png" alt="Execution diagram of a synchronous service" width="500px"/>
 
 ## Asynchronous services
 Asynchronous services are meant for operations which take so long to process
