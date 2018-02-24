@@ -108,6 +108,9 @@ used. Open `run.sh` to see the details of this.
 _Note:_ You can modify `test_calculator.py` and run the run script without
 having to rebuild the test-client container first.
 
+If you again run `docker logs calculator`, you will see some http requests in
+the logs which correspond to the function calls the test client made.
+
 ### Check that the webservice is reachable from outside
 So far, we have accessed the deployed calculator webservice only from inside
 the VM it is deployed on. To make sure that it is also reachable from the

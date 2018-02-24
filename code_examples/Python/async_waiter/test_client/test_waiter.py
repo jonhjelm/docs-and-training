@@ -57,13 +57,13 @@ def main():
     url = "http://localhost:{}{}/waiter/Waiter?wsdl".format(port, context_root)
     print("wsdl URL is {}".format(url))
 
-    if len(sys.argv) != 2:
-        print("Expected [start|status] as argument.")
+    if len(sys.argv) != 3:
+        print("Expected [start|status] as second argument.")
         exit(1)
 
-    if sys.argv[1] == 'start':
+    if sys.argv[2] == 'start':
         start(url)
-    elif sys.argv[1] == 'status':
+    elif sys.argv[2] == 'status':
         status(url)
     else:
         print('Unknown argument.')

@@ -232,3 +232,95 @@ status page created. This is useful in situations where the creation of a
 status page itself is costly, for example when a lot of log processing, image
 creation etc. needs to be done. In our simple example here, we omitted this
 status option for the sake of brevity.
+
+## Step 5: Deploy and test the waiter webservice
+Your waiter webservice is now complete and ready for deployment.
+If you were not sure about some of the code additions, you can compare your 
+code with the code example
+[async_waiter](../../code_examples/Python/async_waiter), which contains the
+waiter service in its complete form. (It contains actually a bit more than the
+implementation in this tutorial, but you can ignore those differences here.)
+
+As in tutorial 3-1, we use a pre-defined build script for deployment:
+```
+./rebuildandrun.sh <port>
+```
+The service will be started in a Docker container named `waiter`. Again, you
+can run `docker ps` and `docker logs waiter` to check that the service is
+running properly.
+
+For making test calls to the service, the code again ships with a test client
+available in the `test_client/` folder. To run the test client as a Docker 
+container, run:
+```
+./build.sh
+./run.sh <port> start
+```
+The calls the `startWaiter` method with a dummy service ID and session token,
+which should give you a similar output to this:
+```
+Using port 8080
+wsdl URL is http://localhost:8080/sintef/docker_services/waiter/Waiter?wsdl
+Starting service
+(reply){
+   status_base64 = "PGh0bWw+CjxoZWFkPgo8dGl0bGU+V2FpdGVyIHN0YXR1czwvdGl0bGU+CjwvaGVhZD4KPGJvZHkgc3R5bGU9Im1hcmdpbjogMjBweDsgcGFkZGluZzogMjBweDsiPgo8aDE+V2FpdGVyIHN0YXR1cyBhdCAyMjoyMzoxMTwvaDE+CjxkaXYgc3R5bGU9ImJvcmRlci1yYWRpdXM6IDVweDsgYm9yZGVyLWNvbG9yOiBsaWdodGJsdWVibHVlOyBib3JkZXItc3R5bGU6ZGFzaGVkOyB3aWR0aDogODAwcHg7IGhlaWdodDogODBweDtwYWRkaW5nOjA7IG1hcmdpbjogMDsgYm9yZGVyLXdpZHRoOiAzcHg7Ij4KPGRpdiBzdHlsZT0icG9zaXRpb246IHJlbGF0aXZlOyB0b3A6IC0zcHg7IGxlZnQ6IC0zcHg7IGJvcmRlci1yYWRpdXM6IDVweDsgYm9yZGVyLWNvbG9yOiBsaWdodGJsdWU7IGJvcmRlci1zdHlsZTpzb2xpZDsgd2lkdGg6IDAuMHB4OyBoZWlnaHQ6IDgwcHg7cGFkZGluZzowOyBtYXJnaW46IDA7IGJvcmRlci13aWR0aDogM3B4OyBiYWNrZ3JvdW5kLWNvbG9yOiBsaWdodGJsdWU7Ij4KPGgxIHN0eWxlPSJtYXJnaW4tbGVmdDogMjBweDsiID4wJTwvaDE+CjwvZGl2Pgo8L2Rpdj4KPC9oZWFkPgo8L2JvZHk+"
+   result = "UNSET"
+ }
+```
+You see the base64-encoded status page as well as the still unset result.
+
+Now, execute the run script again, but with a different argument:
+```
+./run.sh <port> status
+```
+This will call the `getServiceStatus` method, which should return output
+similar to the following:
+```
+Using port 8080
+wsdl URL is http://localhost:8080/sintef/docker_services/waiter/Waiter?wsdl
+Calling getServiceStatus:
+(reply){
+   status_base64 = "PGh0bWw+CjxoZWFkPgo8dGl0bGU+V2FpdGVyIHN0YXR1czwvdGl0bGU+CjwvaGVhZD4KPGJvZHkgc3R5bGU9Im1hcmdpbjogMjBweDsgcGFkZGluZzogMjBweDsiPgo8aDE+V2FpdGVyIHN0YXR1cyBhdCAyMjoyMzoyODwvaDE+CjxkaXYgc3R5bGU9ImJvcmRlci1yYWRpdXM6IDVweDsgYm9yZGVyLWNvbG9yOiBsaWdodGJsdWVibHVlOyBib3JkZXItc3R5bGU6ZGFzaGVkOyB3aWR0aDogODAwcHg7IGhlaWdodDogODBweDtwYWRkaW5nOjA7IG1hcmdpbjogMDsgYm9yZGVyLXdpZHRoOiAzcHg7Ij4KPGRpdiBzdHlsZT0icG9zaXRpb246IHJlbGF0aXZlOyB0b3A6IC0zcHg7IGxlZnQ6IC0zcHg7IGJvcmRlci1yYWRpdXM6IDVweDsgYm9yZGVyLWNvbG9yOiBsaWdodGJsdWU7IGJvcmRlci1zdHlsZTpzb2xpZDsgd2lkdGg6IDIyNC4wcHg7IGhlaWdodDogODBweDtwYWRkaW5nOjA7IG1hcmdpbjogMDsgYm9yZGVyLXdpZHRoOiAzcHg7IGJhY2tncm91bmQtY29sb3I6IGxpZ2h0Ymx1ZTsiPgo8aDEgc3R5bGU9Im1hcmdpbi1sZWZ0OiAyMHB4OyIgPjI4JTwvaDE+CjwvZGl2Pgo8L2Rpdj4KPC9oZWFkPgo8L2JvZHk+"
+   result = "UNSET"
+ }
+```
+
+After 60 seconds (which is the waiting time pre-defined by the test client),
+yet another call to `./run.sh <port> status` should give the following 
+output:
+```
+Using port 8080
+wsdl URL is http://localhost:8080/sintef/docker_services/waiter/Waiter?wsdl
+Calling getServiceStatus:
+(reply){
+   status_base64 = "COMPLETED"
+   result = "FINISHED"
+ }
+```
+
+## Step 6: Register the waiter service as a CloudFlow service
+You are now ready to register the deployed waiter service as a CloudFlow 
+asynchronous service.
+
+First, make sure that the webservice's wsdl is reachable from the outside by
+opening the following URL in a browser:
+```
+https://<host><your_context_root>/waiter/Waiter?wsdl
+```
+Replace `<host>` and `<your_context_root>` with the appropriate values. You
+should receive an xml file containing a formal description of the webservice.
+
+Now, register the webservice's `startWaiter` method as a CloudFlow service
+using the workflow-editor GUI. See [level-2
+tutorials](../level_2__modifying_workflows) for details on how to do that. Make
+sure that you select _asynchronous service_ during the registration.
+
+You can now create a simple workflow which contains only your newly created
+waiter service. Make sure to connect the workflow inputs `serviceID` and
+`sessionToken` to the corresponding inputs of the waiter service, and connect
+the waiter service's `result` output to the workflow output. Hard-code a value
+for the `secondsToWait` input of the waiter service.
+
+When you save, publish, and run your workflow, you should see a very simple
+status page updating every few seconds until the service has waited for the
+time you specified in the workflow.

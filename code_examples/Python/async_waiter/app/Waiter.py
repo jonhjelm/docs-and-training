@@ -40,7 +40,7 @@ class WaiterService(spyne.Service):
     __out_protocol__ = Soap11()
 
     @spyne.srpc(Unicode, Unicode, Integer, _returns=(Unicode, Unicode),
-                _out_variable_names=("status_base64", "output_file"))
+                _out_variable_names=("status_base64", "result"))
     def startWaiter(serviceID, sessionToken, secondsToWait=300):
         """Starts a waiter script as a separate process and returns immediately.
 
@@ -75,12 +75,12 @@ class WaiterService(spyne.Service):
         # progress bar.
         # The status page needs to be base64 encoded.
         status = base64.b64encode(create_html_progressbar(0))
-        output_file = "UNSET"
+        result = "UNSET"
 
-        return (status, output_file)
+        return (status, result)
 
     @spyne.srpc(Unicode, Unicode, _returns=(Unicode, Unicode),
-                _out_variable_names=("status_base64", "output_file"))
+                _out_variable_names=("status_base64", "result"))
     def getServiceStatus(serviceID, sessionToken):
         """Status-query method which is called regularly by WFM.
 
@@ -105,8 +105,8 @@ class WaiterService(spyne.Service):
             status = "COMPLETED"
             # Read result page from waiter
             with open(resultfile) as f:
-                output_file = f.read()
-            return (status, output_file)
+                result = f.read()
+            return (status, result)
 
         # Note that the interface definition of getServiceStatus() specifies
         # "UNCHANGED" as another option for the return value of
@@ -117,9 +117,9 @@ class WaiterService(spyne.Service):
         # If not finished, create a status page from the current status
         # This could include more post-processing etc. in a more realistic
         # service
-        output_file = "UNSET"
+        result = "UNSET"
         status = base64.b64encode(create_html_progressbar(int(current_status)))
-        return (status, output_file)
+        return (status, result)
 
     @spyne.srpc(Unicode, Unicode, _returns=Boolean,
                 _out_variable_name="success")
