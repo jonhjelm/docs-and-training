@@ -312,7 +312,7 @@ should receive an xml file containing a formal description of the webservice.
 
 Now, register the webservice's `startWaiter` method as a CloudFlow service
 using the workflow-editor GUI. See [level-2
-tutorials](../level_2__modifying_workflows) for details on how to do that. Make
+tutorials](../level_2_modifying_workflows) for details on how to do that. Make
 sure that you select _asynchronous service_ during the registration.
 
 You can now create a simple workflow which contains only your newly created
