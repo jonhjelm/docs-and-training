@@ -3,7 +3,7 @@ This level of tutorials covers topics where actual code needs to be touched and
 changed.
 
 ## Basics
-* **[Tutorial 3-1: Deploy and modify synchronous calculator webservice](python_async_calculator.md)**
+* **[Tutorial 3-1: Deploy and modify synchronous calculator webservice](python_sync_calculator.md)**
   
   This tutorial teaches you how to deploy and modify one of the code examples,
   namely the synchronous Calculator webservice implemented in Python. Good as a
