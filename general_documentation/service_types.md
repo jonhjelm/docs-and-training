@@ -17,7 +17,9 @@ Synchronous services fit best for simple tasks which don't take a long time to
 complete. They can be compared to simple command-line commands which take some
 input and immediately return some output.
 
-<img src="service_types_img/sync_service_execution.png" alt="Execution diagram of a synchronous service" width="500px"/>
+<p align="center">
+<img src="service_types_img/sync_service_execution.png" alt="Execution diagram of a synchronous service" width="400px"/>
+</p>
 
 ## Asynchronous services
 Asynchronous services are meant for operations which take so long to process
@@ -27,7 +29,9 @@ calculations or HPC jobs which might run over hours or days. Asynchronous
 services are designed such that the user will regularly get status updates from
 them.
 
-<img src="service_types_img/async_service_execution.png" alt="Execution diagram of an asynchronous service" width="700px"/>
+<p align="center">
+<img src="service_types_img/async_service_execution.png" alt="Execution diagram of an asynchronous service" width="600px"/>
+</p>
 
 ## Applications
 Applications are very similar to asynchronous services, but with a slightly 
@@ -35,4 +39,6 @@ different scope. While an asynchronous service runs, once started, without any
 further user input (it only shows output to the user regularly), applications
 are designed to interact with the user while they are being executed.
 
-<img src="service_types_img/application_execution.png" alt="Execution diagram of an application" width="700px"/>
+<p align="center">
+<img src="service_types_img/application_execution.png" alt="Execution diagram of an application" width="600px"/>
+</p>
