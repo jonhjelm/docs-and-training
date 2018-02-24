@@ -27,8 +27,12 @@ calculations or HPC jobs which might run over hours or days. Asynchronous
 services are designed such that the user will regularly get status updates from
 them.
 
+<img src="service_types_img/async_service_execution.png" alt="Execution diagram of an asynchronous service" width="700px"/>
+
 ## Applications
 Applications are very similar to asynchronous services, but with a slightly 
 different scope. While an asynchronous service runs, once started, without any
 further user input (it only shows output to the user regularly), applications
 are designed to interact with the user while they are being executed.
+
+<img src="service_types_img/application_execution.png" alt="Execution diagram of an application" width="700px"/>
