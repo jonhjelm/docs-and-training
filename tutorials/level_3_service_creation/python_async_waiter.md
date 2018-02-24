@@ -200,3 +200,27 @@ work:
 ```
 In that case, we use the current status value to again create a html status
 page and once again return "UNSET" as the result output.
+
+### Return values of `startWaiter` and `getServiceStatus`
+You might have noticed an oddity about the return values we defined for the two
+methods we implemented. Specifically, we defined the `result` return value in
+`startWaiter` without actually using it for anything meaningful. The reason for
+this is simple: The workflow manager will use the main method of an 
+asynchronous service (here, that is `startWaiter`) to deduce the service's 
+input and output arguments. So any output value which should be used later on
+in the workflow _has to be defined in this main method_. Since the final result
+of an asynchronous service cannot be known at the execution time of this main
+method, the last call to `getServiceStatus` has the responsibility to deliver
+the final value for all output arguments.
+
+### The status string "UNCHANGED"
+In our implementation of `getServiceStatus`, the status we report is either a
+base64-encoded html page (when the service is still running) or the string
+`"COMPLETED"` in case the service has finished its work. The workflow manager
+can process a second pre-defined status string, namely `"UNCHANGED"`. This
+status means that there was no change in status compared to the previous call
+to `getServiceStatus`, and the workflow manager will show the last status page
+created. This is useful in situations where the creation of a status page
+itself is costly, for example when a lot of log processing, image creation etc.
+needs to be done. In our simple example here, we omitted this status option
+for the sake of brevity.
