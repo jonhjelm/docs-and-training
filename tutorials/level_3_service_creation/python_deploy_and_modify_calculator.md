@@ -1,4 +1,4 @@
-# Tutorial 1: Extend the synchronous calculator webservice
+# Tutorial 3-1: Extend the synchronous calculator webservice
 In this tutorial, you will start with the pre-implemented
 [Calculator](../../code_examples/Python/sync_calculator) webservice, deploy it,
 and extend it with further functionality. You will then wrap the new 
@@ -37,7 +37,8 @@ To build and deploy the calculator webservice's Docker container, run:
 `<port>` defines the port the container will listen on for incoming connections
 and must therefore be open to the public and correctly routed on the VM the
 container will run on. If you don't specify a port number, port 8080 will be
-used.
+used. The build script will read the `env` file you adapted in the last step 
+to deploy the webservice at the right place.
 
 _Note:_ The initial build process will take a while because the base container
 image needs to be downloaded. Subsequent builds will perform much faster.
@@ -85,12 +86,6 @@ cd test_client
 Use the same port number for `<port>` as you used when building the webservice
 container above. If you don't specify a port, port 8080 will be used. 
 
-_Note:_ The run script executes the test client `test_calculator.py` inside a
-Docker container which has the required packages installed. It furthermore also
-uses the environment configuration you adapted in the last step (`env` file in
-the code-example's main folder) to make sure that the correct context root is
-used. Open `run.sh` to see the details of this.
-
 You should see output similar to this:
 ```
 $ ./run.sh 8080
@@ -103,6 +98,12 @@ Testing subtraction:
 Testing multiplication:
 11 * 31 = 341.0
 ```
+
+_Note:_ The run script executes the test client `test_calculator.py` inside a
+Docker container which has the required packages installed. It furthermore also
+uses the environment configuration you adapted in the last step (`env` file in
+the code-example's main folder) to make sure that the correct context root is
+used. Open `run.sh` to see the details of this.
 
 _Note:_ You can modify `test_calculator.py` and run the run script without
 having to rebuild the test-client container first.
@@ -183,8 +184,8 @@ element.
 You can now head over to the CAxMan portal and register the newly added
 division operation as a CloudFlow service and subsequently include it in a
 workflow. Have a look at the [level-2
-tutorials](../level_2_modifying_workflows) to learn how to achieve these goals
-with the workflow-editor GUI.
+tutorials](../level_2_modifying_workflows) to learn how to do this using the
+workflow-editor GUI.
 
 ## Conclusion and further reading
 Congratulations! You successfully deployed a new webservice and extended it by
