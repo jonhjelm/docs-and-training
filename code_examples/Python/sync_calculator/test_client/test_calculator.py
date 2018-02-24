@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """Simple test client to call the calculator SOAP service"""
 
+import os
+import sys
+
 from suds.client import Client
 from suds.cache import NoCache
 from suds import WebFault, MethodNotFound
@@ -26,9 +29,23 @@ def soap_call(wsdl_url, methodname, method_args):
 def main():
     """Makes a series of test calls and prints their outputs."""
 
+    try:
+        port = int(sys.argv[1])
+        print("Using port {}".format(port))
+    except:
+        print("Couldn't get port from commandline argument, using 8080.")
+        port = 8080
+
+    try:
+        context_root = os.environ["CONTEXT_ROOT"]
+    except KeyError:
+        print("Error: environment variable CONTEXT_ROOT not set.")
+        exit(1)
+
     # URL of the SOAP service to test. Modify this if the deployment location
     # changes.
-    url = "http://localhost:8080/sintef/docker_services/calculator/Calculator?wsdl"
+    url = "http://localhost:{}{}/calculator/Calculator?wsdl".format(port, context_root)
+    print("wsdl URL is {}".format(url))
 
     a = 11
     b = 31
