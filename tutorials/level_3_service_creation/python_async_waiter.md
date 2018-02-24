@@ -72,7 +72,7 @@ the service.
 
 With this in mind, add the following method definition to the `WaiterService`
 class:
-```
+```python
     @spyne.srpc(Unicode, Unicode, Integer, _returns=(Unicode, Unicode),
                 _out_variable_names=("status_base64", "result"))
     def startWaiter(serviceID, sessionToken, secondsToWait=300):
@@ -103,7 +103,7 @@ _service-execution ID_), which we can use to distinguish between these
 different service executions.
 
 Add the following lines to the method you just created:
-```
+```python
         waiterdir = os.path.join(WAITER_LOG_FOLDER, serviceID)
         if not os.path.exists(waiterdir):
             os.mkdir(waiterdir)
@@ -116,7 +116,7 @@ unique environment for the waiter script to run in. We furthermore define paths
 for the status and results files.
 
 Now, we add the execution of the waiter script to the function:
-```
+```python
         command = ['python', 'wait_a_while.py', str(secondsToWait),
                    statusfile, resultfile]
         subprocess.Popen(command)
@@ -127,7 +127,7 @@ process to return, as this would ruin the idea of an asynchronous service.
 Instead, the `subprocess.Popen()` call returns immediately.
 
 Finally, add the following lines to conclude the `startWaiter` method:
-```
+```python
         status = base64.b64encode(create_html_progresspage(0))
         result = "UNSET"
 
@@ -153,7 +153,7 @@ manager to query the current execution status of the service, until the service
 terminates.
 
 Add the following function definition to the `WaiterService` class:
-```
+```python
     @spyne.srpc(Unicode, Unicode, _returns=(Unicode, Unicode),
                 _out_variable_names=("status_base64", "result"))
     def getServiceStatus(serviceID, sessionToken):
@@ -165,7 +165,7 @@ those of the start method.
 
 First, our function needs to make sure to query the correct background waiter
 script. Therefore, add the following lines to the function:
-```
+```python
         waiterdir = os.path.join(WAITER_LOG_FOLDER, serviceID)
         statusfile = os.path.join(waiterdir, 'status.txt')
         resultfile = os.path.join(waiterdir, 'result.txt')
@@ -176,7 +176,7 @@ service ID, just as we did in the `startWaiter` method.
 Next, the function should read the status file (which is periodically updated
 by the waiter script) and act depending on its content. Add the following lines
 to your code:
-```
+```python
         with open(statusfile) as f:
             current_status = f.read().strip()
 ```
@@ -184,7 +184,7 @@ to your code:
 The waiter script simply writes a number between 0 and 100 into the status file
 to indicate its progress, so we can use this number to decide how to proceed.
 We first add the logic for when the waiter script has finished its execution:
-```
+```python
         if current_status == "100":
             status = "COMPLETED"
             # Read result page from waiter
@@ -201,7 +201,7 @@ with the status string.
 
 Finally, we add the logic for when the waiter script has _not_ yet finished its
 work:
-```
+```python
         result = "UNSET"
         status = base64.b64encode(create_html_progressbar(int(current_status)))
         return (status, result)
@@ -242,7 +242,7 @@ waiter service in its complete form. (It contains actually a bit more than the
 implementation in this tutorial, but you can ignore those differences here.)
 
 As in tutorial 3-1, we use a pre-defined build script for deployment:
-```
+```bash
 ./rebuildandrun.sh <port>
 ```
 The service will be started in a Docker container named `waiter`. Again, you
@@ -252,7 +252,7 @@ running properly.
 For making test calls to the service, the code again ships with a test client
 available in the `test_client/` folder. To run the test client as a Docker 
 container, run:
-```
+```bash
 ./build.sh
 ./run.sh <port> start
 ```
@@ -270,7 +270,7 @@ Starting service
 You see the base64-encoded status page as well as the still unset result.
 
 Now, execute the run script again, but with a different argument:
-```
+```bash
 ./run.sh <port> status
 ```
 This will call the `getServiceStatus` method, which should return output
