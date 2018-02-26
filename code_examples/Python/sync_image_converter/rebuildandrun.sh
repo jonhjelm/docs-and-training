@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cname=file_access
+cname=imageconverter
 
 if [ -z "$1" ]
   then
