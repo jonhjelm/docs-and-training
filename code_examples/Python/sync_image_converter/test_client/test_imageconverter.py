@@ -43,16 +43,21 @@ def main():
     password = sys.argv[4]
     gss_ID = sys.argv[5]
 
+    # This test client also needs to obtain an authentication token from the
+    # authentication-manager service to be able to access GSS afterwards.
     print('Obtaining session token')
     auth_url = "https://caxman.clesgo.net/sintef/auth/authManager/AuthManager?wsdl"
     session_token = soap_call(auth_url, 'getSessionToken', [username, password,
                                                             project])
 
+    # Fake the extra-parameters string
+    extra_pars = 'gss=https://caxman.clesgo.net/sintef/infrastructure/gss-0.1/FileUtilities?wsdl'
+
+    # Construct service URL
     url = "http://localhost:{}{}/imageconverter/ImageConverter?wsdl".format(port, context_root)
     print("wsdl URL is {}".format(url))
 
-    # Fake the extra-parameters string
-    extra_pars = 'gss=https://caxman.clesgo.net/sintef/infrastructure/gss-0.1/FileUtilities?wsdl'
+    # Make request
     print(soap_call(url, 'imageconvert_png2jpg', [session_token, extra_pars,
                                                   gss_ID]))
 
