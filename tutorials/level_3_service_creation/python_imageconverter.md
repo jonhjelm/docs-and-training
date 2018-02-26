@@ -251,5 +251,6 @@ important things are left to be said:
   trying to convert, say, an mp3 file to a jpg file with this service. It is
   quite likely that the service will crash, but we cannot say how. For such
   situations, each service should defined appropriate SOAP faults and raise
-  them as needed. Have a look at the advanced level-3 tutorials for more
-  information on error handling.
+  them as needed. Have a look at the [general
+  documentation](../../general_documentation) for more information on error
+  handling.

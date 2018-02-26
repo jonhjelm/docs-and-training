@@ -10,12 +10,21 @@ some general topics which are beneficial for the understanding of why services
 are developed in certain ways.
 
 * [CloudFlow nomenclature](general_documentation/nomenclature.md): 
+
   A short description of the most important terms for CloudFlow service
   development. Read this to understand what's written in the tutorials.
+
 * [CloudFlow service types](general_documentation/service_types.md): 
+
   Description and requirements of synchronous services, asynchronous services,
   and applications. Read this if you're wondering what kind of service you 
   need to develop for a certain use case.
+
+* [Error handling in SOAP services](general_documentation/error_handling.md):
+
+  Explains how to gracefully handle errors inside SOAP services such that the
+  outside world can process them.
+  
 
 ## Code examples
 Have a look in the [code examples folder](code_examples). Currently, examples
