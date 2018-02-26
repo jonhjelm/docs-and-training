@@ -9,7 +9,7 @@ import os
 from werkzeug.wsgi import DispatcherMiddleware
 from werkzeug.serving import run_simple
 from frontend import app as frontend
-from CalculatorService import app as calculator
+from ImageConverterService import app as imageconverter
 
 # Read deployment route from environment variable
 CONTEXT_ROOT = os.environ['CONTEXT_ROOT']
@@ -19,7 +19,7 @@ CONTEXT_ROOT = os.environ['CONTEXT_ROOT']
 # Currently, this is only the calculator, for which we define the hosting
 # location
 app = DispatcherMiddleware(frontend, {
-    CONTEXT_ROOT + '/calculator': calculator,
+    CONTEXT_ROOT + '/imageconverter': imageconverter,
 })
 
 

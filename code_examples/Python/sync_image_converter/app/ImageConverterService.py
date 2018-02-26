@@ -15,14 +15,14 @@ def root():
     return 'Nothing to see here.'
 
 
-class FileAccessService(spyne.Service):
+class ImageConverterService(spyne.Service):
     """The actual spyne service
 
     Note that the class name is _not_ important for the endpoint URL of the
     service (that's defined by __service_url_path__), but it will show up in
     the service WSDL as the service name.
     """
-    __service_url_path__ = '/FileAccess'
+    __service_url_path__ = '/ImageConverter'
     __in_protocol__ = Soap11(validator='soft')
     __out_protocol__ = Soap11()
 
