@@ -1,8 +1,8 @@
 # Tutorial 3-3: File access (showcased via a simple image converter)
-This tutorial will introduce into the concepts of file access via GSS. You will
+This tutorial will introduce the concepts of file access via GSS. You will
 implement a synchronous service which downloads a png image file from a GSS
-location, converts it to a jpg image file, and uploads it to the same GSS
-folder.
+location, converts it to a jpg image file, and uploads the converted image to
+the same GSS folder.
 
 ## Step 1: Prepare the example code
 This tutorial starts from the code example
@@ -37,7 +37,9 @@ The main elements of this skeleton are:
   the implementation of this method in this tutorial.
 * The helper function `get_resource_information()`, which queries GSS for the
   resource information of a GSS ID. The resource information contains all
-  details necessary to, for example, download or upload a file.
+  details necessary to, for example, download or upload a file. The helper 
+  function uses Python's `suds` module to issue a SOAP call to the GSS
+  webservice.
 * The helper function `convert_png2jpg()` which performs the actual image
   conversion using imagemagick's `convert` tool.
 * The helper function `parse_extra_parameters()` which takes a special string
@@ -47,7 +49,7 @@ The main elements of this skeleton are:
 ## Step 3: Implement `imageconvert_png2jpg()`
 We will now implement the functionality of the service's main function
 `imageconvert_png2jpg()`. As you can see, the function signature defines three
-input arguments: 
+input arguments:
 * `sessionToken` is used to authenticate the service when calling GSS
 * `extra_pars_str` is a pre-defined workflow input which contains, among other
   things, the wsdl URL of the GSS service. We can therefore access GSS in our
@@ -60,17 +62,18 @@ Eventually, the service needs to perform three main tasks:
 3. Upload the converted image to a new GSS location
 
 For step 2, we already have the helper function `convert_png2jpg()` defined. We
-will therefore concentrate mainly on how to access GSS for downloading and 
+will therefore concentrate mainly on how to access GSS for downloading and
 uploading files.
 
 ### Step 3.1: Download a file from GSS
 The very first question we have to answer when we want to download a file from
 GSS is where to find the GSS service. To avoid hardcoding a GSS deployment URL
-or other resource location (which might change over time or on different
+or another resource location (which might change over time or for different
 deployment setups), the workflow manager offers a special workflow input called
 `extraParameters`. This input is a string containing comma-separated key-value
 pairs, one of them being the URL where we can find the GSS service. To extract
-the right key-value pair from the `extra_pars` input parameter:
+the right key-value pair from the `extra_pars` input parameter, add the
+following lines to your code:
 ```
         extra_pars = parse_extra_parameters(extra_pars_str)
         gss_location = extra_pars['gss']
@@ -79,14 +82,17 @@ the right key-value pair from the `extra_pars` input parameter:
 Since GSS is an abstraction layer of possibly many different storage locations,
 downloading (and uploading) a file is a little more intricate than it might
 seem at first: On the one hand, we do not want to download the file directly
-from the GSS service (since that would mean that the file takes a detour from
-its original location via the machine hosting GSS), which requires direct
-communication with the storage location and its API. But on the other hand, GSS
-is all about replacing the need to juggle different storage APIs with a single
-abstraction API. The solution to this problem is simple: We only ask GSS about
-_how_ to handle a certain file (i.e., what kind of request to make to what URL),
-and then use GSS's response to perform the download directly with the storage
-location.
+from the GSS service (since that would mean that the file has to take a detour
+from its original location via the machine hosting GSS to us, which will slow
+things down especially for bigger files). This requires direct communication
+with the storage location and its API. But on the other hand, GSS is all about
+replacing the need to juggle different storage APIs with a single abstraction
+API. In contrast, getting the `resourceInformation` object for a GSS ID is
+nothing more than a simple SOAP call to the GSS webservice itself (see
+`get_resource_information()`).The solution to this problem is simple: We only
+ask GSS about _how_ to handle a certain file (i.e., what kind of request to
+make to what URL), and then use GSS's response to perform the download directly
+from the storage location. 
 
 So let's ask GSS about the GSS ID we received in the input parameter `gss_ID`:
 ```
@@ -100,7 +106,7 @@ We use the already defined helper function to obtain a `resourceInformation`
 object describing the resource behind `gss_ID`. This object contains so-called
 `requestDescription` objects for operations such as download, upload, update,
 delete, etc. Here, since we want to download the file, we use the
-`readDescription` object to confirm that download is a supported operation.
+`readDescription` object to confirm that downloading is a supported operation.
 
 To be able to convert a file, we need to find a space to temporally store it on
 the machine our service is deployed on. We do this using Python's `tempfile`
@@ -125,9 +131,9 @@ a HTTP request to download the file to the filepath we defined:
                 out_file.write(buffer)
 ```
 Note that we first copy all headers defined in the read description into a
-Python dictionary that we pass onto the request object. These headers contain
+Python dictionary that we pass to the request object. These headers contain
 mainly authentication information specific for the storage location of the GSS
-ID the read description belongs to. We make a http request to the url provided
+ID the read description belongs to. We make a http request to the URL provided
 in the read description and then perform a buffered download of the file.
 
 ### Step 3.2: Convert the image to jpg
@@ -150,7 +156,9 @@ obtained from the conversion function.
 
 Uploading the new file works almost exactly like downloading a file. We first
 obtain a `resourceInformation` object (now with the new GSS ID we created) and
-this time use its `createDescription` to make a fitting HTTP call:
+this time use its `createDescription` to make a fitting HTTP call. (Yes,
+obtaining the resource information of a resource which doesn't exist is
+perfectly valid and necessary if we want to create that resource.)
 ```
         res_info = get_resource_information(gss_location, gss_ID_new,
                                             sessionToken)
@@ -168,8 +176,8 @@ this time use its `createDescription` to make a fitting HTTP call:
             result = urllib2.urlopen(request)
 ```
 Note that we also set the `"Content-Length"` header and that we change the
-request's GET method to whatever is defined in the create description. The
-actual upload is taken care of by Python's urllib2 module.
+request's GET method to what is defined in the create description. The actual
+upload is taken care of by Python's urllib2 module.
 
 Finally, we shouldn't forget to remove the temporary folder we created and
 to return the new GSS ID which will be the output argument of our service:
@@ -210,20 +218,20 @@ This test call is a bit more complicated than in the previous tutorials. Since
 the converter service is not called in the context of a running workflow where
 the workflow manager automatically passes the user's session token to each
 service, we first have to obtain a session token from the authentication
-services and then use it to call our service. We also have to create the
+services, which we then use to call our service. We also have to create the
 extra-parameters input ourselves. Have a look at
 `test_client/test_imageconverter.py` to learn more about how this is done.
 
 The test call's output should be the same GSS ID as you defined as input, but
 with a different file ending (jpg instead of png).
 
-## Step 5: Create a image-conversion workflow
+## Step 5: Create an image-conversion workflow
 You can now head over to the portal and create your own image-conversion
 workflow and integrate the image-converter service as a synchronous CloudFlow
-service. You can either hard-code a GSS ID as input or, better, use the
+service. You can either hard-code a GSS ID as input or, even better, use the
 filechooser service
 (`http://www.caxman.eu/apps/sintef/fileChooser03_new2.owl#fileChooser_Service`)
-to have the user choose a file at workflow execution. If you don't know how
+to have the user select a file during workflow execution. If you don't know how
 to register and integrate your service in a workflow, refer to the [level-2
 tutorials](..).
 
@@ -235,10 +243,13 @@ important things are left to be said:
   about the storage location and API of a specific file. That said, it is bad
   practice to directly use the above code every time you need to access a file.
   Instead, wrap the necessary code into a library in the language of your
-  choice and use that library to reduce code duplication and error proneness.
+  choice and use that library to reduce code duplication and make your code
+  less prone to error.
 * In this tutorial, we didn't care for error checking at all. For example, the
   service will fail if there is already a jpg file for a selected png file,
-  since the create operation won't be supported. For such situations, each
-  service should defined appropriate SOAP faults and raise them as needed.
-  Have a look at the advanced level-3 tutorials for more information on error
-  handling.
+  since the create operation won't be supported. Also, no one stops us from
+  trying to convert, say, an mp3 file to a jpg file with this service. It is
+  quite likely that the service will crash, but we cannot say how. For such
+  situations, each service should defined appropriate SOAP faults and raise
+  them as needed. Have a look at the advanced level-3 tutorials for more
+  information on error handling.
