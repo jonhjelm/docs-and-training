@@ -102,8 +102,10 @@ class ImageConverterService(spyne.Service):
             request.get_method = lambda: create_desc.httpMethod
             result = urllib2.urlopen(request)
 
-        # Remove temporary folder
+        # Remove temporary folder and return new gss ID
         shutil.rmtree(tempdir)
+
+        return gss_ID_new
 
 
 def get_resource_information(gss_location, gss_ID, session_token):
