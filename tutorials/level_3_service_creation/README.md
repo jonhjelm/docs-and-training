@@ -2,7 +2,13 @@
 This level of tutorials covers topics where actual code needs to be touched and
 changed.
 
-## Basics
+All tutorials are implemented using Python, which should be easy to read and
+transport the right ideas also for non-Python programmers.
+
+## Basic service creation: the different CloudFlow service types
+Learn how to implement synchronous services, asynchronous services, and
+application.
+
 * **[Tutorial 3-1: Deploy and modify synchronous calculator webservice](python_sync_calculator.md)**
   
   This tutorial teaches you how to deploy and modify one of the code examples,
@@ -15,3 +21,9 @@ changed.
   asynchronous service. Starting from a simply Python script representing a
   long-running computation, we will wrap an asynchronous web service around it
   which can be deployed in the CloudFlow infrastructure stack.
+
+## Intermediate topics
+* **[Tutorial 3-3: File access (showcased via a simple image converter)](python_imageconverter.md)**
+
+  Learn how to programmatically access files via GSS by implementing a simple
+  synchronous image conversion service.
