@@ -66,7 +66,7 @@ traffic based on the URL path to the correct container. In our example with
 `Foo` and `Bar`, we could do the following:
 1. Deploy container `Foo` at port 8081, listening to
    `.../your_company/services/Foo`.
-2. Deploy contaienr `Bar` at port 8082, listening to
+2. Deploy container `Bar` at port 8082, listening to
    `.../your_company/services/Bar`.
 3. Run an nginx server on the VM which listens at port 8080 and routes traffic
    to `Foo` and `Bar` with the following configuration:
