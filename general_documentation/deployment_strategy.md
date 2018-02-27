@@ -33,6 +33,14 @@ relies on the host operating system instead of emulating an entirely new host.
 This makes it much fast than virtualizations, and Docker container startup is
 most often as good as instantaneous.
 
+Another obvious use case for (Docker) containers is load-balancing and
+automatic scaling: When many instances of a service run in parallel with
+traffic distributed dynamically among them and when these instances should be
+automatically spawned or terminated depending on the current demand, a manual
+deployment strategy inevitably fails. This is currently not relevant for
+CAxMan, but developing (stateless) Docker containers gives compatibility with
+such a design for free.
+
 ## How to set up a CAxMan VM for Docker?
 Convinced that Docker is the way to go? Then the only thing you need to do is
 to install Docker on your VM. Either from the host-OS's package repositories or,
