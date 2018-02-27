@@ -7,31 +7,32 @@ motivation for this change and answer some of the questions connected to it.
 The currently recommended way to deploy services in CAxMan is to use Docker
 containers. Why that? Consider you're developing a service, and you use some of
 the newest features of that fancy library Foo version 9. At the same time, the
-VM your service should be deployed on might have only Foo version 8.3 available
+VM your service should be deployed on has only Foo version 8.3 available
 in its repositories. This leaves you with the choice of either rewriting your
-service to fit to the older version of Foo, or manually install the right Foo
+service to fit to the older version of Foo, or manually install the right
 version on the VM. So far so good. But what if you're developing not one but
-two services which need two different, mutually exclusive versions of a certain
-tool or library? Or if your local development environment has a different Linux
-distribution (of course with slightly different paths, configurations etc.)
-than your VM? You might end up spending much more time on fiddling with the
-different environments than you do on what you really want: developing a really
-cool service.
+two services which need two different, mutually exclusive versions of Foo or
+another tool or library? Or if your local development environment has a
+different Linux distribution (of course with slightly different paths,
+configurations etc.) than your VM? You might end up spending much more time on
+fiddling with the different environments than you do on what you really want:
+developing a really cool service.
 
 Enter Docker. A Docker container simply encapsulates the complete environment
 (libraries, software and their configuration in specific versions) a service
 needs (and of course the service itself) into a single, portable image. This
-image can run as-is anywhere where Docker is installed. It can easily be run
-several times in parallel, maybe with slightly different configurations.
-Several versions of an image (with different library versions etc.) can run in
-parallel just as well. It's a bring-your-own-environment party, completely
-independent from the host system. This also encourages to develop local and
-only deploy remotely. If it runs locally, it will run remotely just as well.
+image can run as-is and out of the box wherever Docker is installed. It can
+easily be run several times in parallel, maybe with slightly different
+configurations. Several versions of an image (with different library versions
+etc.) can run in parallel just as well. It's a bring-your-own-environment
+party, completely independent from the specifics of the host system. This also
+encourages to develop local and only deploy remotely. If it runs locally, it
+will run remotely just as well.
 
 It is noteworthy that Docker is _not_ a virtualization solution. It directly
 relies on the host operating system instead of emulating an entirely new host.
-This makes it much fast than virtualizations, and Docker container startup is
-most often as good as instantaneous.
+This makes it much fast than virtualizations, and starting a Docker container
+is often as good as instantaneous.
 
 Another obvious use case for (Docker) containers is load-balancing and
 automatic scaling: When many instances of a service run in parallel with
@@ -43,9 +44,9 @@ such a design for free.
 
 ## How to set up a CAxMan VM for Docker?
 Convinced that Docker is the way to go? Then the only thing you need to do is
-to install Docker on your VM. Either from the host-OS's package repositories or,
-if you want the newest version, following an installation guide on the Docker
-website.
+to install Docker on your VM. Either from the host-OS's package repositories
+or, if you want the newest version, following an installation guide on the
+Docker website.
 
 Once that is done, you're set. You don't need anything else. (You might want to
 take a look at the [code examples(../code_examples)] where we keep a list of
@@ -59,10 +60,10 @@ ready as Docker containers and want to deploy them under
 `https://<host>/your_company/services/Bar`, respectively. Yo start the `Foo`
 container and map it to port 8080. But what about `Bar`? How can we make both
 `Foo` and `Bar` available under that `.../services` path? If we want to avoid
-having a separate path-to-port mapping for every single service we want to
-deploy, the answer is to run a proxy server locally on the VM which takes care
-of routing traffic based on the URL path to the correct container. In our 
-example with `Foo` and `Bar`, we could do the following:
+having a separate path-to-port mapping for every single service we deploy, the
+answer is to run a proxy server locally on the VM which takes care of routing
+traffic based on the URL path to the correct container. In our example with
+`Foo` and `Bar`, we could do the following:
 1. Deploy container `Foo` at port 8081, listening to
    `.../your_company/services/Foo`.
 2. Deploy contaienr `Bar` at port 8082, listening to
@@ -73,8 +74,8 @@ example with `Foo` and `Bar`, we could do the following:
    insert code here!
    ```
 
-With the above in mind, we should always think whether it's the right thing to
-do to run several services on the same VM. For computationally demanding
+With the above in mind, we should always consider whether it's the right thing
+at all to run several services on the same VM. For computationally demanding
 services, running a single service per VM might often be the best options. For
 smaller services which, for example, perform simple pre- or postprocessing
 tasks, running them on the same machine can be completely justified.
