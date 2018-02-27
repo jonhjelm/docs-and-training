@@ -71,7 +71,20 @@ traffic based on the URL path to the correct container. In our example with
 3. Run an nginx server on the VM which listens at port 8080 and routes traffic
    to `Foo` and `Bar` with the following configuration:
    ```
-   insert code here!
+   server {
+        listen 8080;
+        listen [::]:8080;
+
+
+        location /sintef/docker_services/waiter {
+                proxy_set_header Host $host;
+                proxy_pass http://127.0.0.1:8881;
+        }
+        location /sintef/docker_services/calculator {
+                proxy_set_header Host $host;
+                proxy_pass http://127.0.0.1:8882;
+        }
+   }
    ```
 
 With the above in mind, we should always consider whether it's the right thing
