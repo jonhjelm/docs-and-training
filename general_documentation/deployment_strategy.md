@@ -78,11 +78,11 @@ traffic based on the URL path to the correct container. In our example with
 
         location /sintef/docker_services/waiter {
                 proxy_set_header Host $host;
-                proxy_pass http://127.0.0.1:8881;
+                proxy_pass http://127.0.0.1:8081;
         }
         location /sintef/docker_services/calculator {
                 proxy_set_header Host $host;
-                proxy_pass http://127.0.0.1:8882;
+                proxy_pass http://127.0.0.1:8082;
         }
    }
    ```
