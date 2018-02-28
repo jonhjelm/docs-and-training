@@ -41,7 +41,7 @@ class ImageConverterService(spyne.Service):
     __out_protocol__ = Soap11()
 
     @spyne.srpc(Unicode, Unicode, Unicode, _returns=Unicode,
-                _out_variable_name="file_content")
+                _out_variable_name="converted_file")
     def imageconvert_png2jpg(sessionToken, extra_pars_str, gss_ID):
         """Converts a png image specified by a gss ID to a jpg image."""
 
@@ -130,6 +130,8 @@ def parse_extra_parameters(extra_pars):
 
     The extra parameters as delivered from the workflow manager are encoded in
     a single string of the format "key1=value1,key2=value2,key3=value3,...".
+    Important: The string contains another comma at the very end.
     """
+    print(extra_pars)
     return {pair.split('=')[0]: pair.split('=')[1] for pair in
-            extra_pars.split(',')}
+            extra_pars.split(',')[:-1]}
