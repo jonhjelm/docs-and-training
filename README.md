@@ -25,6 +25,12 @@ are developed in certain ways.
   Explains how to gracefully handle errors inside SOAP services such that the
   outside world can process them.
   
+* [Deployment strategy](general_documentation/deployment_strategy.md):
+
+  Why do we recommend Docker for service deployment? How should I set up my
+  VM(s)? How do I deploy several Docker containers when I have only a single
+  available port? Learn about the CAxMan deployment strategy here.
+  
 
 ## Code examples
 Have a look in the [code examples folder](code_examples). Currently, examples

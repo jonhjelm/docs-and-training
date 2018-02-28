@@ -74,7 +74,7 @@ deployment setups), the workflow manager offers a special workflow input called
 pairs, one of them being the URL where we can find the GSS service. To extract
 the right key-value pair from the `extra_pars` input parameter, add the
 following lines to your code:
-```
+```python
         extra_pars = parse_extra_parameters(extra_pars_str)
         gss_location = extra_pars['gss']
 ```
@@ -95,7 +95,7 @@ make to what URL), and then use GSS's response to perform the download directly
 from the storage location. 
 
 So let's ask GSS about the GSS ID we received in the input parameter `gss_ID`:
-```
+```python
         res_info = get_resource_information(gss_location, gss_ID,
                                             sessionToken)
         read_desc = res_info.readDescription
@@ -111,7 +111,7 @@ delete, etc. Here, since we want to download the file, we use the
 To be able to convert a file, we need to find a space to temporally store it on
 the machine our service is deployed on. We do this using Python's `tempfile`
 module and some path-manipulation functions:
-```
+```python
         tempdir = tempfile.mkdtemp()
         gss_folder, png_filename = os.path.split(gss_ID)
         png_filepath = os.path.join(tempdir, png_filename)
@@ -119,7 +119,7 @@ module and some path-manipulation functions:
 
 Now, we use the information provided in the `readDescription` field to create
 a HTTP request to download the file to the filepath we defined:
-```
+```python
         headers = {h.key: h.value for h in read_desc.headers}
         request = urllib2.Request(url=read_desc.url, headers=headers)
         with open(png_filepath, 'wb') as out_file:
@@ -138,7 +138,7 @@ in the read description and then perform a buffered download of the file.
 
 ### Step 3.2: Convert the image to jpg
 We are now ready to perform the actual image conversion:
-```
+```python
         jpg_filepath = convert_png2jpg(png_filepath)
 ```
 Have a look at the implementation of `convert_png2jpg` to learn more about how
@@ -147,7 +147,7 @@ to call the external convert tool with Python.
 ### Step 3.3: Upload the converted file
 Before uploading the converted image back to GSS, we need to define the GSS ID
 to upload to:
-```
+```python
         _, jpg_filename = os.path.split(jpg_filepath)
         gss_ID_new = os.path.join(gss_folder, jpg_filename)
 ```
@@ -159,7 +159,7 @@ obtain a `resourceInformation` object (now with the new GSS ID we created) and
 this time use its `createDescription` to make a fitting HTTP call. (Yes,
 obtaining the resource information of a resource which doesn't exist is
 perfectly valid and necessary if we want to create that resource.)
-```
+```python
         res_info = get_resource_information(gss_location, gss_ID_new,
                                             sessionToken)
         create_desc = res_info.createDescription
@@ -181,7 +181,7 @@ upload is taken care of by Python's urllib2 module.
 
 Finally, we shouldn't forget to remove the temporary folder we created and
 to return the new GSS ID which will be the output argument of our service:
-```
+```python
         shutil.rmtree(tempdir)
         return gss_ID_new
 ```
@@ -194,7 +194,7 @@ finished implementation.
 ## Step 4: Build and test the converter service
 To build and deploy the image-conversion service as a Docker container, run the
 included build script:
-```
+```bash
 ./rebuildandrun.sh <port>
 ```
 As before, specify `<port>` if you want the container to listen on a port which
@@ -203,7 +203,7 @@ that your service is running.
 
 For testing, the tutorial code comes with a small test client wrapped in a
 Docker container, located in the `test_client/` folder. Run:
-```
+```bash
 cd test_client
 ./build.sh
 ./run.sh <port> <username> <project> <password> <gss_ID>
