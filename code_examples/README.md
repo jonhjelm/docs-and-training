@@ -1,4 +1,4 @@
-# CloudFlow code examples
+# CAxMan code examples
 
 ## Example service implementations
 Fully implemented, runnable services.

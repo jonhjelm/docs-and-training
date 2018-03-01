@@ -2,7 +2,7 @@
 In this tutorial, you will take an existing piece of software (in this case,
 it's a very simply Python script which doesn't do anything else but to wait
 for a while) and wrap a simple asynchronous service around it, so that the
-software can be used on the CloudFlow infrastructure stack. In a more
+software can be used on the CAxMan infrastructure stack. In a more
 realistic scenario, the software would be anything which takes a longer time
 to complete and where intermediate status updates should be displayed to the
 user during service execution.
@@ -52,7 +52,7 @@ very simple html status page from it.
 In the following, we will add two webmethods to the so far empty
 `WaiterService` class: one to start the asynchronous service, and one to obtain
 its current exection status. Both these functions will be called by the
-workflow manager when the webservice is registered as a CloudFlow asynchronous
+workflow manager when the webservice is registered as a CAxMan asynchronous
 service.
 
 ## Step 3: Add a start method to the webservice skeleton
@@ -94,7 +94,7 @@ Our start method needs to perform three tasks:
 3. Create a first status report to send back to the workflow manager as a
    return argument.
 
-_Important:_ Note that a CloudFlow service can be run several times in parallel.
+_Important:_ Note that a CAxMan service can be run several times in parallel.
 It is therefore important that subsequent status-query calls to the service
 return information from the correct long-running background process (the waiter
 script in this example). The workflow manager assigns a unique service ID to
@@ -298,8 +298,8 @@ Calling getServiceStatus:
  }
 ```
 
-## Step 6: Register the waiter service as a CloudFlow service
-You are now ready to register the deployed waiter service as a CloudFlow 
+## Step 6: Register the waiter service as a CAxMan service
+You are now ready to register the deployed waiter service as a CAxMan 
 asynchronous service.
 
 First, make sure that the webservice's wsdl is reachable from the outside by
@@ -310,7 +310,7 @@ https://<host><your_context_root>/waiter/Waiter?wsdl
 Replace `<host>` and `<your_context_root>` with the appropriate values. You
 should receive an xml file containing a formal description of the webservice.
 
-Now, register the webservice's `startWaiter` method as a CloudFlow service
+Now, register the webservice's `startWaiter` method as a CAxMan service
 using the workflow-editor GUI. See [level-2
 tutorials](../level_2_modifying_workflows) for details on how to do that. Make
 sure that you select _asynchronous service_ during the registration.

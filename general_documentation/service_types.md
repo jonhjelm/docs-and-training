@@ -1,11 +1,11 @@
-# Service types in CloudFlow
-The CloudFlow infrastructure stack currently knows three types of CloudFlow
+# Service types in CAxMan
+The CAxMan infrastructure stack currently knows three types of CAxMan
 services. It is important to understand the differences between those types in
 order to choose the right type for a certain use case.
 
-_Important:_ In this document, "service" generally refers to a CloudFlow 
+_Important:_ In this document, "service" generally refers to a CAxMan 
 service rather than a webservice. A single webservice application may contain
-several webmethods which can be used as different types of CloudFlow services.
+several webmethods which can be used as different types of CAxMan services.
 
 ## TLDR (Too Long, Didn't Read)
 For the impatient, here are a few general rules of thumb for choosing the right
@@ -39,7 +39,7 @@ Curious what distinguishes the three service types from each other and why the
 rules above are as they are? Read on.
 
 ## Synchronous services
-Synchronous services are the simplest types of CloudFlow services. They are
+Synchronous services are the simplest types of CAxMan services. They are
 wrappers of single webservice methods which, when called, do something, and
 then immediately return their results. They do not require any pre-defined
 input or out values.

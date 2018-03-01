@@ -5,7 +5,7 @@ changed.
 All tutorials are implemented using Python, which should be easy to read and
 transport the right ideas also for non-Python programmers.
 
-## Basic service creation: the different CloudFlow service types
+## Basic service creation: the different CAxMan service types
 Learn how to implement synchronous services, asynchronous services, and
 application.
 
@@ -20,7 +20,7 @@ application.
   This tutorial guides you through the deployment steps of a simple
   asynchronous service. Starting from a simply Python script representing a
   long-running computation, we will wrap an asynchronous web service around it
-  which can be deployed in the CloudFlow infrastructure stack.
+  which can be deployed in the CAxMan infrastructure stack.
 
 ## Intermediate topics
 * **[Tutorial 3-3: File access (showcased via a simple image converter)](python_imageconverter.md)**

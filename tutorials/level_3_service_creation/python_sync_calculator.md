@@ -2,7 +2,7 @@
 In this tutorial, you will start with the pre-implemented
 [Calculator](../../code_examples/Python/sync_calculator) webservice, deploy it,
 and extend it with further functionality. You will then wrap the new 
-functionality in a CloudFlow service and include it into a workflow.
+functionality in a CAxMan service and include it into a workflow.
 
 ## Step 1: Prepare the example code
 This tutorial starts from the code example
@@ -141,7 +141,7 @@ to the following block:
 </wsdl:portType>
 ```
 Here you can see the three webmethods `add`, `subtract`, and `multiply` which
-are currently implemented. When integrated into the CloudFlow workflow editor,
+are currently implemented. When integrated into the CAxMan workflow editor,
 exactly these webmethods will be available.
 
 If you cannot obtain the wsdl file, check all paths and make sure that the
@@ -183,9 +183,9 @@ Finally, refresh the wsdl-file browser page from the last step and confirm that
 the newly implemented webmethod is available as another `<wsdl:operation>`
 element.
 
-## Step 5: Register the new method as a CloudFlow service
+## Step 5: Register the new method as a CAxMan service
 You can now head over to the CAxMan portal and register the newly added
-division operation as a CloudFlow service and subsequently include it in a
+division operation as a CAxMan service and subsequently include it in a
 workflow. Have a look at the [level-2
 tutorials](../level_2_modifying_workflows) to learn how to do this using the
 workflow-editor GUI.
