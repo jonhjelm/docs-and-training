@@ -38,11 +38,15 @@ SOAP faults:
        # ... do authentication here ...
        if not authenticated:
            error_msg = "Unable to authenticate user '{}'".format(user)
-           raise AuthenticationFailedFault(error_msg)
+           raise AuthenticationFailedFault(faultstring=error_msg)
    ```
+Make sure to pass error messages to the `faultstring` argument of the 
+custom exception (or modify the exception to pass the first parameter
+to the `faultstring` parameter of its base class). See also 
+http://spyne.io/docs/2.10/reference/model/fault.html.
 
-The fault will then show up in the WSDL service description and can thus be
-handled gracefully by the calling entity.
+A fault defined and raised as above will show up in the WSDL service 
+description and can thus be handled gracefully by the calling entity.
 
 ## SOAP faults in Java EE
 In Java, SOAP faults are defined in a very similar way.
