@@ -1,4 +1,4 @@
-# Tutorial 3-3: File access (showcased via a simple image converter)
+# Tutorial: Low-level file access (showcased via a simple image converter)
 This tutorial will introduce the concepts of file access via GSS. You will
 implement a synchronous service which downloads a png image file from a GSS
 location, converts it to a jpg image file, and uploads the converted image to
@@ -188,8 +188,8 @@ to return the new GSS ID which will be the output argument of our service:
 
 If you are not sure whether you got all of the implementation right, you can
 compare your code with the code example
-[snyc_image_converter](../../Python/sync_image_converter) which contains a
-finished implementation.
+[snyc_image_converter](../../code_examples/Python/sync_image_converter) which
+contains a finished implementation.
 
 ## Step 4: Build and test the converter service
 To build and deploy the image-conversion service as a Docker container, run the
@@ -232,8 +232,8 @@ service. You can either hard-code a GSS ID as input or, even better, use the
 filechooser service
 (`http://www.caxman.eu/apps/sintef/fileChooser03_new2.owl#fileChooser_Service`)
 to have the user select a file during workflow execution. If you don't know how
-to register and integrate your service in a workflow, refer to the [level-2
-tutorials](..).
+to register and integrate your service in a workflow, refer to the 
+[corresponding tutorial](../workflows/basics_service_registration.md).
 
 ## Conclusion
 This tutorial showcased basic usage of GSS for file access. However, a few
@@ -250,7 +250,7 @@ important things are left to be said:
   since the create operation won't be supported. Also, no one stops us from
   trying to convert, say, an mp3 file to a jpg file with this service. It is
   quite likely that the service will crash, but we cannot say how. For such
-  situations, each service should defined appropriate SOAP faults and raise
-  them as needed. Have a look at the [general
-  documentation](../../general_documentation) for more information on error
-  handling.
+  situations, each service should define appropriate SOAP faults and raise
+  them as needed. Have a look at the 
+  [error-handling documentation](../../service_implementation/advanced_error_handling.md)
+  for more information.

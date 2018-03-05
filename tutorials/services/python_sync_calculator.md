@@ -1,4 +1,4 @@
-# Tutorial 3-1: Extend the synchronous calculator webservice
+# Tutorial: Extend the synchronous calculator webservice
 In this tutorial, you will start with the pre-implemented
 [Calculator](../../code_examples/Python/sync_calculator) webservice, deploy it,
 and extend it with further functionality. You will then wrap the new 
@@ -186,14 +186,14 @@ element.
 ## Step 5: Register the new method as a CAxMan service
 You can now head over to the CAxMan portal and register the newly added
 division operation as a CAxMan service and subsequently include it in a
-workflow. Have a look at the [level-2
-tutorials](../level_2_modifying_workflows) to learn how to do this using the
-workflow-editor GUI.
+workflow. Have a look at the corresponding 
+[tutorial on service registration](../workflows/basics_service_registration.md)
+to learn how to do this using the workflow-editor GUI.
 
 ## Conclusion and further reading
 Congratulations! You successfully deployed a new webservice and extended it by
 a new webmethod.
 
-For further development, take a look at other [level-3 tutorials](./). To learn
+For further development, take a look at other tutorials. To learn
 more about SOAP development in Python using the Spyne module, head over to the
 [Spyne documentation](http://spyne.io/docs/2.10/).
