@@ -66,7 +66,9 @@ the graphical tools provided on the portal).
 * **File access:**
   * [Tutorial: Low-level file access (showcased via a simple image converter)](tutorials/services/python_imageconverter.md):
     Learn how to programmatically access files via GSS by implementing a simple
-    synchronous image conversion service.
+    synchronous image conversion service. This tutorial also teaches you an
+    understanding of how GSS works, but it won't show you production-quality
+    code.
   * [High-level file access using GSS libraries](service_implementation/basics_gss_libraries.md):
     In practice, one most likely wants to hide the interplay of SOAP and REST
     calls when accessing GSS behind some kind of library. This article gives
