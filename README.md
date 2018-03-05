@@ -34,6 +34,8 @@ the graphical tools provided on the portal).
 
 ### Basics
 * **Synchronous services:**
+  * Check out the [CAxMan service types](infrastructure_overview/service_types.md)
+    for a high-level description of synchronous services.
   * [Code example (Python): synchronous service](code_examples/Python/sync_calculator):
     A very simple synchronous calculator service implemented in Python
   * [Code example (Java): synchronous-service skeleton](code_examples/Java/skeleton_syncservice):
@@ -45,6 +47,8 @@ the graphical tools provided on the portal).
 
 
 * **Aynchronous services:**
+  * Check out the [CAxMan service types](infrastructure_overview/service_types.md)
+    for a high-level description of asynchronous services.
   * [Code example (Python): Waiter](code_examples/Python/async_waiter):
     An asynchronous service which does nothing but waiting
   * [Tutorial: Create a simple asynchronous service](tutorials/services/python_async_waiter.md):
@@ -55,7 +59,8 @@ the graphical tools provided on the portal).
 
 
 * **Applications:**
-  * to be written
+  * Check out the [CAxMan service types](infrastructure_overview/service_types.md)
+    for a high-level description of applications.
   
 
 * [Testing SOAP services](service_implementation/basics_testing.md):
