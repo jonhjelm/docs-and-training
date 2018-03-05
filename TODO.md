@@ -1,7 +1,6 @@
 # Documentation TODO
 * Write "Workflows and services in the CAxMan cloud – an overview" (contains only nomenclature so far)
 * Create code samples and descriptions for application development
-* Write "Testing SOAP services"
 * Write "High-level file access using GSS libraries"
 * Write "Using the HPC service ..."
 * Write "Error handling in SOAP services"
