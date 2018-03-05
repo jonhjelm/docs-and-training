@@ -3,7 +3,6 @@
 * Create code samples and descriptions for application development
 * Write "High-level file access using GSS libraries"
 * Write "Using the HPC service ..."
-* Write "Error handling in SOAP services"
 * Write "Using authentication services inside a service"
 * Write "Using workflows inside workflows"
 * Write "Branching and looping"
