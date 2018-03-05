@@ -8,6 +8,7 @@
 * Write "Using authentication services inside a service"
 * Write "Using workflows inside workflows"
 * Write "Branching and looping"
+* Add readme to waiter code example
 * Add API references
 * **Move repo to CAxMan organization**
 
