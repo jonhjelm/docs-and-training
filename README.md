@@ -11,18 +11,15 @@ service development.
 * Workflows and services in the CAxMan cloud: an overview
 
 * [CAxMan nomenclature](general_documentation/nomenclature.md): 
-
   A short description of the most important terms for CAxMan service
   development. Read this to understand what's written in the tutorials.
 
 * [The CAxMan service types](general_documentation/service_types.md): 
-
   Description and requirements of synchronous services, asynchronous services,
   and applications. Read this if you're wondering what kind of service you 
   need to develop for a certain use case.
 
-* [Deployment strategy](general_documentation/deployment_strategy.md):
-
+* [Deployment strategy](general_documentation/deployment_strategy.md): 
   Why do we recommend Docker for service deployment? How should I set up my
   VM(s)? How do I deploy several Docker containers when I have only a single
   available port? Learn about the CAxMan deployment strategy here.
@@ -60,10 +57,12 @@ service development.
 
 * Registration of new services
 
-### How to get user input
+### Available utility services
 * File selection using the FileChooser service
 
 * Automatic creation of graphical interfaces for user input
+
+* DFKI’s utility services
 
 ### Advanced topics
 * Using the PLM web client
@@ -71,6 +70,13 @@ service development.
 * Using workflows inside workflows
 
 * Branching and looping
+
+## Reference documentation of infrastructure services
+* Workflow manager
+* Workflow editor
+* Authentication manager
+* GSS
+* HPC service
 
 ---
 Old from here on!
