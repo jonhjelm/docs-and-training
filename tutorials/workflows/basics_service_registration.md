@@ -1,6 +1,6 @@
 
-# Tutorial 2-3 - Adding services
-In this final part of Level 2 we will register a new service.
+# Tutorial: Service registration
+This tutorial shows you how to register a new service in the CAxMan cloud.
 
 1. Navigate to the Workflow Editor (__WF Editor__ -> __Workflow editor__).
 2. The dialog to add new services is located at the top of the page.

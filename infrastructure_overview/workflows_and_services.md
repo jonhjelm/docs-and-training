@@ -1,4 +1,7 @@
-# CloudFlow nomenclature
+# Workflows and services in the CAxMan cloud
+TODO: write content here
+
+## CloudFlow nomenclature
 This page describes some of the most important terms you will encounter while
 developing services for the CloudFlow infrastructure stack.
 

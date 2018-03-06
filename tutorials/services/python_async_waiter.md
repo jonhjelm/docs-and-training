@@ -1,8 +1,8 @@
-# Tutorial 3-2: Creating a simple asynchronous service
+# Tutorial: Creating a simple asynchronous service
 In this tutorial, you will take an existing piece of software (in this case,
 it's a very simply Python script which doesn't do anything else but to wait
 for a while) and wrap a simple asynchronous service around it, so that the
-software can be used on the CloudFlow infrastructure stack. In a more
+software can be used on the CAxMan infrastructure stack. In a more
 realistic scenario, the software would be anything which takes a longer time
 to complete and where intermediate status updates should be displayed to the
 user during service execution.
@@ -17,8 +17,8 @@ Now, change into the folder containing your copy of the code example and open a
 terminal there.
 
 ### Adapt the webservice's context root
-As for the calculator service of [tutorial
-3-1](python_deploy_and_modify_calculator.md), the first thing to do is to adapt
+As for the [calculator-service tutorial](python_sync_calculator.md), the first
+thing to do is to adapt
 the existing code so that it can run on your deployment setup. To be able to
 listen to the correct http requests, the webservice needs to know its _relative
 deployment path_ or _context root_.
@@ -52,7 +52,7 @@ very simple html status page from it.
 In the following, we will add two webmethods to the so far empty
 `WaiterService` class: one to start the asynchronous service, and one to obtain
 its current exection status. Both these functions will be called by the
-workflow manager when the webservice is registered as a CloudFlow asynchronous
+workflow manager when the webservice is registered as a CAxMan asynchronous
 service.
 
 ## Step 3: Add a start method to the webservice skeleton
@@ -94,7 +94,7 @@ Our start method needs to perform three tasks:
 3. Create a first status report to send back to the workflow manager as a
    return argument.
 
-_Important:_ Note that a CloudFlow service can be run several times in parallel.
+_Important:_ Note that a CAxMan service can be run several times in parallel.
 It is therefore important that subsequent status-query calls to the service
 return information from the correct long-running background process (the waiter
 script in this example). The workflow manager assigns a unique service ID to
@@ -143,8 +143,6 @@ meaningful content as long as the waiter script is still running.)
 _Note:_ The status page we return can be anything from a very simple text to a
 full-fledged html page including, for example, images. This way, we can create
 a rich feedback for the user during the execution of asynchronous services.
-Have a look at the [level-3 tutorial page](.) for tutorials on the creation of
-more elaborate status pages.
 
 ## Step 4: Implement getServiceStatus()
 The second function missing in our service has the pre-defined name
@@ -298,8 +296,8 @@ Calling getServiceStatus:
  }
 ```
 
-## Step 6: Register the waiter service as a CloudFlow service
-You are now ready to register the deployed waiter service as a CloudFlow 
+## Step 6: Register the waiter service as a CAxMan service
+You are now ready to register the deployed waiter service as a CAxMan 
 asynchronous service.
 
 First, make sure that the webservice's wsdl is reachable from the outside by
@@ -310,9 +308,8 @@ https://<host><your_context_root>/waiter/Waiter?wsdl
 Replace `<host>` and `<your_context_root>` with the appropriate values. You
 should receive an xml file containing a formal description of the webservice.
 
-Now, register the webservice's `startWaiter` method as a CloudFlow service
-using the workflow-editor GUI. See [level-2
-tutorials](../level_2_modifying_workflows) for details on how to do that. Make
+Now, register the webservice's `startWaiter` method as a CAxMan service
+using the workflow-editor GUI. See the tutorial on [service registration](../workflows/basics_service_registration.md) for details on how to do that. Make
 sure that you select _asynchronous service_ during the registration.
 
 You can now create a simple workflow which contains only your newly created

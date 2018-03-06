@@ -1,6 +1,6 @@
 
-# Tutorial 2-2 - Publishing workflows
-In this part of the tutorial we publish the workflow we have created in the previous tutorial, such that it will be registered in the portal and can be executed from the __Inventory__.
+# Tutorial: Publishing workflows
+In this tutorial we publish the workflow we have created in the [previous tutorial](basics_editing.md), such that it will be registered in the portal and can be executed from the __Inventory__.
 
 1. To start, navigate to __WF Editor__ -> __Publish workflows__. Here you can see all published workflows.
 ![publish_1.PNG](img/publish_1.PNG)
