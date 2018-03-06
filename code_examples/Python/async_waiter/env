@@ -1,0 +1,10 @@
+# CONTEXT_ROOT defines the deployment location relative to the host.
+# Set this variable such that it fits to the URL under which the VM hosting the
+# app can be reached.
+CONTEXT_ROOT=/sintef/docker_services
+
+# Further variables can be used to configure the service without the need of
+# rebuilding its Docker container.
+# In this example, we define the folder where the service stores progress data
+# of the waiter processes it starts.
+WAITER_LOG_FOLDER=/tmp
