@@ -42,7 +42,7 @@ deployment strategy inevitably fails. This is currently not relevant for
 CAxMan, but developing (stateless) Docker containers gives compatibility with
 such a design for free.
 
-## How to set up a CAxMan VM for Docker?
+## How to configure a CAxMan VM for Docker?
 Convinced that Docker is the way to go? Then the only thing you need to do is
 to install Docker on your VM. Either from the host-OS's package repositories
 or, if you want the newest version, following an installation guide on the

@@ -18,9 +18,13 @@ New to the CAxMan project? Read all about its concepts and background here.
   Description and requirements of synchronous services, asynchronous services,
   and applications. Read this if you're wondering what kind of service you 
   need to develop for a certain use case.
+  
+* Virtual-machine setup: Currently, each partner developing CAxMan services 
+  needs one or more dedicated virtual machines in the Arctur cloud. On the
+  CAxMan eRoom, you find [instructions on the VM setup](https://project.sintef.no/eRoomReq/Files/math/CAxMan/0_4115a/CAxMan%20VM%20instructions.pdf).
 
 * [Deployment strategy](infrastructure_overview/deployment_strategy.md): 
-  Why do we recommend Docker for service deployment? How should I set up my
+  Why do we recommend Docker for service deployment? How should I configure my
   VM(s)? How do I deploy several Docker containers when I have only a single
   available port? Learn about the CAxMan deployment strategy here.
 
