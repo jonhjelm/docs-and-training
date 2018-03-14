@@ -1,44 +1,40 @@
-# Service and workflow development in CAxMan
-Welcome to the CAxMan service-development resources!
+# Service and workflow development for the CloudFlow infrastructure stack in CloudiFacturing
+Welcome to the CloudFlow/CloudiFacturing service-development resources!
 
-This repository is meant to be a center for CAxMan documentation relevant for
-everyone who develops services and workflows in the CAxMan project. Here, you
-will find everything from high-level descriptions of the concepts behind the
-CAxMan infrastructure to step-by-step tutorials for advanced topics in CAxMan
-service development.
+This repository is meant to be a center for documentation relevant for everyone
+who develops services and workflows on the CloudFlow infrastructure stack in
+the CloudiFacturing project. Here, you will find everything from high-level
+descriptions of the concepts behind the infrastructure to step-by-step
+tutorials for advanced topics in service development.
 
 ## Infrastructure overview
-New to the CAxMan project? Read all about its concepts and background here.
+New to the CloudFlow platform? Read all about its concepts and background here.
 
-* [Workflows and services in the CAxMan cloud – an overview](infrastructure_overview/workflows_and_services.md):
-  Gives a compact overview over the concepts behind CAxMan and what services and workflows are and how they are
-  executed. Also explains the nomenclature used in CAxMan.
+* [Workflows and services in the CloudFlow cloud – an overview](infrastructure_overview/workflows_and_services.md):
+  Gives a compact overview over the concepts behind CloudFlow and what services
+  and workflows are and how they are executed. Also explains the nomenclature
+  used in this repository.
 
-* [The CAxMan service types](infrastructure_overview/service_types.md): 
+* [The CloudFlow service types](infrastructure_overview/service_types.md): 
   Description and requirements of synchronous services, asynchronous services,
   and applications. Read this if you're wondering what kind of service you 
   need to develop for a certain use case.
   
-* Virtual-machine setup: Currently, each partner developing CAxMan services 
-  needs one or more dedicated virtual machines in the Arctur cloud. On the
-  CAxMan eRoom, you find [instructions on the VM setup](https://project.sintef.no/eRoomReq/Files/math/CAxMan/0_4115a/CAxMan%20VM%20instructions.pdf).
-
-* [Deployment strategy](infrastructure_overview/deployment_strategy.md): 
-  Why do we recommend Docker for service deployment? How should I configure my
-  VM(s)? How do I deploy several Docker containers when I have only a single
-  available port? Learn about the CAxMan deployment strategy here.
+* [Service-deployment concept](infrastructure_overview/deployment_strategy.md): 
+  Learn about the CloudFlow deployment strategy here.
 
 ## Service implementation: concepts, examples, tutorials
-All workflows in CAxMan are basically a series of calls to individual web 
-services. This section provides information on how to develop such web
-services in a way that they can be registered in the CAxMan cloud.
+All workflows in the CloudFlow platform are basically a series of calls to
+individual web services. This section provides information on how to develop
+such web services in a way that they can be registered in the CloudFlow
+platform.
 
 All documentation here deals with things done "in code" (as opposed to via
 the graphical tools provided on the portal).
 
 ### Basics
 * **Synchronous services:**
-  * Check out the [CAxMan service types](infrastructure_overview/service_types.md)
+  * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
     for a high-level description of synchronous services.
   * [Code example (Python): synchronous service](code_examples/Python/sync_calculator):
     A very simple synchronous calculator service implemented in Python
@@ -51,7 +47,7 @@ the graphical tools provided on the portal).
 
 
 * **Aynchronous services:**
-  * Check out the [CAxMan service types](infrastructure_overview/service_types.md)
+  * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
     for a high-level description of asynchronous services.
   * [Code example (Python): Waiter](code_examples/Python/async_waiter):
     An asynchronous service which does nothing but waiting
@@ -59,11 +55,11 @@ the graphical tools provided on the portal).
     This tutorial guides you through the deployment steps of a simple
     asynchronous service. Starting from a simply Python script representing a
     long-running computation, we will wrap an asynchronous web service around it
-    which can be deployed in the CAxMan infrastructure stack.
+    which can be deployed in the CloudFlow infrastructure stack.
 
 
 * **Applications:**
-  * Check out the [CAxMan service types](infrastructure_overview/service_types.md)
+  * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
     for a high-level description of applications.
   
 
@@ -94,10 +90,6 @@ the graphical tools provided on the portal).
   Explains how to gracefully handle errors inside SOAP services such that the
   outside world can process them.
 
-* [Beyond files: Using PLM for versioning and metadata](service_implementation/advanced_plm.md):
-  Sometimes simple files just don't cut it. PLM offers versioning, metadata,
-  and much more. Find out how to interface with PLM in your services.
-
 * [Using authentication services inside a service](service_implementation/advanced_authentication.md):
   When a service is executed inside a workflow, the portal takes care that
   proper user authentication. If necessary, however, the authentication
@@ -114,27 +106,19 @@ hooked up to make a workflow. This section deals with all things done
   inspect its results.
   
 * [Tutorial: Basic workflow editing](tutorials/workflows/basics_editing.md):
-  In this tutorial you will load, modify, and save an existing workflow using the
-  graphical workflow editor.
-  
-* [Tutorial: Publishing workflows](tutorials/workflows/basics_publishing.md):
-  To make workflows available for execution, you need to *publish* them. This
-  tutorial teaches you how.
+  In this tutorial you will load, modify, and save an existing workflow using
+  the graphical workflow editor.
   
 * [Tutorial: Registration of new services](tutorials/workflows/basics_service_registration.md):
-  Any newly created service needs to be registered properly to be usable in
-  CAxMan. Learn about all details and caveats of service registration here.
+  Any newly created service needs to be registered properly to be usable in the
+  CloudFlow platform. Learn about all details and caveats of service
+  registration here.
 
 ### Available utility services
 * [File selection using the FileChooser service](workflow_creation/utilities_filechooser.md):
   The FileChooser service is one of two ways to easily let the user upload and
   select files for a workflow. Learn how to integrate the file chooser into
   your workflows.
-
-* [Using the PLM web client](workflow_creation/utilities_plm_webclient.md):
-  While the FileChooser service can access all storage locations in CAxMan, only
-  the PLM web client offers the extended functionality of versioning, metadata, etc.
-  Read here how to integrate it in your workflows.
 
 * [Automatic creation of graphical interfaces for user input](workflow_creation/utilities_auto_gui.md):
   Want an HTML form for user input at the start of a workflow? Then use this
@@ -146,7 +130,7 @@ hooked up to make a workflow. This section deals with all things done
 
 ### Advanced topics
 * [Using workflows inside workflows](workflow_creation/advanced_workflow_nesting.md):
-  One of the great strengths of the CAxMan workflow concepts is that one can
+  One of the great strengths of the CloudFlow workflow concepts is that one can
   use complete workflows as services inside another workflow. Learn about this
   workflow nesting here.
 
