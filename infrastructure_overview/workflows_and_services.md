@@ -1,4 +1,4 @@
-# Workflows and services in the CAxMan cloud
+# Workflows and services in the CloudFlow cloud
 TODO: write content here
 
 ## CloudFlow nomenclature
@@ -28,4 +28,4 @@ developing services for the CloudFlow infrastructure stack.
   the CloudFlow infrastructure stack.
 
 * **workflow editor GUI**: Graphical interface to the workflow editor service.
-  Ususally available through a website such as the CAxMan portal.
+  Ususally available through a website such as the CloudFlow portal.
