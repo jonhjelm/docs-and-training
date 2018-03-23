@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Builds and runs the container locally (for testing purposes)
+
 cname=waiter
 
 if [ -z "$1" ]
