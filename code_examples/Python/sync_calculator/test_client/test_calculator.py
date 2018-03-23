@@ -44,7 +44,7 @@ def main():
 
     # URL of the SOAP service to test. Modify this if the deployment location
     # changes.
-    url = "http://localhost:{}{}/calculator/Calculator?wsdl".format(port, context_root)
+    url = "http://localhost:{}{}/Calculator?wsdl".format(port, context_root)
     print("wsdl URL is {}".format(url))
 
     a = 11
