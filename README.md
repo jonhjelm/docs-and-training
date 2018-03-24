@@ -81,13 +81,13 @@ the graphical tools provided on the portal).
     
 
 * **Using HPC resources**
-  * Concept of HPC access through the CloudFlow platform:
+  * [HPC access through the CloudFlow platform](service_implementation/basics_hpc.md):
     The CloudFlow platform abstracts access of specific HPC resources with a
     generic API, making it possible to run computations on different HPC
     resources without any change to the computation code. This article explains
     the concepts and technical background of this solution.
 
-  * Packaging software in Singularity images:
+  * [Packaging software in Singularity images](service_implementation/basics_singularity.md):
     All software that should be run on the HPC resources accessible through the
     CloudFlow platform must be wrapped into Singularity images which are then
     executed as isolated containers on an HPC cluster. Learn how to create,
