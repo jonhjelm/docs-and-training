@@ -15,12 +15,12 @@ New to the CloudFlow platform? Read all about its concepts and background here.
   and workflows are and how they are executed. Also explains the nomenclature
   used in this repository.
 
-* [The CloudFlow service types](infrastructure_overview/service_types.md): 
+* [The CloudFlow service types](infrastructure_overview/service_types.md):
   Description and requirements of synchronous services, asynchronous services,
-  and applications. Read this if you're wondering what kind of service you 
+  and applications. Read this if you're wondering what kind of service you
   need to develop for a certain use case.
-  
-* [Service-deployment concept](infrastructure_overview/deployment_strategy.md): 
+
+* [Service-deployment concept](infrastructure_overview/deployment_strategy.md):
   Learn about the CloudFlow deployment strategy here.
 
 ## Service implementation: concepts, examples, tutorials
@@ -61,7 +61,7 @@ the graphical tools provided on the portal).
 * **Applications:**
   * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
     for a high-level description of applications.
-  
+
 
 * [Testing SOAP services](service_implementation/basics_testing.md):
   Explains how deployed SOAP services can be tested without having to go
@@ -80,9 +80,18 @@ the graphical tools provided on the portal).
     an overview over existing libraries and their usage.
     
 
-* [Using the HPC service: pre- and post-processor services](service_implementation/basics_HPC_service.md):
-  Explains how one can interface with the generic HPC service by writing
-  pre- and post-processor services.
+* **Using HPC resources**
+  * Concept of HPC access through the CloudFlow platform:
+    The CloudFlow platform abstracts access of specific HPC resources with a
+    generic API, making it possible to run computations on different HPC
+    resources without any change to the computation code. This article explains
+    the concepts and technical background of this solution.
+
+  * Packaging software in Singularity images:
+    All software that should be run on the HPC resources accessible through the
+    CloudFlow platform must be wrapped into Singularity images which are then
+    executed as isolated containers on an HPC cluster. Learn how to create,
+    upload, and register such images in this article.
 
 ### Advanced topics
 
@@ -113,6 +122,15 @@ hooked up to make a workflow. This section deals with all things done
   Any newly created service needs to be registered properly to be usable in the
   CloudFlow platform. Learn about all details and caveats of service
   registration here.
+
+### Using the HPC service
+* [Overview over the generic HPC service](service_implementation/basics_HPC_service.md):
+  Introduces the generic HPC service and showcases how it can be used to
+  execute Singularity images on the available HPC resources.
+
+* [Pre- and post-processor services](service_implementation/basics_HPC_prepost.md):
+  Explains how one can interface with the generic HPC service by writing pre-
+  and post-processor services.
 
 ### Available utility services
 * [File selection using the FileChooser service](workflow_creation/utilities_filechooser.md):
@@ -145,3 +163,4 @@ services, have a look at our API references:
 * [Workflow editor](service_APIs/api_wfe.md)
 * [Authentication manager](service_APIs/api_authentication.md)
 * [GSS](service_APIs/api_gss.md)
+* [refissh](service_APIs/api_refissh.md)
