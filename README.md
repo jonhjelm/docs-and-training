@@ -124,11 +124,11 @@ hooked up to make a workflow. This section deals with all things done
   registration here.
 
 ### Using the HPC service
-* [Overview over the generic HPC service](service_implementation/basics_HPC_service.md):
+* [Overview over the generic HPC service](workflow_creation/HPC_service.md):
   Introduces the generic HPC service and showcases how it can be used to
   execute Singularity images on the available HPC resources.
 
-* [Pre- and post-processor services](service_implementation/basics_HPC_prepost.md):
+* [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
   Explains how one can interface with the generic HPC service by writing pre-
   and post-processor services.
 
