@@ -7,6 +7,19 @@ the CloudiFacturing project. Here, you will find everything from high-level
 descriptions of the concepts behind the infrastructure to step-by-step
 tutorials for advanced topics in service development.
 
+## Contents
+- [Contents](#contents)
+- [Infrastructure overview](#infrastructure-overview)
+- [Service implementation: concepts, examples, tutorials](#service-implementation-concepts-examples-tutorials)
+  - [Basics](#basics)
+  - [Advanced topics](#advanced-topics)
+- [Workflow creation, execution, and monitoring](#workflow-creation-execution-and-monitoring)
+  - [Basic workflow editing](#basic-workflow-editing)
+  - [Using the HPC service](#using-the-hpc-service)
+  - [Available utility services](#available-utility-services)
+  - [Advanced topics](#advanced-topics)
+- [Reference documentation of infrastructure services](#reference-documentation-of-infrastructure-services)
+
 ## Infrastructure overview
 New to the CloudFlow platform? Read all about its concepts and background here.
 
