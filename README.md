@@ -11,7 +11,12 @@ tutorials for advanced topics in service development.
 - [Contents](#contents)
 - [Infrastructure overview](#infrastructure-overview)
 - [Service implementation: concepts, examples, tutorials](#service-implementation-concepts-examples-tutorials)
-  - [Basics](#basics)
+  - [CloudFlow Synchronous services](#cloudflow-synchronous-services)
+  - [CloudFlow Aynchronous services](#cloudflow-aynchronous-services)
+  - [CloudFlow Applications](#cloudflow-applications)
+  - [SOAP services](#soap-services)
+  - [File access](#file-access)
+  - [Using HPC resources](#using-hpc-resources)
   - [Advanced topics](#advanced-topics)
 - [Workflow creation, execution, and monitoring](#workflow-creation-execution-and-monitoring)
   - [Basic workflow editing](#basic-workflow-editing)
@@ -45,8 +50,7 @@ platform.
 All documentation here deals with things done "in code" (as opposed to via
 the graphical tools provided on the portal).
 
-### Basics
-* **Synchronous services:**
+### CloudFlow Synchronous services
   * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
     for a high-level description of synchronous services.
   * [Code example (Python): synchronous service](code_examples/Python/sync_calculator):
@@ -59,7 +63,7 @@ the graphical tools provided on the portal).
     starting point in the service development.
 
 
-* **Aynchronous services:**
+### CloudFlow Aynchronous services
   * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
     for a high-level description of asynchronous services.
   * [Code example (Python): Waiter](code_examples/Python/async_waiter):
@@ -71,17 +75,17 @@ the graphical tools provided on the portal).
     which can be deployed in the CloudFlow infrastructure stack.
 
 
-* **Applications:**
+### CloudFlow Applications
   * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
     for a high-level description of applications.
 
 
+### SOAP services
 * [Testing SOAP services](service_implementation/basics_testing.md):
   Explains how deployed SOAP services can be tested without having to go
   through the workflow manager.
 
-
-* **File access:**
+### File access
   * [Tutorial: Low-level file access (showcased via a simple image converter)](tutorials/services/python_imageconverter.md):
     Learn how to programmatically access files via GSS by implementing a simple
     synchronous image conversion service. This tutorial also teaches you an
@@ -93,7 +97,7 @@ the graphical tools provided on the portal).
     an overview over existing libraries and their usage.
     
 
-* **Using HPC resources**
+### Using HPC resources
   * [HPC access through the CloudFlow platform](service_implementation/basics_hpc.md):
     The CloudFlow platform abstracts access of specific HPC resources with a
     generic API, making it possible to run computations on different HPC
