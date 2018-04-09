@@ -1,3 +1,6 @@
+# Singularity images
+*.simg
+
 # Custom maven temp files
 .m2/
 

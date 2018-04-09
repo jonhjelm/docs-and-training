@@ -11,36 +11,28 @@ import os
 import subprocess
 import base64
 import datetime
-from flask import Flask
-from flask import request
-from flask_spyne import Spyne
+import logging
+
+from spyne import Application, srpc, ServiceBase, Unicode, Integer, Boolean
 from spyne.protocol.soap import Soap11
-from spyne.model.primitive import Unicode, Integer, Boolean
-from werkzeug.contrib.fixers import ProxyFix
 
-app = Flask(__name__)
-spyne = Spyne(app)
-app.wsgi_app = ProxyFix(app.wsgi_app)
-
+# Define the target namespace
+TNS = "waiter.sintef.no"
+# Define the name under which the service will be deployed
+SERVICENAME = "Waiter"
 
 # Read environment variables to obtain configuration values
 WAITER_LOG_FOLDER = os.environ["WAITER_LOG_FOLDER"]
 
 
-@app.route('/')
-def root():
-    """Static page on root to avoid error 404"""
-    return 'Nothing to see here.'
-
-
-class WaiterService(spyne.Service):
+class WaiterService(ServiceBase):
     """The actual waiter asynchronous service."""
-    __service_url_path__ = '/Waiter'
-    __in_protocol__ = Soap11(validator='soft')
-    __out_protocol__ = Soap11()
+    # Note that the class name does not influence the deployment endpoint
+    # under which the service will be reachable. It will, however, appear
+    # in the wsdl file.
 
-    @spyne.srpc(Unicode, Unicode, Integer, _returns=(Unicode, Unicode),
-                _out_variable_names=("status_base64", "result"))
+    @srpc(Unicode, Unicode, Integer, _returns=(Unicode, Unicode),
+          _out_variable_names=("status_base64", "result"))
     def startWaiter(serviceID, sessionToken, secondsToWait=300):
         """Starts a waiter script as a separate process and returns immediately.
 
@@ -48,6 +40,7 @@ class WaiterService(spyne.Service):
         would be started as a separate process. Here, we simply start a process
         which waits for a while while regularly updating a status file.
         """
+        logging.info("startWaiter() called with service ID {}".format(serviceID))
 
         # Create a temporary folder to store the status files in.
         # Note that we use the service ID as a unique identifier. Since this
@@ -74,13 +67,13 @@ class WaiterService(spyne.Service):
         # we don't have a proper status yet. So we simply start with an empty
         # progress bar.
         # The status page needs to be base64 encoded.
-        status = base64.b64encode(create_html_progressbar(0))
+        status = base64.b64encode(create_html_progressbar(0).encode()).decode()
         result = "UNSET"
 
         return (status, result)
 
-    @spyne.srpc(Unicode, Unicode, _returns=(Unicode, Unicode),
-                _out_variable_names=("status_base64", "result"))
+    @srpc(Unicode, Unicode, _returns=(Unicode, Unicode),
+          _out_variable_names=("status_base64", "result"))
     def getServiceStatus(serviceID, sessionToken):
         """Status-query method which is called regularly by WFM.
 
@@ -89,6 +82,8 @@ class WaiterService(spyne.Service):
         contains only a single number, which we convert to an html progress
         bar.
         """
+        logging.info("getServiceStatus() called with service ID {}".format(serviceID))
+
         # Create correct file paths from service ID. By using the unique
         # service ID, we can address the right waiter process in case this
         # service is called several times in parallel.
@@ -118,14 +113,14 @@ class WaiterService(spyne.Service):
         # This could include more post-processing etc. in a more realistic
         # service
         result = "UNSET"
-        status = base64.b64encode(create_html_progressbar(int(current_status)))
+        status = base64.b64encode(create_html_progressbar(int(current_status)).encode()).decode()
         return (status, result)
 
-    @spyne.srpc(Unicode, Unicode, _returns=Boolean,
-                _out_variable_name="success")
+    @srpc(Unicode, Unicode, _returns=Boolean, _out_variable_name="success")
     def abortService(serviceID, sessionToken):
         """Aborts the currently running service (not implemented, returns false)
         """
+        logging.info("abortService() called with service ID {}".format(serviceID))
 
         # This method offers the option to abort long-running asynchronous
         # services. In this example, we do not implement this functionality
@@ -134,6 +129,14 @@ class WaiterService(spyne.Service):
         # background computation process gracefully.
 
         return False
+
+
+def create_app():
+    """Creates an Application object containing the waiter service."""
+    app = Application([WaiterService], TNS,
+                      in_protocol=Soap11(validator='soft'), out_protocol=Soap11())
+
+    return app
 
 
 def create_html_progressbar(progress):

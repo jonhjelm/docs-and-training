@@ -1,29 +1,28 @@
-"""Main entrypoint of the Python-based SOAP service
+"""Main entrypoint of the Python-based SOAP webapp
 
-Here, the dispatcher middleware is created and all required parts of the app
-are "hooked in".
-Adapt this file if you want to add new services to this app.
+Here, all required parts of the app are "hooked in". Adapt this file if you
+want to add new services to this app.
 """
-import os
+import logging
+from spyne.server.wsgi import WsgiApplication
+from spyne.util.wsgi_wrapper import WsgiMounter
 
-from werkzeug.wsgi import DispatcherMiddleware
-from werkzeug.serving import run_simple
-from frontend import app as frontend
-from CalculatorService import app as calculator
+import Calculator
 
-# Read deployment route from environment variable
-CONTEXT_ROOT = os.environ['CONTEXT_ROOT']
+logging.basicConfig(level=logging.INFO)
 
-# We use a simple, static frontend page and then "hook in" all sub-apps we like
-# to have.
-# Currently, this is only the calculator, for which we define the hosting
-# location
-app = DispatcherMiddleware(frontend, {
-    CONTEXT_ROOT + '/calculator': calculator,
+# We use the wsgi mounter to hook up potentially more than one SOAP service
+# inside a single app.
+application = WsgiMounter({
+    Calculator.SERVICENAME: WsgiApplication(Calculator.create_app())
 })
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # Only for debugging! (Will start the app in a simple Python thread
     # without nginx or uwsgi when main.py is directly executed.)
-    run_simple('0.0.0.0', 80, app, use_reloader=True)
+    from wsgiref.simple_server import make_server
+    logging.basicConfig(level=logging.INFO)
+
+    server = make_server('0.0.0.0', 5000, application)
+    server.serve_forever()

@@ -1,10 +1,10 @@
 # Error handling in SOAP services
-In CAxMan, all workflows consist of a series of _SOAP calls_ to the individual
-web services used in the workflow. If an error occurs during processing these
-calls, the corresponding answer is a _SOAP fault_. This fault message will
-arrive at the workflow manager and cause the workflow to fail. Consequently, 
-we should make sure that our SOAP faults are well defined and contain
-valuable information for debugging.
+On the CloudFlow platform, all workflows consist of a series of _SOAP calls_ to
+the individual web services used in the workflow. If an error occurs during
+processing these calls, the corresponding answer is a _SOAP fault_. This fault
+message will arrive at the workflow manager and cause the workflow to fail.
+Consequently, we should make sure that our SOAP faults are well defined and
+contain valuable information for debugging.
 
 **Important:** Currently, the workflow manager does _not_ respect SOAP faults.
 Any failing workflow will simply result in an ugly stack trace from inside the
