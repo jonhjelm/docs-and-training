@@ -51,15 +51,13 @@ interacting with the GSS service.
 
 ## Available cloud storage in CloudiFacturing
 Currently, the only cloud storage available in CloudiFacturing is the HPC
-storage space provided by IT4I on their clusters Anselm and Salomon. (This is
-an excellent example for the power of GSS, as this HPC storage is not even meant
-to be a _cloud_ storage. GSS relieves you of the necessity to have your own
-SSH credentials and perform file management over SSH.) The two clusters are 
+storage space provided by IT4I on their clusters Anselm and Salomon. (This is an
+excellent example for the power of GSS, as HPC storage is conceptually not a
+_cloud_ storage. GSS relieves you of the necessity to have your own SSH
+credentials and perform file management over SSH.) The two clusters are
 considered to be separate GSS backends, since one will usually keep files tied
 to the cluster one runs simulations on. For each cluster, space on the `home`
-storage as well as on the `scratch` storage is available via GSS. This storage
-is specific to the project a user is identified with. For example, the files of
-the users of application experiment 2 are not visible by anyone else.
+storage as well as on the `scratch` storage is available via GSS.
 
 IT4I's storage is available under the following GSS URI schemes:
 * `it4i_anselm://home/<location>`: home storage on the Anselm cluster 
@@ -70,5 +68,12 @@ IT4I's storage is available under the following GSS URI schemes:
 To browse any of the storage locations, you can use one of the pre-defined "File
 Browser" workflows on the CloudiFacturing portal.
 
+_Note:_ The data visible on IT4I's cluster storage is specific to the project a
+user is identified with (i.e., the project one logs in with on the portal).
+Users of other projects will not be able to view or edit this data. Similarly,
+jobs running as [Singularity containers](service_implementation/basics_hpc.md)
+on one of the clusters have access to the same project-specific files and
+folders.
+
 ## GSS API reference
-Read the [GSS API reference here](service_APIs/api_gss.md).
+Read the [GSS API reference here](../service_APIs/api_gss.md).
