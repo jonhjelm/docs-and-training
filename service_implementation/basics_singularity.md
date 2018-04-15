@@ -210,6 +210,12 @@ In this command, replace the following placeholders:
 * `<COMMAND>` by the bash command to execute _inside_ the Singularity image
 * `<PARAMETER>` by any parameters to pass to the command to be executed
 
+_Side note:_ When you later use your Singularity image inside a CloudFlow 
+workflow, the CloudFlow HPC service will execute the exactly same command for 
+you. Some of the parameters listed above will be automatically set for you 
+(such as the home and scratch directories), some you will have to provide as
+input to the HPC service.
+
 In our waiter example, the command to be executed would be `python`, while the
 parameters would be whatever we want to pass to Python, which in this case are
 the script name and the number of seconds to wait. The following shows a

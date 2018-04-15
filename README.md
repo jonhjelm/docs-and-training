@@ -38,6 +38,12 @@ New to the CloudFlow platform? Read all about its concepts and background here.
   and applications. Read this if you're wondering what kind of service you
   need to develop for a certain use case.
 
+* [Accessing cloud storage: Generic Storage Services (GSS)](infrastructure_overview/storage.md):
+  On the CloudFlow platform, different cloud storages can be accessed in a
+  simple, unified way. Learn about the basic concepts of the CloudFlow
+  Generic Storage Services and the available storage solutions in
+  CloudiFacturing.
+
 * [Service-deployment concept](infrastructure_overview/deployment_strategy.md):
   Learn about the CloudFlow deployment strategy here.
 
