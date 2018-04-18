@@ -51,7 +51,7 @@ def main():
                                                             project])
 
     # Fake the extra-parameters string
-    extra_pars = 'gss=https://caxman.clesgo.net/sintef/infrastructure/gss-0.1/FileUtilities?wsdl'
+    extra_pars = 'gss=https://caxman.clesgo.net/sintef/infrastructure/gss-0.1/FileUtilities?wsdl,'
 
     # Construct service URL
     url = "http://localhost:{}{}/imageconverter/ImageConverter?wsdl".format(port, context_root)
