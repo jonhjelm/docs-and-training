@@ -28,6 +28,9 @@ tutorials for advanced topics in service development.
 ## Infrastructure overview
 New to the CloudFlow platform? Read all about its concepts and background here.
 
+* [Getting access](infrastructure_overview/getting_access.md): Need access to
+  the CloudFlow platform in CloudiFacturing? Look here.
+  
 * [Workflows and services in the CloudFlow cloud – an overview](infrastructure_overview/workflows_and_services.md):
   Gives a compact overview over the concepts behind CloudFlow and what services
   and workflows are and how they are executed. Also explains the nomenclature
