@@ -37,11 +37,20 @@ to be written
 * (Maybe even read complete call method from parent)
 * (Can we _call_ a JavaScript method defined in the parent iFrame)
 * JavaScript code to call notifyService()
+* how messages should look like (single line without breaks)
 * Link to example
 
 ### Make an HPC job react to messages that it receives
+to be written
 
+* notifications.txt
+* messages are appended
 
 ## How to properly set up Singularity images for MPI applications
+to be written
+
+* MPI lib -> link to IT4I docs
+* how to execute data-crawling processes only on one node (-> _MPI rank_)
 
 ## Using GPU acceleration
+to be written
