@@ -33,5 +33,5 @@ this simplification comprises two main ideas:
    login credentials for each HPC provider to be used. Instead, all this is
    taken over by the HPC service.
 
-   Learn more how to [integrate the HPC service](workflow_creation/HPC_service.md)
+   Learn more how to [integrate the HPC service](../workflow_creation/HPC_service.md)
    in your workflows.
