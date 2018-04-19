@@ -8,6 +8,27 @@ refissh is part of the CloudFlow infrastructure stack and was developed with
 the CloudiFacturing project in mind. It therefore relies on the CloudFlow
 authentication services for user authentication.
 
+Quick links to API functions:
+- [Files API](#files-api)
+  - [`HEAD $URL/files/some/file/or/folder` : get resource type](#head-urlfilessomefileorfolder-get-resource-type)
+  - [`GET $URL/files/some/folder` : list directory contents](#get-urlfilessomefolder-list-directory-contents)
+  - [`GET $URL/files/some/file.ext` : download a file](#get-urlfilessomefileext-download-a-file)
+  - [`POST $URL/files/non/existing/folder` : create a new folder](#post-urlfilesnonexistingfolder-create-a-new-folder)
+  - [`POST $URL/files/non/existing/file` : upload a file](#post-urlfilesnonexistingfile-upload-a-file)
+  - [`PUT $URL/files/already/existing/file` : update a file](#put-urlfilesalreadyexistingfile-update-a-file)
+  - [`DELETE $URL/files/already/existing/file/or/folder` : delete a file/folder](#delete-urlfilesalreadyexistingfileorfolder-delete-a-filefolder)
+- [Jobs API](#jobs-api)
+  - [`GET $URL/jobs/` : list all known jobs](#get-urljobs-list-all-known-jobs)
+  - [`POST $URL/jobs/<service_ID>` : start a new job](#post-urljobsserviceid-start-a-new-job)
+  - [`GET $URL/jobs/<service_ID>` : get job status](#get-urljobsserviceid-get-job-status)
+  - [`PUT $URL/jobs/<service_ID>` : send message to a job](#put-urljobsserviceid-send-message-to-a-job)
+  - [`DELETE $URL/jobs/<service_ID>` : abort job](#delete-urljobsserviceid-abort-job)
+- [Images API](#images-api)
+  - [`GET $URL/images/` : list available images](#get-urlimages-list-available-images)
+  - [`POST $URL/images/<image_name>` : register new image](#post-urlimagesimagename-register-new-image)
+  - [`PUT $URL/images/<image_name>` : update image](#put-urlimagesimagename-update-image)
+  - [`GET $URL/images/<image_name>` : query image information](#get-urlimagesimagename-query-image-information)
+  - [`DELETE $URL/images/<image_name>` : deregisters an existing image](#delete-urlimagesimagename-deregisters-an-existing-image)
 
 # API overview
 refissh consists of a files API, a jobs API, and an images API, which interplay
