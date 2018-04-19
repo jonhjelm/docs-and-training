@@ -36,6 +36,7 @@ to be written
 * Obtain WFM endpoint and service ID
 * (Maybe even read complete call method from parent)
 * (Can we _call_ a JavaScript method defined in the parent iFrame)
+  => use postMessage API (https://stackoverflow.com/questions/935127/how-to-access-parent-iframe-from-javascript)
 * JavaScript code to call notifyService()
 * how messages should look like (single line without breaks)
 * Link to example
