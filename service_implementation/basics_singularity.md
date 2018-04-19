@@ -195,7 +195,7 @@ your personal credentials and execute it there.
 To test an image under circumstances as close as possible to those when running
 as part of a CloudFlow workflow, please use the following call command:
 ```bash
-singularity exec --containall --cleanenv \
+singularity exec --cleanenv \
     -H <HOME>:/home -B <SCRATCH>:/scratch -B <SERVICE>:/service \
     <IMAGE> <COMMAND> <PARAMETERS>
 ```
@@ -211,7 +211,7 @@ In this command, replace the following placeholders:
 * `<PARAMETER>` by any parameters to pass to the command to be executed
 
 _Side note:_ When you later use your Singularity image inside a CloudFlow 
-workflow, the CloudFlow HPC service will execute the exactly same command for 
+workflow, the CloudFlow HPC service will execute the exact same command for 
 you. Some of the parameters listed above will be automatically set for you 
 (such as the home and scratch directories), some you will have to provide as
 input to the HPC service.
