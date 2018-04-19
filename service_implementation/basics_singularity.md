@@ -94,9 +94,9 @@ _Important:_ In contrast to Docker, Singularity will _not_ overwrite but rather
 extend an existing image in the build process. Therefore, make sure to always
 delete an existing image before rebuilding.
 
-## Communication with the HPC service: status and result files
+## Communicating back to the HPC service: status and result files
 Before we describe how to execute and test our Singularity image, let's have a
-look at how to communicate status and result reports to the HPC service.
+look at how to communicate status and result reports back to the HPC service.
 
 When a Singularity image is executed as part of a CloudFlow workflow, it is the
 CloudFlow HPC service which actually logs in to the HPC login node and executes
@@ -293,3 +293,6 @@ with the following parameters:
 ## How to move on
 Once you have successfully registered an image with the HPC service, you can use
 it inside your CloudFlow workflows. Head over to the [HPC-service overview](../workflow_creation/HPC_service.md) to learn how to do just that.
+
+Also, have a look on a few more [advanced topics on HPC and Singularity in 
+CloudFlow](advanced_singularity.md).
