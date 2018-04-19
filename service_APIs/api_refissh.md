@@ -162,8 +162,6 @@ returns "RUNNING".
   authentication token
 
 ### `PUT $URL/jobs/<service_ID>` : send message to a job
-NOTE: Not yet implemented!
-
 Sends a message to a running job. The request data has to contain the message
 in the following json format:
 ```
@@ -171,9 +169,14 @@ in the following json format:
 "message": "my message to the service"
 }
 ```
+The message is appended to the file `notifications.txt` inside the /service
+folder of the running Singularity image. A line break is added to the end of the
+message. 
 
 #### Status codes:
-to be defined
+* *200* if successful
+* *400* if json is malformed
+* *405* if job state is not RUNNING
 
 ### `DELETE $URL/jobs/<service_ID>` : abort job
 Stops execution of a running job.
