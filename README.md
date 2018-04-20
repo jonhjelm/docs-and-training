@@ -119,6 +119,10 @@ the graphical tools provided on the portal).
     executed as isolated containers on an HPC cluster. Learn how to create,
     upload, and register such images in this article.
 
+  * [Advanced HPC and Singularity topics](service_implementation/advanced_singularity.md):
+    Learn about advanced topics of HPC integration in the CloudFlow platform
+    such as communication with a running HPC job and MPI jobs.
+
 ### Advanced topics
 
 * [Error handling in SOAP services](service_implementation/advanced_error_handling.md):
