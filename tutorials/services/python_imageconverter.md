@@ -4,6 +4,11 @@ implement a synchronous service which downloads a png image file from a GSS
 location, converts it to a jpg image file, and uploads the converted image to
 the same GSS folder.
 
+_Important:_ This tutorial will teach you a lot about how GSS works. It will
+_not_, however, showcase production-quality code. In production code, always
+make use of the available [client libraries](../../service_implementation/basics_gss_libraries.md)
+to encapsulate GSS access.
+
 ## Step 1: Prepare the example code
 This tutorial starts from the code example
 [sync_image_converter_tutorial](../../code_examples/Python/sync_image_converter_tutorial).
