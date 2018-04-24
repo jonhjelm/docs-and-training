@@ -33,12 +33,9 @@ The following sections describe these two concepts in more detail.
 ### Create status reports with elements that talk to the workflow manager
 to be written
 
-* Obtain WFM endpoint and service ID
-* (Maybe even read complete call method from parent)
-* (Can we _call_ a JavaScript method defined in the parent iFrame)
-  => use postMessage API (https://stackoverflow.com/questions/935127/how-to-access-parent-iframe-from-javascript)
-* JavaScript code to call notifyService()
-* how messages should look like (single line without breaks)
+* HPC service "injects" notification functionality into the status html code
+* Injection works only if the code contains a `<head>` element
+* Available java script method is `notify_running_job()`
 * Link to example
 
 ### Make an HPC job react to messages that it receives
