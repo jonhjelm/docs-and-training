@@ -4,6 +4,14 @@ Singularity usage on the CloudFlow platform. Make sure you have read the
 basics on [HPC access](basics_hpc.md) and [Singularity images](basics_singularity.md)
 before reading on.
 
+**Contents:**
+- [How to communicate with a running HPC job](#how-to-communicate-with-a-running-hpc-job)
+    - [Create status reports with elements that talk back to the running job](#create-status-reports-with-elements-that-talk-back-to-the-running-job)
+    - [Make an HPC job react to messages that it receives](#make-an-hpc-job-react-to-messages-that-it-receives)
+    - [Examples](#examples)
+- [How to properly set up Singularity images for MPI applications](#how-to-properly-set-up-singularity-images-for-mpi-applications)
+- [Using GPU acceleration](#using-gpu-acceleration)
+
 ## How to communicate with a running HPC job
 Sometimes, communication with a running HPC job can be important. For example,
 one might want to restart a simulation or gracefully cancel it when a certain
