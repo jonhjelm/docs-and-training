@@ -72,11 +72,11 @@ example above) sent via the status page such that they fit to what your job
 
 ### Make an HPC job react to messages that it receives
 With the simple html code presented above, your job's status page can be used to
-send messages back to the job. Every such message is _appended with a newline-
-character_ to the pre-defined file `/service/notifications.txt` inside the job's
-Singularity container. (As explained in the [basics of Singularity
-usage](basics_singularity.md), the `/service` folder is also where your job
-needs to save status and result reports.)
+send messages back to the job. Every such message is appended to the pre-defined
+file `/service/notifications.txt` inside the job's Singularity container. (As
+explained in the [basics of Singularity usage](basics_singularity.md), the
+`/service` folder is also where your job needs to save status and result
+reports.)
 
 It is your responsibility (as a Singularity-image developer) to monitor changes
 to this file and react accordingly. To this end, please keep in mind the 
@@ -88,8 +88,8 @@ following:
   will be re-created.
 * Each message is placed on _a new line at the end_ of `notifications.txt`.
   (Specifically, a newline character is appended to each message.) It is 
-  _allowed_ to add further newline characters (`\n`) to the messages themselves
-  if necessary.
+  _allowed_ to add further newline characters (`"\n"`) to the messages
+  themselves if necessary.
 
 ### Examples
 In general, be aware that the platform provides only a generic tool to send
