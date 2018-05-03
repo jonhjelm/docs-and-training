@@ -32,8 +32,9 @@ instructions which are necessary to build a Singularity image. Singularity
 images can actually be based on Docker images, which is what we will be using
 in this example.
 
-Have a look at the [waiter folder of the Singularity code examples](../code_examples/Singularity/waiter). It contains a minimal example of a
-Python application to be packaged in a Singularity image. The Singularity
+Have a look at the [waiter folder of the Singularity code
+examples](../code_examples/Singularity/waiter). It contains a minimal example of
+a Python application to be packaged in a Singularity image. The Singularity
 recipe itself is contained in the file `Singularity` and looks like this:
 ```
 Bootstrap: docker
@@ -94,9 +95,9 @@ _Important:_ In contrast to Docker, Singularity will _not_ overwrite but rather
 extend an existing image in the build process. Therefore, make sure to always
 delete an existing image before rebuilding.
 
-## Communication with the HPC service: status and result files
+## Communicating back to the HPC service: status and result files
 Before we describe how to execute and test our Singularity image, let's have a
-look at how to communicate status and result reports to the HPC service.
+look at how to communicate status and result reports back to the HPC service.
 
 When a Singularity image is executed as part of a CloudFlow workflow, it is the
 CloudFlow HPC service which actually logs in to the HPC login node and executes
@@ -111,8 +112,9 @@ with the HPC service, for the following reasons:
    further in the workflow.
 
 In order to do so, your application needs to write to two text files in the
-mounted `/service` folder. Have a look at the example application [`app/wait_a_while.py`](../code_examples/Singularity/waiter/app/wait_a_while.py) to see how this is
-done:
+mounted `/service` folder. Have a look at the example application
+[`app/wait_a_while.py`](../code_examples/Singularity/waiter/app/wait_a_while.py)
+to see how this is done:
 
 ```python
 # ...
@@ -180,7 +182,9 @@ set up. However, a few things should be kept in mind:
   other words, if the actual application does _not_ already output status
   messages which can be directly shown to the user), the simulation/calculation
   and the creation of status pages most likely have to happen in separate
-  threads/processes, making the communication a little bit more involved.
+  threads/processes, making the communication a little bit more involved. For an
+  example of how this can work, see the [abortable waiter code
+  example](../code_examples/Singularity/abortable_waiter).
 * If the end result of an HPC job is a non-text file or a large amount of text,
   save the result in a file somewhere in `/home` or `/scratch` and only write
   GSS references to those files into the results file.
@@ -229,7 +233,7 @@ mkdir temp_home
 mkdir temp_scratch
 mkdir temp_service
 
-singularity exec --containall --cleanenv \
+singularity exec --cleanenv \
     -H $(pwd)/temp_home:/home \
     -B $(pwd)/temp_scratch:/scratch \
     -B $(pwd)/temp_service:/service \
@@ -270,9 +274,8 @@ every HPC service it should be run on.
 To upload your image to GSS, you can use one of the following methods:
 * Start one of the FileBrowser workflows available on the [CloudiFacturing
   portal](https://api.hetcomp.org) and upload via the file chooser application
-* Use one of the infrastructure client libraries. 
-  
-  **TODO:** add link to libraries!
+* Use one of the infrastructure client libraries
+  (https://github.com/CloudiFacturing/client_libs)
 
 ### Registering your image
 To register an image which is available on the HPC-cluster storage, you need to
@@ -292,4 +295,8 @@ with the following parameters:
 
 ## How to move on
 Once you have successfully registered an image with the HPC service, you can use
-it inside your CloudFlow workflows. Head over to the [HPC-service overview](../workflow_creation/HPC_service.md) to learn how to do just that.
+it inside your CloudFlow workflows. Head over to the [HPC-service
+overview](../workflow_creation/HPC_service.md) to learn how to do just that.
+
+Also, have a look on a few more [advanced topics on HPC and Singularity in 
+CloudFlow](advanced_singularity.md).
