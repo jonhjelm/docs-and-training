@@ -1,7 +1,10 @@
 #! /bin/bash
 mkdir temp_home
+rm temp_home/*
 mkdir temp_scratch
+rm temp_scratch/*
 mkdir temp_service
+rm temp_service/*
 touch temp_service/notifications.txt
 
 singularity exec --cleanenv \
@@ -10,4 +13,4 @@ singularity exec --cleanenv \
     -B $(pwd)/temp_service:/service \
     abortable_waiter.simg \
     python \
-    /app/wait_a_while.py 60
+    /app/startup.py 20 /app

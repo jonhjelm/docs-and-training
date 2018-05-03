@@ -1,68 +1,63 @@
 import sys
 import time
+import datetime
+import json
+import os
+import logging
 
-STATUSFILE = "/service/status.txt"
-RESULTFILE = "/service/result.txt"
-NOTIFICATIONS = "/service/notifications.txt"
-
-PROGRESS_HEAD = '''<html>
-  <head>
-    <title>HPC job progress</title>
-    <script type="text/javascript">
-      function abort() {
-        notify_running_job("ABORT");
-      }
-    </script>
-  </head>'''
-
-PROGRESS_BODY='''<body style="margin: 20px; padding: 20px;">
-    <h1>HPC job progress</h1>
-    <div>
-    <h3>This is a waiter. It's waiting on the HPC cluster. It has waited {}/{} seconds.</h3>
-    <input type="button" value="Abort" onclick="abort()">
-    </div>
-  </body>
-</html>
-'''
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("Waiter")
 
 
 def main():
     seconds_to_wait = int(sys.argv[1])
-
-    with open(RESULTFILE, 'w') as f:
-        f.write('UNSET')
-
+    fn_log = sys.argv[2]
+    fn_result = sys.argv[3]
+    fn_abort = sys.argv[4]
+    logger.info("Waiter starting up, will wait {} seconds".format(seconds_to_wait))
+    
     for current_time in range(seconds_to_wait):
-        # 1: Check if there is an abort command
-        try:
-            with open(NOTIFICATIONS) as f:
-                notifications = f.readlines()
-        except FileNotFoundError:
-            notifications = []
-
-        if len(notifications) > 0 and notifications[-1].strip() == "ABORT":
-            write_result(current_time, True)
-            return 0
-
-        # 2: Write current status
-        status = make_progressbar(current_time, seconds_to_wait)
-        with open(STATUSFILE, 'w') as f:
-            f.write(str(status))
+        # Perform part of "complicated computation"
         time.sleep(1)
+        
+        # Write log
+        write_log(fn_log, current_time, seconds_to_wait)
 
-    write_result(seconds_to_wait)
+        # Check if we should abort
+        if os.path.exists(fn_abort):
+            write_final_log(fn_log)
+            write_result(fn_result, current_time, aborted=True)
+            return 0
+    
+    write_final_log(fn_log)
+    write_result(fn_result, seconds_to_wait)
 
 
-def write_result(seconds_waited, aborted=False):
-    with open(RESULTFILE, 'w') as f:
+def write_log(fn_log, elapsed_time, total_time):
+    log = {
+        'timestamp': str(datetime.datetime.now()),
+        'elapsed_time': str(elapsed_time),
+        'total_time': str(total_time),
+    }
+    with open(fn_log, 'a') as fout:
+        json.dump(log, fout)
+        fout.write("\n")
+    logger.info("Log written: {}/{} seconds waited".format(elapsed_time, total_time))
+
+
+def write_final_log(fn_log):
+    with open(fn_log, 'a') as fout:
+        fout.write("FINISHED\n")
+    logger.info("Final log written")
+
+
+def write_result(fn, seconds_waited, aborted=False):
+    with open(fn, 'w') as f:
         if aborted:
             f.write('Done. My waiting was aborted after {} seconds.'.format(seconds_waited))
         else:
             f.write('Done. I have waited {} seconds.'.format(seconds_waited))
-
-
-def make_progressbar(current_time, total_time):
-    return PROGRESS_HEAD + PROGRESS_BODY.format(current_time, total_time)
+    logger.info("Result written")
 
 
 if __name__ == "__main__":
