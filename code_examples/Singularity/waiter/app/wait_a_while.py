@@ -1,7 +1,7 @@
 import sys
 import time
 
-STATUSFILE = "/service/status.txt"
+STATUSFILE = "/service/status.html"
 RESULTFILE = "/service/result.txt"
 
 PROGRESS = '''<html>

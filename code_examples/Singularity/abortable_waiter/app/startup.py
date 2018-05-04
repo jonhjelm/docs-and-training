@@ -16,7 +16,7 @@ def main():
     app_folder = sys.argv[2]
 
     # Pre-defined files for communication with the "outside world"
-    fn_status = '/service/status.txt'
+    fn_status = '/service/status.html'
     fn_result = '/service/result.txt'
     fn_notifications = '/service/notifications.txt'
 
@@ -42,7 +42,7 @@ def main():
     log_crawler_script = os.path.join(app_folder, 'log_crawler.py')
     command = ['python', log_crawler_script, fn_log, fn_status]
     proc_log = subprocess.Popen(command)
-    
+
     # 2: Start the notifications monitor as a background process
     # It monitors the notifications file (which is written to when messages are
     # sent to the HPC service running this Singularity image) and translates
@@ -63,7 +63,7 @@ def main():
     # main app.)
     logger.info("Starting waiter")
     waiter_script = os.path.join(app_folder, 'wait_a_while.py')
-    command = ['python', waiter_script, str(seconds_to_wait), fn_log, 
+    command = ['python', waiter_script, str(seconds_to_wait), fn_log,
         fn_result, fn_abort]
     subprocess.run(command)
     logger.info("Waiter finished, terminating processes")
@@ -76,7 +76,7 @@ def main():
     shutil.rmtree(unique_folder)
 
     # (Optional) 5: Process end result
-    # In case the final result of the main application (see step 3) is _not_ 
+    # In case the final result of the main application (see step 3) is _not_
     # just a simple file, we should call another script here which processes
     # this end result and writes into the /service/result.txt file.
 

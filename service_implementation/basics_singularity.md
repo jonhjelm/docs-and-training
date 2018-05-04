@@ -119,7 +119,7 @@ to see how this is done:
 ```python
 # ...
 
-STATUSFILE = "/service/status.txt"
+STATUSFILE = "/service/status.html"
 RESULTFILE = "/service/result.txt"
 
 PROGRESS = '''<html>
@@ -162,7 +162,7 @@ def make_progressbar(current_time, total_time):
 This example application is a simple Python script which does nothing but to
 wait for a certain amount of seconds. Every second, a simple html progress page
 (as defined in the `PROGRESS` variable) is written to the status file, which is
-hard-coded to `/service/status.txt`. While the application is running, the HPC
+hard-coded to `/service/status.html`. While the application is running, the HPC
 service regularly reads this file and displays its contents to the user.
 
 **Results:**
