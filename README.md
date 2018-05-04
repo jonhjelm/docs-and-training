@@ -119,9 +119,18 @@ the graphical tools provided on the portal).
     executed as isolated containers on an HPC cluster. Learn how to create,
     upload, and register such images in this article.
 
-  * [Advanced HPC and Singularity topics](service_implementation/advanced_singularity.md):
-    Learn about advanced topics of HPC integration in the CloudFlow platform
-    such as communication with a running HPC job and MPI jobs.
+  * [Communicating with a running HPC job](service_implementation/advanced_hpc_notifications.md):
+    Sometimes, communication with a running HPC job is important, for example to
+    be able to control or abort a simulation if required. This article explains
+    how to set up a Singularity image for this kind of communication.
+
+  * [Singularity and MPI applications](service_implementation/advanced_hpc_mpi.md):
+    (not written yet) Learn how to prepare your Singularity image for parallel
+    execution using MPI.
+
+  * [GPU support for Singularity images](service_implementation/advanced_hpc_gpu.md):
+    (not written yet) Learn how to prepare your Singularity image for access of
+    underlying GPU cores.
 
 ### Advanced topics
 
@@ -157,6 +166,11 @@ hooked up to make a workflow. This section deals with all things done
 * [Overview over the generic HPC service](workflow_creation/HPC_service.md):
   Introduces the generic HPC service and showcases how it can be used to
   execute Singularity images on the available HPC resources.
+
+* [Converting from GSS URIs to file paths and back](workflow_creation/HPC_gss_conversion.md):
+  Files and folders are handled using GSS URIs within the CloudFlow 
+  infrastructure, but on an HPC cluster, absolute paths are required. Learn how
+  to convert between the two here.
 
 * [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
   Explains how one can interface with the generic HPC service by writing pre-

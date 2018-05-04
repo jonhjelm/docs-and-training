@@ -1,18 +1,4 @@
-# Advanced HPC and Singularity topics
-This section discusses some more advanced and intricate topics of the HPC and
-Singularity usage on the CloudFlow platform. Make sure you have read the
-basics on [HPC access](basics_hpc.md) and [Singularity images](basics_singularity.md)
-before reading on.
-
-**Contents:**
-- [How to communicate with a running HPC job](#how-to-communicate-with-a-running-hpc-job)
-    - [Create status reports with elements that talk back to the running job](#create-status-reports-with-elements-that-talk-back-to-the-running-job)
-    - [Make an HPC job react to messages that it receives](#make-an-hpc-job-react-to-messages-that-it-receives)
-    - [Examples](#examples)
-- [How to properly set up Singularity images for MPI applications](#how-to-properly-set-up-singularity-images-for-mpi-applications)
-- [Using GPU acceleration](#using-gpu-acceleration)
-
-## How to communicate with a running HPC job
+# How to communicate with a running HPC job
 Sometimes, communication with a running HPC job can be important. For example,
 one might want to restart a simulation or gracefully cancel it when a certain
 level of convergence has been reached. At the same time, one often does _not_
@@ -32,7 +18,7 @@ concepts:
 
 The following sections describe these two concepts in more detail.
 
-### Create status reports with elements that talk back to the running job
+## Create status reports with elements that talk back to the running job
 To create status reports which allow to "talk back" to the running HPC job,
 simply create html elements such as buttons which call the
 `notify_running_job()` JavaScript method.
@@ -70,7 +56,7 @@ Obviously, you will have to define the specific message(s) ("ABORT" in the
 example above) sent via the status page such that they fit to what your job
 "understands".
 
-### Make an HPC job react to messages that it receives
+## Make an HPC job react to messages that it receives
 With the simple html code presented above, your job's status page can be used to
 send messages back to the job. Every such message is appended to the pre-defined
 file `/service/notifications.txt` inside the job's Singularity container. (As
@@ -91,7 +77,7 @@ following:
   _allowed_ to add further newline characters (`"\n"`) to the messages
   themselves if necessary.
 
-### Examples
+## Examples
 In general, be aware that the platform provides only a generic tool to send
 messages to a running HPC service. The format of these messages and the way of
 reacting to them is _entirely_ up to each individual Singularity image.
@@ -100,11 +86,5 @@ Nonetheless, we do provide a working example of how such a more complex
 Singularity container can be designed. Head over the [abortable_waiter code 
 example](../code_examples/Singularity/abortable_waiter) for details.
 
-## How to properly set up Singularity images for MPI applications
-to be written
 
-* MPI lib -> link to IT4I docs
-* how to execute data-crawling processes only on one node (-> _MPI rank_)
 
-## Using GPU acceleration
-to be written
