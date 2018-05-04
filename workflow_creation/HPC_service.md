@@ -52,9 +52,15 @@ If your Singularity execution call is `singularity exec my_image.simg python
 | `status_base64` | no | Used by the workflow manager to query status reports. |
 | `result` | yes | When the job finished, this argument will contain whatever the Singularity image has written into the file `/service/result.txt`. |
 
+## Further reading
+* _GSS &harr; file path conversion:_ Most likely, your HPC job will process some
+  input files and create some output files as well. Since files are represented
+  by GSS URIs on the CloudFlow platform but by ordinary file paths in the HPC
+  environment, it is necessary to [convert between these two
+  representations](HPC_gss_conversion.md).
 
-## Example workflow
-You can have a look at some of the existing HPC workflows on the CloudiFacturing
-portal:
-* `http://workflows/sintef/HpcWaiterHardcodedAnselm.owl#HPC_Waiter_Hardcoded_Anselm`
-* `http://workflows/sintef/HpcWaiterHardcodedSalomon.owl#HPC_Waiter_Hardcoded_Salomon`
+* _Pre- and post-processing services:_ Also, hard-coding parameters like the
+  command line and its parameters is often not practical (consider varying input
+  file names). Therefore, it will most often be necessary to also create simple
+  [pre- and post-processing services](HPC_prepost.md) alongside with a
+  Singularity image.
