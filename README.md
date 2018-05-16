@@ -61,7 +61,8 @@ the graphical tools provided on the portal).
 
 ### CloudFlow Synchronous services
   * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
-    for a high-level description of synchronous services.
+    for a high-level description of synchronous services and their required
+    interface.
   * [Code example (Python): synchronous service](code_examples/Python/sync_calculator):
     A very simple synchronous calculator service implemented in Python
   * [Code example (Java): synchronous-service skeleton](code_examples/Java/skeleton_syncservice):
@@ -74,7 +75,8 @@ the graphical tools provided on the portal).
 
 ### CloudFlow Aynchronous services
   * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
-    for a high-level description of asynchronous services.
+    for a high-level description of asynchronous services and their required
+    interface.
   * [Code example (Python): Waiter](code_examples/Python/async_waiter):
     An asynchronous service which does nothing but waiting
   * [Tutorial: Create a simple asynchronous service](tutorials/services/python_async_waiter.md):
@@ -86,7 +88,9 @@ the graphical tools provided on the portal).
 
 ### CloudFlow Applications
   * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
-    for a high-level description of applications.
+    for a high-level description of applications and their required interface.
+  * [Code example (Python): Dialog](code_examples/Python/app_simple):
+    Simplest possible example application containing a one-button dialog.
 
 
 ### SOAP services

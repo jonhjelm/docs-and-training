@@ -8,6 +8,9 @@ service rather than a webservice. A single webservice application may contain
 several webmethods which can be used as different types of CloudFlow
 services.
 
+_Note:_ All CloudFlow services are [SOAP services](https://en.wikipedia.org/wiki/SOAP),
+meaning that they must expose their functionality via SOAP webmethods.
+
 ## TLDR (Too Long, Didn't Read)
 For the impatient, here are a few general rules of thumb for choosing the right
 type of service to develop.
@@ -36,12 +39,15 @@ type of service to develop.
   * Make an **application** if you want the user to _interact_ with your service
     during its execution.
 
+* If you want to use **HPC resources**, head over to the documentation dedicated
+  to that topic: [Using HPC resources](../README.md#using-hpc-resources)
+
 Curious what distinguishes the three service types from each other and why the
 rules above are as they are? Read on.
 
 ## Synchronous services
 Synchronous services are the simplest types of CloudFlow services. They are
-wrappers of single webservice methods which, when called, do something, and
+wrappers of single SOAP webservice methods which, when called, do something, and
 then immediately return their results. They do not require any pre-defined
 input or out values.
 
@@ -63,6 +69,15 @@ with the workflow manager during a workflow execution.
    alt="Execution diagram of a synchronous service" width="400px"/>
 </p>
 
+Synchronous services are single SOAP webmethods with arbitrary names and the
+following signature:
+
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| In: `sessionToken` | no | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+| In: more inputs | no | any | Any other inputs required for this specific method |
+| Out: outputs | no | any | Any outputs required for this specific method |
+
 ## Asynchronous services
 Asynchronous services are meant for operations which possibly take longer to
 complete than the HTTP request timeout time. These are especially operations
@@ -82,6 +97,70 @@ with the workflow manager during a workflow execution.
    alt="Execution diagram of an asynchronous service" width="600px"/>
 </p>
 
+Asynchronous services need to implement several methods, which are detailed in
+the following paragraphs.
+
+### Service startup method (must be implemented)
+This is the method used to start the service. It can have an arbitrary name.
+
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
+| In: `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+| In: more inputs | no | any | Any other inputs required for this specific service |
+| Out: `status_base64`| yes | string | Base64-encoded string holding the current status of the service. May be simple text or HTML which serves as the "GUI" of the service. |
+| Out: more outputs | no | any | Any further outputs required for this specific method |
+
+Note that the further outputs are only part of this startup method to define the
+full "signature" of the service. It lies in the nature of an asynchronous 
+service that the actual values of these outputs cannot be known when this method
+returns. Instead, they are set to dummy values (for example "UNSET"). The final
+values will be retrieved by the `getServiceStatus` method.
+
+### Method `getServiceStatus` (must be implemented)
+This method is called periodically (currently every 6 seconds) by the workflow
+manager to query the current status of the service. If the service finishes its
+execution, the last call to `getServiceStatus` will also set the final values of
+any additional output parameter beside `status_base64` which has been defined in
+the service's startup method.
+
+Parameters for this function are:
+
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
+| In: `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+| Out: `status_base64`| yes | string | Base64-encoded string holding the current status of the service. May be simple text or HTML which serves as the "GUI" of the service. |
+| Out: more outputs | no | any | Must be the same outputs as defined in the service's startup method |
+
+Note that `status_base64` must have one of the following values:
+* Any base64-encoded string: Contains any text, html, or even embedded 
+  JavaScript code which will be displayed in the portal.
+* `"UNCHANGED"` (_not_ base64-encoded): Indicates that the service did not
+  change its status since the last call to this function.
+* `"COMPLETED"` (_not_ base64-encoded): Indicates that the service has completed
+  its execution. The workflow manager will collect the values of the further
+  return arguments and move on to the next step in the workflow.
+
+The above set of choices implies that all return values except `status_base64`
+only need to be set to meaningful values if the reported state is `"COMPLETED"`.
+Otherwise, they can be set to dummy values (after all, they are not known yet if
+the service is not finished) just as in the startup method.
+
+### Method `abortService` (optional)
+This optional method will be invoked by the workflow manager when a user cancels
+a running workflow. It is meant to ensure that running services exit gracefully,
+free resources they are using, or make sure that long-running calculations are
+stopped when required.
+
+Parameters for this function are:
+
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
+| In: `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+| Out: `success`| yes | bool | `True` if the service aborted successfully |
+
 ## Applications
 Applications are very similar to asynchronous services, but with a slightly
 different scope. While an asynchronous service, once started, runs without any
@@ -96,3 +175,74 @@ with the workflow manager during a workflow execution.
   <img src="service_types_img/application_execution.png"
    alt="Execution diagram of an application" width="600px"/>
 </p>
+
+Applications need to implement several methods, which are detailed in the
+following paragraphs.
+
+### Service startup method (must be implemented)
+This is the method used to start the application. It can have an arbitrary name.
+
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
+| In: `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+| In: more inputs | no | any | Any other inputs required for this specific application |
+| Out: `status_base64`| yes | string | Base64-encoded string holding the current status of the service. Must contain HTML code which serves as the "GUI" of the application. |
+| Out: more outputs | no | any | Any further outputs required for this specific method |
+
+Note that just like for asynchronous services, the further outputs are only part
+of this startup method to define the full "signature" of the service. As the
+actual values of these outputs cannot be known when this method returns, they
+can be set to dummy values (for example "UNSET"). The final values have to be
+actively posted to the workflow manager.
+
+### Method `abortService` (optional)
+See `abortService` description for asynchronous services.
+
+### How to finish an application's execution and return results
+Applications run uninterrupted by the workflow manager until they actively
+report that they are finished. Specifically, an application must make a SOAP
+call to the workflow manager's `serviceExecutionFinished` method. This method
+expects as input arguments the application's `serviceID`, the `sessionToken`,
+and `xmlOutputs_base64` which contains a base64-encoded representation of the
+application's output parameters as defined in its startup method. The 
+non-encoded version of this parameter needs to have the following xml format:
+```xml
+<ServiceOutputs>
+  <output_parameter_1>output value</output_parameter_1>
+  <output_parameter_2>output value</output_parameter_2>
+  ...
+</ServiceOutputs>
+```
+Here, `output_parameter_#` must match the names of the further output values
+defined by the application's startup method.
+
+### A note on application design
+Generally, a CloudFlow application can come in two flavours:
+1. The complete application is a single HTML page (with embedded JavaScript) and
+   is delivered as a whole in the `status_base64` return argument of the 
+   application's startup method. Then, obviously, all the application's logic
+   must be contained in this single HTML page.
+2. If the application itself is too complex or implemented in a way which
+   prevents it from being delivered in a single HTML page, it can be hosted
+   somewhere and included into the HTML page delivered in `status_base64` inside
+   an iframe.
+
+   _Important:_ If the application is embedded via an iframe, care has to be 
+   taken when it comes to communication with the workflow manager (i.e., calling
+   its `serviceExecutionFinished` method). A JavaScript method which calls the
+   workflow manager from within the embedded HTML page will _not_ be allowed.
+   Since it would originate from a different domain (the workflow manager is
+   hosted on a different domain than all non-platform services), it would be
+   blocked by the browser as being a cross-domain request. There are two ways
+   around this issue:
+   1. Include the logic that calls the workflow manager directly into the HTML
+      delivered in `status_base64` of the startup method. (This HTML is shown by
+      the workflow manager itself and will thus _not_ be subject to cross-domain
+      restrictions.) Make the embedded HTML page communicate with its parent
+      using the HTML5 postMessage protocol to propagate its results and trigger
+      the call to the workflow manager.
+   2. The cross-domain blocking happens only for requests originating in a
+      browser (it's the browser itself which blocks such requests). Thus, the 
+      embedded HTML page can make a request to its hosting server and this
+      server can then call the workflow manager.
