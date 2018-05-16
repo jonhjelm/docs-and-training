@@ -71,6 +71,7 @@ with the workflow manager during a workflow execution.
 
 Synchronous services are single SOAP webmethods with arbitrary names and the
 following signature:
+
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
 | In: `sessionToken` | no | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
@@ -101,6 +102,7 @@ the following paragraphs.
 
 ### Service startup method (must be implemented)
 This is the method used to start the service. It can have an arbitrary name.
+
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
 | In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
@@ -123,6 +125,7 @@ any additional output parameter beside `status_base64` which has been defined in
 the service's startup method.
 
 Parameters for this function are:
+
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
 | In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
@@ -151,6 +154,7 @@ free resources they are using, or make sure that long-running calculations are
 stopped when required.
 
 Parameters for this function are:
+
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
 | In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
@@ -177,6 +181,7 @@ following paragraphs.
 
 ### Service startup method (must be implemented)
 This is the method used to start the application. It can have an arbitrary name.
+
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
 | In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
