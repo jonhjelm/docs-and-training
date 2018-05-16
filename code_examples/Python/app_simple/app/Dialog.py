@@ -1,6 +1,7 @@
 """Simple application example
 
-TODO: Write something here!
+Extremely simple CloudFlow application example, implementing a graphical dialog
+to request user input.
 """
 import os
 import subprocess
@@ -26,7 +27,7 @@ class DialogService(ServiceBase):
           _out_variable_names=("status_base64", "result"))
     def startDialog(serviceID, sessionToken):
         """
-        TODO: Write something here!
+        Starts the dialog application.
         """
         logging.info("startDialog() called with service ID {}".format(serviceID))
 
@@ -42,7 +43,8 @@ def create_app():
 
     return app
 
-
+# HTML code which is delivered to the workflow manager. In this example, this
+# HTML code contains the complete application.
 DIALOG = """<html>
 <head>
 <script type="text/javascript">
@@ -77,6 +79,8 @@ function cont_wf() {{
 </body>
 </html>
 """
+
+# The service outputs to be included in the SOAP request to the workflow manager
 RES = "<ServiceOutputs><result>Dialog finished</result></ServiceOutputs>"
 RES_B64 = base64.b64encode(RES.encode()).decode()
 
