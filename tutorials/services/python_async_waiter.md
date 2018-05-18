@@ -2,10 +2,10 @@
 In this tutorial, you will take an existing piece of software (in this case,
 it's a very simply Python script which doesn't do anything else but to wait
 for a while) and wrap a simple asynchronous service around it, so that the
-software can be used on the CAxMan infrastructure stack. In a more
-realistic scenario, the software would be anything which takes a longer time
-to complete and where intermediate status updates should be displayed to the
-user during service execution.
+software can be used on the CloudFlow platform. In a more realistic scenario,
+the software would be anything which takes a longer time to complete and where
+intermediate status updates should be displayed to the user during service
+execution.
 
 ## Step 1: Prepare the example code
 This tutorial starts from the code example

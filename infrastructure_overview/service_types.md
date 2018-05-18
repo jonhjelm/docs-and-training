@@ -1,7 +1,7 @@
 # Service types in the CloudFlow platform
-The CloudFlow infrastructure stack currently knows three types of CloudFlow
-services. It is important to understand the differences between those types
-in order to choose the right type for a certain use case.
+The CloudFlow platform currently knows three types of CloudFlow services. It is
+important to understand the differences between those types in order to choose
+the right type for a certain use case.
 
 _Important:_ In this document, "service" generally refers to a CloudFlow
 service rather than a webservice. A single webservice application may contain

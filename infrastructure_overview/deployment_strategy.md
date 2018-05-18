@@ -1,19 +1,19 @@
 # The CloudFlow service-deployment strategy
 
 ## Motivation to use Docker
-Services in the CloudFlow infrastructure stack are deployed using Docker
-containers. Why that? Consider you're developing a service, and you use some
-of the newest features of that fancy library Foo version 9. At the same time,
-the VM your service should be deployed on has only Foo version 8.3 available
-in its repositories. This leaves you with the choice of either rewriting your
-service to fit to the older version of Foo, or manually install the right
-version on the VM. So far so good. But what if you're developing not one but
-two services which need two different, mutually exclusive versions of Foo or
-another tool or library? Or if your local development environment has a
-different Linux distribution (of course with slightly different paths,
-configurations etc.) than your VM? You might end up spending much more time
-on fiddling with the different environments than you do on what you really
-want: developing a really cool service.
+Services in the CloudFlow platform are deployed using Docker containers. Why
+that? Consider you're developing a service, and you use some of the newest
+features of that fancy library Foo version 9. At the same time, the VM your
+service should be deployed on has only Foo version 8.3 available in its
+repositories. This leaves you with the choice of either rewriting your service
+to fit to the older version of Foo, or manually install the right version on the
+VM. So far so good. But what if you're developing not one but two services which
+need two different, mutually exclusive versions of Foo or another tool or
+library? Or if your local development environment has a different Linux
+distribution (of course with slightly different paths, configurations etc.) than
+your VM? You might end up spending much more time on fiddling with the different
+environments than you do on what you really want: developing a really cool
+service.
 
 Enter Docker. A Docker container simply encapsulates the complete environment
 (libraries, software and their configuration in specific versions) a service
@@ -42,11 +42,11 @@ Service deployment in CloudiFacturing comes in two flavours: development
 deployment and production deployment.
 
 ### Development deployment
-During development, being "close to the code" is important for easy 
-debugging and quick development cycles. Therefore, each partner developing
-services for the CloudFlow infrastructure will have a dedicated virtual 
-machine set up for this purpose. On this machine, Docker containers can be
-built and run manually at will.
+During development, being "close to the code" is important for easy debugging
+and quick development cycles. Therefore, each partner developing services for
+the CloudFlow platform will have a dedicated virtual machine set up for this
+purpose. On this machine, Docker containers can be built and run manually at
+will.
 
 #### How to run more than one container behind a single port?
 The development VM will have one of its ports routed to a publicly available

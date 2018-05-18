@@ -1,16 +1,16 @@
-# Service and workflow development for the CloudFlow infrastructure stack in CloudiFacturing
+# Service and workflow development for the CloudFlow platform stack in CloudiFacturing
 Welcome to the CloudFlow/CloudiFacturing service-development resources!
 
 This repository is meant to be a center for documentation relevant for everyone
-who develops services and workflows on the CloudFlow infrastructure stack in
+who develops services and workflows on the CloudFlow platform stack in
 the CloudiFacturing project. Here, you will find everything from high-level
-descriptions of the concepts behind the infrastructure to step-by-step
+descriptions of the concepts behind the platform to step-by-step
 tutorials for advanced topics in service development.
 
 ## Contents
 - [Contents](#contents)
-- [Infrastructure overview](#infrastructure-overview)
-- [Service implementation: concepts, examples, tutorials](#service-implementation-concepts-examples-tutorials)
+- [Platform overview](#platform-overview)
+- [Service implementation: concepts, examples, tutorials](#service-implementation--concepts--examples--tutorials)
   - [CloudFlow Synchronous services](#cloudflow-synchronous-services)
   - [CloudFlow Aynchronous services](#cloudflow-aynchronous-services)
   - [CloudFlow Applications](#cloudflow-applications)
@@ -18,14 +18,14 @@ tutorials for advanced topics in service development.
   - [File access](#file-access)
   - [Using HPC resources](#using-hpc-resources)
   - [Advanced topics](#advanced-topics)
-- [Workflow creation, execution, and monitoring](#workflow-creation-execution-and-monitoring)
+- [Workflow creation, execution, and monitoring](#workflow-creation--execution--and-monitoring)
   - [Basic workflow editing](#basic-workflow-editing)
   - [Using the HPC service](#using-the-hpc-service)
   - [Available utility services](#available-utility-services)
   - [Advanced topics](#advanced-topics)
-- [Reference documentation of infrastructure services](#reference-documentation-of-infrastructure-services)
+- [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
-## Infrastructure overview
+## Platform overview
 New to the CloudFlow platform? Read all about its concepts and background here.
 
 * [Getting access](infrastructure_overview/getting_access.md): Need access to
@@ -173,7 +173,7 @@ hooked up to make a workflow. This section deals with all things done
 
 * [Converting from GSS URIs to file paths and back](workflow_creation/HPC_gss_conversion.md):
   Files and folders are handled using GSS URIs within the CloudFlow 
-  infrastructure, but on an HPC cluster, absolute paths are required. Learn how
+  platform, but on an HPC cluster, absolute paths are required. Learn how
   to convert between the two here.
 
 * [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
@@ -204,9 +204,9 @@ hooked up to make a workflow. This section deals with all things done
   Read how you can implement basic branches and loops using only the workflow
   editor.
 
-## Reference documentation of infrastructure services
-If you need information on a specific method of one of the infrastructure
-services, have a look at our API references:
+## Reference documentation of platform services
+If you need information on a specific method of one of the platform services,
+have a look at our API references:
 * [Workflow manager](service_APIs/api_wfm.md)
 * [Workflow editor](service_APIs/api_wfe.md)
 * [Authentication manager](service_APIs/api_authentication.md)

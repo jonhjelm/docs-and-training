@@ -274,7 +274,7 @@ every HPC service it should be run on.
 To upload your image to GSS, you can use one of the following methods:
 * Start one of the FileBrowser workflows available on the [CloudiFacturing
   portal](https://api.hetcomp.org) and upload via the file chooser application
-* Use one of the infrastructure client libraries
+* Use one of the platform client libraries
   (https://github.com/CloudiFacturing/client_libs)
 
 ### Registering your image

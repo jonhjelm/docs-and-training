@@ -86,4 +86,4 @@ This also makes the fault(s) show up in the service's WSDL description.
 ## SOAP faults in other languages
 Your favourite language is not in the examples above? Why don't you look up
 how to create proper SOAP faults and submit example code to the core
-infrastructure team? ;-)
+platform team? ;-)

@@ -1,9 +1,9 @@
 # Testing SOAP services
-When developing SOAP services for CAxMan, one naturally wants to test the
-services without having to deploy and integrate them in the CAxMan
-infrastructure (especially since debugging through running workflows is
-_extremely_ cumbersome). One therefore needs tools for independent
-testing of the services. This article portrays a few of those tools.
+When developing SOAP services for CloudFlow, one naturally wants to test the
+services without having to deploy and integrate them in the CloudFlow platform
+(especially since debugging through running workflows is _extremely_
+cumbersome). One therefore needs tools for independent testing of the services.
+This article portrays a few of those tools.
 
 ## The Python suds library
 The Python `suds` library provides a very simple way to create SOAP clients
