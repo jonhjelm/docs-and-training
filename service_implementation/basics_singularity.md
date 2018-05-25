@@ -291,12 +291,19 @@ with the following parameters:
 * `image_name`: name to use for the registered image (use this for versioning)
 * `image_source`: GSS URI of the image to register
 
-**TODO:** Replace by a higher-level description using an updated client library
+_Note:_ The [`clfpy` Python library](https://github.com/CloudiFacturing/clfpy)
+for CloudFlow platform access includes a client for accessing the Images API of
+the HPC service. In `clfpy/tests/test_hpc.py`, you'll also find a working 
+example of how to upload and register an image.
 
 ## How to move on
 Once you have successfully registered an image with the HPC service, you can use
 it inside your CloudFlow workflows. Head over to the [HPC-service
 overview](../workflow_creation/HPC_service.md) to learn how to do just that.
 
-Also, have a look on a few more [advanced topics on HPC and Singularity in 
-CloudFlow](advanced_singularity.md).
+The waiter example shown here is very basic and probably won't be enough to
+implement real-life HPC use cases. Specifically, one might want to run several
+processes in parallel inside the Singularity image (the actual computation, a
+job processing log files to create status output, etc.). For details and a more
+involved example, have a look at the next article in the HPC series:
+[Communicating with a running HPC job](./advanced_hpc_notifications.md).
