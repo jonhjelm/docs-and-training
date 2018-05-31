@@ -7,8 +7,9 @@ the CloudiFacturing project. Here, you will find everything from high-level
 descriptions of the concepts behind the platform to step-by-step
 tutorials for advanced topics in service development.
 
-## Contents
-- [Contents](#contents)
+## Contents <!-- omit in toc -->
+- [Documentation version](#documentation-version)
+- [Contributing](#contributing)
 - [Platform overview](#platform-overview)
 - [Service implementation: concepts, examples, tutorials](#service-implementation--concepts--examples--tutorials)
   - [CloudFlow Synchronous services](#cloudflow-synchronous-services)
@@ -24,6 +25,20 @@ tutorials for advanced topics in service development.
   - [Available utility services](#available-utility-services)
   - [Advanced topics](#advanced-topics)
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
+
+## Documentation version 
+Current documentation version: `1.0.0`
+
+See the [Changelog](CHANGELOG.md) for versioning details.
+
+## Contributing
+Everyone is welcome to contribute to this documentation center. Typos,
+clarifications, interesting code examples, or also just questions – anything is
+valuable. To contribute, choose one of the following options:
+* Fork the repository, add your changes and create a pull request.
+* Create an issue in the GitHub issue tracker.
+* Write an email with your ideas to [Robert](mailto:robert.schittny@sintef.no)
+  (discouraged, rather use one of the options above).
 
 ## Platform overview
 New to the CloudFlow platform? Read all about its concepts and background here.
