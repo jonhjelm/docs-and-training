@@ -69,14 +69,28 @@ with the workflow manager during a workflow execution.
    alt="Execution diagram of a synchronous service" width="400px"/>
 </p>
 
-Synchronous services are single SOAP webmethods with arbitrary names and the
-following signature:
+### Implementation specification
+Synchronous services are single SOAP webmethods with arbitrary names. 
+
+##### Inputs
+The inputs depend mainly on the implementation of the service itself. For 
+example, a file-converter service would receive an input file location as an
+input parameter. However, some optional parameters might be helpful, for example
+if your service needs access to the session token, its unique execution ID, or
+the extra parameters.
+
+The `extraParameters` provide the addresses of some platform components,
+ for example, the path to the Workflow Manager's SOAP interface.
 
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
-| In: `sessionToken` | no | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
-| In: more inputs | no | any | Any other inputs required for this specific method |
-| Out: outputs | no | any | Any outputs required for this specific method |
+| `sessionToken` | no | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+| `serviceID` | no | The ID assigned to this service by the executione engine, provided automatically |
+| `extraParameters` | no | Needs to be connected to the "extraParameters" workflow input |
+| more inputs | no | any | Any other inputs required for this specific method |
+
+##### Outputs
+Any outputs required for this specific method. (There are no mandatory outputs.)
 
 ## Asynchronous services
 Asynchronous services are meant for operations which possibly take longer to
@@ -97,19 +111,34 @@ with the workflow manager during a workflow execution.
    alt="Execution diagram of an asynchronous service" width="600px"/>
 </p>
 
-Asynchronous services need to implement several methods, which are detailed in
-the following paragraphs.
+### Implementation specification
+An asynchronous service has to provide two vital methods: One with an arbitrary
+name to start the service and one called `getServiceStatus`, is used to
+continuously query your service for its current execution status.
 
-### Service startup method (must be implemented)
+*Important:* For technical reasons, both these methods must have exactly the
+same output parameters.
+
+Additionally, an asynchronous service may implement the `abortService` method,
+to enable the Workflow Manager to gracefully stop your service, as well as the
+`notifyService` method, which can be used to send a message to this service, if,
+for example, you'd like to signal an event during the execution of this service.
+
+#### Service startup method (mandatory)
 This is the method used to start the service. It can have an arbitrary name.
 
+##### Inputs
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
-| In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
-| In: `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
-| In: more inputs | no | any | Any other inputs required for this specific service |
-| Out: `status_base64`| yes | string | Base64-encoded string holding the current status of the service. May be simple text or HTML which serves as the "GUI" of the service. |
-| Out: more outputs | no | any | Any further outputs required for this specific method |
+| `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
+| `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+| more inputs | no | any | Any other inputs required for this specific service |
+
+##### Outputs
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| `status_base64`| yes | string | Base64-encoded string holding the current status of the service. May be simple text or HTML which serves as the "GUI" of the service. |
+| more outputs | no | any | Any further outputs required for this specific method |
 
 Note that the further outputs are only part of this startup method to define the
 full "signature" of the service. It lies in the nature of an asynchronous 
@@ -117,21 +146,24 @@ service that the actual values of these outputs cannot be known when this method
 returns. Instead, they are set to dummy values (for example "UNSET"). The final
 values will be retrieved by the `getServiceStatus` method.
 
-### Method `getServiceStatus` (must be implemented)
+#### Method `getServiceStatus` (mandatory)
 This method is called periodically (currently every 6 seconds) by the workflow
 manager to query the current status of the service. If the service finishes its
 execution, the last call to `getServiceStatus` will also set the final values of
 any additional output parameter beside `status_base64` which has been defined in
 the service's startup method.
 
-Parameters for this function are:
-
+##### Inputs
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
-| In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
-| In: `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
-| Out: `status_base64`| yes | string | Base64-encoded string holding the current status of the service. May be simple text or HTML which serves as the "GUI" of the service. |
-| Out: more outputs | no | any | Must be the same outputs as defined in the service's startup method |
+| `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
+| `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+
+##### Outputs
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| `status_base64`| yes | string | Base64-encoded string holding the current status of the service. May be simple text or HTML which serves as the "GUI" of the service. |
+| more outputs | no | any | Must be the same outputs as defined in the service's startup method |
 
 Note that `status_base64` must have one of the following values:
 * Any base64-encoded string: Contains any text, html, or even embedded 
@@ -147,19 +179,39 @@ only need to be set to meaningful values if the reported state is `"COMPLETED"`.
 Otherwise, they can be set to dummy values (after all, they are not known yet if
 the service is not finished) just as in the startup method.
 
-### Method `abortService` (optional)
+#### Method `abortService` (optional)
 This optional method will be invoked by the workflow manager when a user cancels
 a running workflow. It is meant to ensure that running services exit gracefully,
 free resources they are using, or make sure that long-running calculations are
 stopped when required.
 
-Parameters for this function are:
-
+##### Inputs
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
-| In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
-| In: `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
-| Out: `success`| yes | bool | `True` if the service aborted successfully |
+| `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
+| `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+
+##### Outputs
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| `success`| yes | bool | `True` if the service aborted successfully |
+
+
+#### Method `notifyService` (optional)
+If provided, this method can be used to pass a message to a running instance
+of the service.
+
+##### Inputs
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+| `serviceID` | yes | string | Unique service-execution ID given by the workflow manager. |
+| `message` | yes | string | The message that is passed to the service. |
+
+##### Outputs
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| `response`| yes | string | The service's response to the received message |
 
 ## Applications
 Applications are very similar to asynchronous services, but with a slightly
@@ -176,19 +228,23 @@ with the workflow manager during a workflow execution.
    alt="Execution diagram of an application" width="600px"/>
 </p>
 
-Applications need to implement several methods, which are detailed in the
-following paragraphs.
+### Implementation specification
 
-### Service startup method (must be implemented)
+#### Service startup method (mandatory)
 This is the method used to start the application. It can have an arbitrary name.
 
+##### Inputs
 | Parameter | Required? | Type | Description |
 | --------- | --------- | ---- | ----------- |
-| In: `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
-| In: `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
-| In: more inputs | no | any | Any other inputs required for this specific application |
-| Out: `status_base64`| yes | string | Base64-encoded string holding the current status of the service. Must contain HTML code which serves as the "GUI" of the application. |
-| Out: more outputs | no | any | Any further outputs required for this specific method |
+| `serviceID` | yes | string | Unique service-execution ID given by the workflow manager.|
+| `sessionToken` | yes | string | The current session token (supplied by the workflow manager), can identify users and their permissions. |
+| more inputs | no | any | Any other inputs required for this specific application |
+
+##### Outputs
+| Parameter | Required? | Type | Description |
+| --------- | --------- | ---- | ----------- |
+| `status_base64`| yes | string | Base64-encoded string holding the current status of the service. Must contain HTML code which serves as the "GUI" of the application. |
+| more outputs | no | any | Any further outputs required for this specific method |
 
 Note that just like for asynchronous services, the further outputs are only part
 of this startup method to define the full "signature" of the service. As the
@@ -196,7 +252,7 @@ actual values of these outputs cannot be known when this method returns, they
 can be set to dummy values (for example "UNSET"). The final values have to be
 actively posted to the workflow manager.
 
-### Method `abortService` (optional)
+#### Method `abortService` (optional)
 See `abortService` description for asynchronous services.
 
 ### How to finish an application's execution and return results
