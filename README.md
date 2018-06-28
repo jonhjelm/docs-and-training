@@ -11,7 +11,7 @@ tutorials for advanced topics in service development.
 - [Documentation version](#documentation-version)
 - [Contributing](#contributing)
 - [Platform overview](#platform-overview)
-- [Service implementation: concepts, examples, tutorials](#service-implementation--concepts--examples--tutorials)
+- [Service implementation: concepts, examples, tutorials](#service-implementation-concepts-examples-tutorials)
   - [CloudFlow Synchronous services](#cloudflow-synchronous-services)
   - [CloudFlow Aynchronous services](#cloudflow-aynchronous-services)
   - [CloudFlow Applications](#cloudflow-applications)
@@ -19,7 +19,7 @@ tutorials for advanced topics in service development.
   - [File access](#file-access)
   - [Using HPC resources](#using-hpc-resources)
   - [Advanced topics](#advanced-topics)
-- [Workflow creation, execution, and monitoring](#workflow-creation--execution--and-monitoring)
+- [Workflow creation, execution, and monitoring](#workflow-creation-execution-and-monitoring)
   - [Basic workflow editing](#basic-workflow-editing)
   - [Using the HPC service](#using-the-hpc-service)
   - [Available utility services](#available-utility-services)
@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `1.0.0`
+Current documentation version: `1.1.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 

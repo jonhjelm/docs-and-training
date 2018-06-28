@@ -15,6 +15,10 @@ With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
 
+### Version 1.1.0 – Extends service-type descriptions
+* (MINOR) Extends the service-type descriptions and adds the optional
+  `notifyService` method to asynchronous services.
+
 ### Version 1.0.0 – Initial release
 This is the initial release which introduces a versioning system for the
 platform documentation. Consequently, no further changes are recorded in or
