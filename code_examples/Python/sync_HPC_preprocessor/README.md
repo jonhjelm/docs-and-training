@@ -1,7 +1,9 @@
 Python example for an HPC pre-processor
 ========================================
+This is a sample preprocessor service for the HPC launcher.
 
-This is a very simple example of a synchronous service written in Python.
+It is currently deployed for the IT4I Anselm cluster under `http://sintef/sync/waiter_prep_ans.owl#waiter_prep_Service` and used in the
+workflow `http://workflows/sintef/HpcWaiterAnselm.owl#HPC_Waiter_Anselm`.
 
 ## Prerequisites
 To build, run, and test this  service, you only need to have Docker
