@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `1.3.0`
+Current documentation version: `1.4.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -185,6 +185,11 @@ hooked up to make a workflow. This section deals with all things done
   Any newly created service needs to be registered properly to be usable in the
   CloudFlow platform. Learn about all details and caveats of service
   registration here.
+
+* (new in v1.4.0) [Upgrading services](workflow_creation/service_upgrades.md): 
+  Sometimes, an already deployed and registered service needs to be upgraded,
+  possibly with changes to the input and output parameters. Read here what to
+  keep in mind when performing such upgrades.
 
 ### Using the HPC service
 * [Overview over the generic HPC service](workflow_creation/HPC_service.md):

@@ -15,6 +15,10 @@ With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
 
+### 2018-07-02: Version 1.4.0 – Added info on service upgrades
+* (MINOR) Added info on [service upgrades](./workflow_creation/service_upgrades.md)
+  and their implications.
+
 ### 2018-07-02: Version 1.3.0 – Added sample preprocessor
 * (MINOR) Slight update of documentation on HPC pre- and post-processing services
 * (MINOR) New [code example for HPC preprocessors](./code_examples/Python/sync_HPC_preprocessor)
