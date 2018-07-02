@@ -62,9 +62,6 @@ New to the CloudFlow platform? Read all about its concepts and background here.
   Generic Storage Services and the available storage solutions in
   CloudiFacturing.
 
-* [Service-deployment concept](infrastructure_overview/deployment_strategy.md):
-  Learn about the CloudFlow deployment strategy here.
-
 ## Service implementation: concepts, examples, tutorials
 All workflows in the CloudFlow platform are basically a series of calls to
 individual web services. This section provides information on how to develop
@@ -106,6 +103,20 @@ the graphical tools provided on the portal).
     for a high-level description of applications and their required interface.
   * [Code example (Python): Dialog](code_examples/Python/app_simple):
     Simplest possible example application containing a one-button dialog.
+
+
+### Service deployment
+  * [Service-deployment concept](service_implementation/deployment_strategy.md):
+  Learn about the CloudFlow deployment strategy here.
+
+  * (new in v1.2.0) For development: [Manual service deployment on dedicated VMs](service_implementation/deployment_manual.md):
+    During service development, close control over the deployment of the Docker
+    containers may be required. Read here how to do this on a dedicated virtual
+    machine.
+
+  * (To be written) For production: [Automated service deployment](service_implementation/deployment_automated.md):
+    Once a service is fully developed, deployment should be moved to an 
+    automated way, which is described here.
 
 
 ### SOAP services
