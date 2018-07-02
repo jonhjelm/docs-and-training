@@ -197,7 +197,7 @@ hooked up to make a workflow. This section deals with all things done
   CloudFlow platform. Learn about all details and caveats of service
   registration here.
 
-* (new in v1.4.0) [Upgrading services](workflow_creation/service_upgrades.md): 
+* (new in v1.2.0) [Upgrading services](workflow_creation/service_upgrades.md): 
   Sometimes, an already deployed and registered service needs to be upgraded,
   possibly with changes to the input and output parameters. Read here what to
   keep in mind when performing such upgrades.
@@ -212,7 +212,7 @@ hooked up to make a workflow. This section deals with all things done
   platform, but on an HPC cluster, absolute paths are required. Learn how
   to convert between the two here.
 
-* (updated in v1.3.0) [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
+* (updated in v1.2.0) [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
   Explains how one can interface with the generic HPC service by writing pre-
   and post-processor services.
 
