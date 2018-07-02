@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `1.2.0`
+Current documentation version: `1.3.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -196,7 +196,7 @@ hooked up to make a workflow. This section deals with all things done
   platform, but on an HPC cluster, absolute paths are required. Learn how
   to convert between the two here.
 
-* [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
+* (updated in v1.3.0) [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
   Explains how one can interface with the generic HPC service by writing pre-
   and post-processor services.
 

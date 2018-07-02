@@ -15,9 +15,15 @@ With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
 
+### 2018-07-02: Version 1.3.0 – Added sample preprocessor
+* (MINOR) Slight update of documentation on HPC pre- and post-processing services
+* (MINOR) New [code example for HPC preprocessors](./code_examples/Python/sync_HPC_preprocessor)
+* (PATCH) Fixed broken link in v1.2.0 changelog
+* (PATCH) Added missing part in refissh API reference
+
 ### 2018-07-02: Version 1.2.0 – New info on HPC logs and debugging
 * (MINOR) HPC jobs now expose their log files via GSS, see the [info on HPC
-  debugging](../service_implementation/basics_hpc_logs.md) for details.
+  debugging](./service_implementation/basics_hpc_logs.md) for details.
 
 ### 2018-06-28: Version 1.1.0 – Extends service-type descriptions
 * (MINOR) Extends the service-type descriptions and adds the optional

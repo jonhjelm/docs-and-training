@@ -14,12 +14,18 @@ alongside a Singularity image. This section describes their use and concepts.
 
 ## Pre-processing services
 A pre-processing service, in its simplest form, takes a number of input file
-paths as input arguments and outputs all parameters that the generic HPC service
-expects as input. It is usually a simple synchronous service. (Documentation and
-code examples for synchronous services are available on the main page of this
-repository.)
+paths or parameters as input arguments and outputs all parameters that the
+generic HPC service expects as input. It is usually a simple synchronous
+service. This service can then be used in the workflow editor to remove any
+hard-coded input parameters, such as depicted in the next image:
+<p align="center">
+  <img src="img_hpc/preprocessor.png"
+   alt="Example of an HPC pre-processor service in the WFE" width="700px"/>
+</p>
 
-Note that a workflow would usually start with the selection of some input files,
+Head over to the code examples for a documented [sample HPC preprocessor](../code_examples/Python/sync_HPC_preprocessor/) to download and adapt.
+
+Note that a workflow often starts with the selection of some input files,
 which result in CloudFlow GSS URIs and _not_ in file paths which can be
 understood in the HPC environment. You should therefore use corresponding
 [converter services](HPC_gss_conversion.md) which convert these GSS URIs to 
