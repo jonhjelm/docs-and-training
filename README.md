@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `1.1.0`
+Current documentation version: `1.2.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -142,6 +142,11 @@ the graphical tools provided on the portal).
     Sometimes, communication with a running HPC job is important, for example to
     be able to control or abort a simulation if required. This article explains
     how to set up a Singularity image for this kind of communication.
+
+  * (new in v1.2.0) [Debugging HPC applications](service_implementation/basics_hpc_logs.md):
+    Debugging HPC applications in CloudFlow can be difficult due to many
+    layers of abstraction between the running application and the user. This
+    article gives some hints on debugging and loggin.
 
   * [Singularity and MPI applications](service_implementation/advanced_hpc_mpi.md):
     (not written yet) Learn how to prepare your Singularity image for parallel

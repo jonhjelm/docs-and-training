@@ -249,7 +249,8 @@ status and result files being created and updated in the newly created
 
 It is advisable to always perform such local tests before registering an image
 with the HPC service, since debugging will be considerably harder once the
-image execution is hidden behind several further abstraction layers.
+image execution is hidden behind several further abstraction layers. See [HPC 
+debugging and logs](./basics_hpc_logs.md) for details.
 
 ### Testing on an HPC cluster
 If you'd like to test an image directly on an HPC cluster, upload it to the
