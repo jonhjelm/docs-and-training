@@ -15,6 +15,10 @@ With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
 
+### 2018-08-02: Version 1.2.1 – Corrected GSS API
+* (PATCH) Updated the [GSS API](./service_APIs/api_gss.md) to clarify some 
+  ambiguities in the construction of GSS URIs for new files and folders.
+
 ### 2018-07-02: Version 1.2.0 – HPC logs, sample preprocessor, service deployment
 * (MINOR) Moved [deployment concept](./service_implementation/deployment_strategy.md) into separate deployment section.
 * (MINOR) Added documentation of [manual service deployment](./service_implementation/deployment_manual.md)

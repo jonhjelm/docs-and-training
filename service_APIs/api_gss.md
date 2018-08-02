@@ -2,11 +2,22 @@
 
 ## SOAP webmethods
 
+*Note:* Many of the following methods have an argument `fileID`. Often, however,
+this name can be slightly misleading. Please read the detailed argument
+descriptions for every method to get the correct meaning of the arguments.
+
 ### `getResourceInformation(fileID, session_id)`
-Queries the type and other information for an arbitrary GSS URI.
+Queries the type and other information for an arbitrary GSS URI. Use this also
+when creating a new file.
 
 Arguments:
-* `fileID (string)`: GSS URI (file, folder, or non-existent resource)
+* `fileID (string)`: One of the three following options:
+  * A valid GSS file URI
+  * A valid GSS folder URI
+  * A valid GSS folder URI with the appendix `/<new_name>`
+  
+  In the last case, `<new_name>` designates a non-existing file or folder name
+  inside the given GSS folder URI.
 * `session_id (string)`: Valid authentication token (obtained from the
   authentication manager, is also available as an automatic service input in a
   workflow)
@@ -21,7 +32,14 @@ _Note:_ An alternative to using `containsFile()` is to call
 `ResourceInformation` object.
 
 Arguments:
-* `fileID (string)`: GSS URI of a (file, folder, or non-existent resource)
+* `fileID (string)`: One of the three following options:
+  * A valid GSS file URI
+  * A valid GSS folder URI
+  * A valid GSS folder URI with the appendix `/<new_name>`
+  
+  In the last case, `<new_name>` designates a non-existing file or folder name
+  inside the given GSS folder URI.
+
 * `session_id (string)`: Valid authentication token (obtained from the
   authentication manager, is also available as an automatic service input in a
   workflow)
@@ -59,8 +77,11 @@ folder).
 Creates a new folder.
 
 Arguments:
-* `folderID (string)`: Valid GSS URI of a non-existent folder. (Use 
-  `getResourceInformation()` to verify that a folder URI does not yet exist.)
+* `folderID (string)`: A string of the form `"<GSS_folder_URI>/<new_name>"`,
+  composed of a valid GSS URI of an existing folder and the name of the new
+  folder to be created in this parent folder. (You can use
+  `getResourceInformation()` to verify that this string doesn't represent an
+  existing folder or file and allows creation.)
 * `session_id (string)`: Valid authentication token (obtained from the
   authentication manager, is also available as an automatic service input in a
   workflow)
@@ -105,8 +126,12 @@ A `ResourceInformation` object contains the following fields:
 * `visualName (string)`: the name of a resource (such as the file name)
 * `uniqueName (string)`: the full GSS URI of a resource
 * `type (string)`: one of `["FILE", "FOLDER", "NOTEXIST"]`
-* `queryForName (boolean)`: `true` if a new resource's file name cannot be 
-  "predicted" (for non tree based storage systems)
+* `queryForName (boolean)`: If `type` is "NOTEXIST", this parameter indicates
+  that the URI string given to `getResourceInformation()` is not a valid GSS URI
+  pointing to the resource once it has been created. To obtain the actual GSS URI
+  after creation, another call to `getResourceInformation()` with the same URI
+  string has to be made; the GSS URI will then be delivered in the `uniqueName`
+  parameter.
 * `createDescription (RequestDescription)`: "recipe" for an HTML request which
   creates the resource 
 * `readDescription (RequestDescription)`: "recipe" for an HTML request which
@@ -139,6 +164,26 @@ Example (full request descriptions not shown):
    visualName = "testfile.file"
  }
 ```
+
+#### Example of the correct usage with `queryForName`
+With non-tree-based storage systems (such as Jotne PLM), care has to be taken
+when creating new files or folders, since the GSS URIs do _not_ represent a tree
+path.
+
+The URIs in such an storage system can have a form such as `<SID>://<REPO>/<MODEL>/<ID>`,
+where `"ID"` is an opaque number which can denote any file inside any subfolder
+of the storage system.
+
+To create a new file `"my_file.txt"` inside a known folder on such a system, do
+the following:
+1. It is assumed that `folder_URI` holds a valid GSS URI pointing to the folder
+   in which the file should be created.
+2. Call `getResourceInformation(folder_URI + "/my_file.txt")`. The resource-information
+   object will report a "NOTEXIST" type and "queryForName" will be true.
+3. Upload the file using the information in the resource information object.
+4. The constructed string `folder_URI + "/my_file.txt"` is _not_ a valid GSS URI.
+   Therefore, make another call to `getResourceInformation(folder_URI + "/my_file.txt")`.
+   The result's `uniqueName` will then tell you the valid GSS URI.
 
 ### The `RequestDescription` object
 A `RequestDescription` object contains all necessary information to make an
