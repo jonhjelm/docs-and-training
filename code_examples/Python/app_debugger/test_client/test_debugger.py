@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Simple test client to call the waiter SOAP service"""
+"""Simple test client to call the debugger SOAP service"""
 
 import os
 import sys
@@ -41,12 +41,12 @@ def main():
         print("Error: environment variable CONTEXT_ROOT not set.")
         exit(1)
 
-    url = "http://localhost:{}{}/Dialog/Dialog?wsdl".format(port, context_root)
+    url = "http://localhost:{}{}/Debugger/Debugger?wsdl".format(port, context_root)
     print("wsdl URL is {}".format(url))
 
-    print("Calling startDialog()")
-    response = soap_call(url, "startDialog", ["serviceID1", "sessionToken", "WFM=https://blablabla.com/WFM?wsdl,"])
-    html = base64.b64decode(response["status_base64"]).decode()
+    print("Calling displayParameters()")
+    response = soap_call(url, "displayParameters", ["serviceID1", "sessionToken", "WFM=https://blablabla.com/WFM?wsdl,", "Some input", "Label1", "Second input", "Label2"])
+    html = base64.b64decode(response).decode()
     with open("test.html", 'w') as fout:
         fout.write(html)
     print("Result written to test.html")

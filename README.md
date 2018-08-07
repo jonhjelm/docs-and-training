@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `1.2.1`
+Current documentation version: `1.3.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -71,6 +71,12 @@ platform.
 All documentation here deals with things done "in code" (as opposed to via
 the graphical tools provided on the portal).
 
+### General concepts
+* (new in v1.3.0) [Available parameters](./service_implementation/available_parameters.md):
+  The workflow manager offers a set of "global" parameters which are available
+  to every service. Here, we take a closer look at these parameters and their
+  main use cases.
+
 ### CloudFlow Synchronous services
   * Check out the [CloudFlow service types](infrastructure_overview/service_types.md)
     for a high-level description of synchronous services and their required
@@ -103,13 +109,16 @@ the graphical tools provided on the portal).
     for a high-level description of applications and their required interface.
   * [Code example (Python): Dialog](code_examples/Python/app_simple):
     Simplest possible example application containing a one-button dialog.
+  * (new in v1.3.0) [Code example (Python): Debugger](code_examples/Python/app_debugger):
+    Debug application for workflows; pauses a workflow and displays parameter
+    contents.
 
 
 ### Service deployment
   * [Service-deployment concept](service_implementation/deployment_strategy.md):
   Learn about the CloudFlow deployment strategy here.
 
-  * (new in v1.2.0) For development: [Manual service deployment on dedicated VMs](service_implementation/deployment_manual.md):
+  * For development: [Manual service deployment on dedicated VMs](service_implementation/deployment_manual.md):
     During service development, close control over the deployment of the Docker
     containers may be required. Read here how to do this on a dedicated virtual
     machine.
@@ -154,7 +163,7 @@ the graphical tools provided on the portal).
     be able to control or abort a simulation if required. This article explains
     how to set up a Singularity image for this kind of communication.
 
-  * (new in v1.2.0) [Debugging HPC applications](service_implementation/basics_hpc_logs.md):
+  * [Debugging HPC applications](service_implementation/basics_hpc_logs.md):
     Debugging HPC applications in CloudFlow can be difficult due to many
     layers of abstraction between the running application and the user. This
     article gives some hints on debugging and loggin.
@@ -197,7 +206,7 @@ hooked up to make a workflow. This section deals with all things done
   CloudFlow platform. Learn about all details and caveats of service
   registration here.
 
-* (new in v1.2.0) [Upgrading services](workflow_creation/service_upgrades.md): 
+* [Upgrading services](workflow_creation/service_upgrades.md): 
   Sometimes, an already deployed and registered service needs to be upgraded,
   possibly with changes to the input and output parameters. Read here what to
   keep in mind when performing such upgrades.
@@ -212,7 +221,7 @@ hooked up to make a workflow. This section deals with all things done
   platform, but on an HPC cluster, absolute paths are required. Learn how
   to convert between the two here.
 
-* (updated in v1.2.0) [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
+* [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
   Explains how one can interface with the generic HPC service by writing pre-
   and post-processor services.
 
@@ -230,6 +239,11 @@ hooked up to make a workflow. This section deals with all things done
   Want to show some HTML during a workflow? Need a user decision somewhere inside
   the workflow? DFKI's utility suite offers ready-made services just for that.
 
+* (new in v1.3.0) [Parameter debugger](code_examples/Python/app_debugger/README.md):
+  This simple application offers the option to pause a workflow and display any
+  parameters that are currently in use. Great for debugging failing workflows
+  or services. Offered as a code example with complete source code.
+
 ### Advanced topics
 * [Using workflows inside workflows](workflow_creation/advanced_workflow_nesting.md):
   One of the great strengths of the CloudFlow workflow concepts is that one can
@@ -246,5 +260,5 @@ have a look at our API references:
 * [Workflow manager](service_APIs/api_wfm.md)
 * [Workflow editor](service_APIs/api_wfe.md)
 * [Authentication manager](service_APIs/api_authentication.md)
-* (updated in v1.2.1) [GSS](service_APIs/api_gss.md)
+* [GSS](service_APIs/api_gss.md)
 * [refissh](service_APIs/api_refissh.md)

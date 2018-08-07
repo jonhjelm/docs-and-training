@@ -23,15 +23,17 @@ class DialogService(ServiceBase):
     # under which the service will be reachable. It will, however, appear
     # in the wsdl file.
 
-    @srpc(Unicode, Unicode, _returns=(Unicode, Unicode),
+    @srpc(Unicode, Unicode, Unicode, _returns=(Unicode, Unicode),
           _out_variable_names=("status_base64", "result"))
-    def startDialog(serviceID, sessionToken):
+    def startDialog(serviceID, sessionToken, extraParameters):
         """
         Starts the dialog application.
         """
         logging.info("startDialog() called with service ID {}".format(serviceID))
 
-        status = base64.b64encode(create_html_dialog(serviceID, sessionToken).encode()).decode()
+        eP_parsed = parse_extra_parameters(extraParameters)
+
+        status = base64.b64encode(create_html_dialog(serviceID, sessionToken, eP_parsed).encode()).decode()
         result = "UNSET"
 
         return (status, result)
@@ -50,7 +52,7 @@ DIALOG = """<html>
 <script type="text/javascript">
 var request = new XMLHttpRequest();
 function cont_wf() {{
-    request.open("POST", "https://api.hetcomp.org/dfki/WorkflowManager2Service/services/SOAP", false);
+    request.open("POST", "{wfm_endpoint}", false);
     request.setRequestHeader("Content-Type", "text/xml");
     request.setRequestHeader("SOAPAction", "");
     var request_body = '<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:wor=\"http://www.eu-cloudflow.eu/dfki/WorkflowManager2/\">' +
@@ -85,12 +87,25 @@ RES = "<ServiceOutputs><result>Dialog finished</result></ServiceOutputs>"
 RES_B64 = base64.b64encode(RES.encode()).decode()
 
 
-def create_html_dialog(serviceID, sessionToken):
+def create_html_dialog(serviceID, sessionToken, eP):
     """Creates a very simple html dialog."""
     html = DIALOG.format(
         sid=serviceID,
         stk=sessionToken,
+        wfm_endpoint=eP["WFM"],
         result=RES_B64,
     )
 
     return html
+
+
+def parse_extra_parameters(extra_pars):
+    """Parses an extra-parameters string into a dict.
+
+    The extra parameters as delivered from the workflow manager are encoded in
+    a single string of the format "key1=value1,key2=value2,key3=value3,...".
+    Important: The string contains another comma at the very end.
+    """
+    print(extra_pars)
+    return {pair.split('=')[0]: pair.split('=')[1] for pair in
+            extra_pars.split(',')[:-1]}
