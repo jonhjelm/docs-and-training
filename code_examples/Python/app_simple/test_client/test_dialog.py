@@ -45,7 +45,7 @@ def main():
     print("wsdl URL is {}".format(url))
 
     print("Calling startDialog()")
-    response = soap_call(url, "startDialog", ["serviceID1", "sessionToken"])
+    response = soap_call(url, "startDialog", ["serviceID1", "sessionToken", "WFM=https://blablabla.com/WFM?wsdl,"])
     html = base64.b64decode(response["status_base64"]).decode()
     with open("test.html", 'w') as fout:
         fout.write(html)
