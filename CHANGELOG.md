@@ -15,6 +15,14 @@ With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
 
+### 2018-08-07: Version 1.3.0 – New code examples, description of global parameters
+* (MINOR) Added a description of the ["global"
+  parameters](./service_implementation/available_parameters.md) available for
+  each service.
+* (MINOR) Added the [workflow debugger](./code_examples/Python/app-debugger) 
+  code example, which is deployed and ready to use for everyone.
+* (PATH) Removed hard-coded WFM endpoint from [simple application code example](./code_examples/Python/app-simple).
+
 ### 2018-08-02: Version 1.2.1 – Corrected GSS API
 * (PATCH) Updated the [GSS API](./service_APIs/api_gss.md) to clarify some 
   ambiguities in the construction of GSS URIs for new files and folders.
