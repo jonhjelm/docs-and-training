@@ -139,7 +139,7 @@ The request data has to contain the following json-formatted job specifications:
 "image_name": "hetcomp/sing_test",
 "commandline": "/runscript.sh",
 "parameters": "nothing important",
-"cluster": "anselm",
+"queue": "qexp",
 "N_nodes": 1,
 "N_cores": 24,
 "max_runtime": 5

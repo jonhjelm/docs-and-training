@@ -15,6 +15,9 @@ With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
 
+### 2018-08-07: Version 1.3.1 – Fixes refissh API docs
+* (PATCH): Fixed parameter list for job submission in the [refissh API](./service_API/api_refissh.md).
+
 ### 2018-08-07: Version 1.3.0 – New code examples, description of global parameters
 * (MINOR) Added a description of the ["global"
   parameters](./service_implementation/available_parameters.md) available for
