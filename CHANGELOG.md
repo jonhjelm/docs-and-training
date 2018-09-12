@@ -15,6 +15,10 @@ With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
 
+### 2018-09-12: Version 1.3.2 – Document wsdl peculiarity of Python spyne
+* (PATCH) Added documentation of the peculiar mechanism of wsdl caching when
+  using the Python spyne library. See article on [manual service deployment](./service_implementation/deployment_manual.md).
+
 ### 2018-08-07: Version 1.3.1 – Fixes refissh API docs
 * (PATCH): Fixed parameter list for job submission in the [refissh API](./service_API/api_refissh.md).
 

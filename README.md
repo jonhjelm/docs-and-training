@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `1.3.1`
+Current documentation version: `1.3.2`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -118,7 +118,7 @@ the graphical tools provided on the portal).
   * [Service-deployment concept](service_implementation/deployment_strategy.md):
   Learn about the CloudFlow deployment strategy here.
 
-  * For development: [Manual service deployment on dedicated VMs](service_implementation/deployment_manual.md):
+  * (updated in v1.3.2) For development: [Manual service deployment on dedicated VMs](service_implementation/deployment_manual.md):
     During service development, close control over the deployment of the Docker
     containers may be required. Read here how to do this on a dedicated virtual
     machine.

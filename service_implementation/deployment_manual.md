@@ -69,6 +69,34 @@ wsdl). The wsdl URL can then be used in the workflow editor to [register the
 service](../tutorials/workflows/basics_service_registration.md). Once this is
 done, the service can be used inside a workflow.
 
+## What if my service cannot be executed as part of a workflow?
+It can happen (for services using Python with the Spyne library) that even
+though you see a seemingly valid wsdl under an URL similar to the one mentioned
+above, the service is not working when being used as part of a workflow. In such
+a case, check the wsdl for a section like the following:
+```xml
+<wsdl:service name="WaiterService">
+  <wsdl:port name="WaiterService" binding="tns:WaiterService">
+    <soap:address location="http://localhost:8080/nabladot/waiter/Waiter"/>
+  </wsdl:port>
+</wsdl:service>
+```
+The SOAP address (pointing to localhost) is obviously wrong, it should begin
+with `https://srv.hetcomp./org/...`. The reason for this error is that the
+Python Spyne library creates the wsdl from the very first request it receives,
+and caches it afterwards. If that request commes from the VM itself (for 
+example by using `cURL` to manually test if the service is available), localhost
+will be used for creating the SOAP port address.
+
+The simple fix for this problem is to:
+1. Kill the container on the VM
+2. Restart the container with the same settings as before
+3. Open the wsdl URL `https://srv.hetcomp.org/...` in the browser _before_
+   making any other requests to the service.
+
+Once this first request using the correct address is made, the correct wsdl will
+be cached and available for service execution in a workflow.
+
 ## How to run more than one container behind a single port?
 The development VM will have one of its ports routed to a publicly available
 path (currently `https://srv.hetcomp.org/<some_path>`). Consider your VM has
