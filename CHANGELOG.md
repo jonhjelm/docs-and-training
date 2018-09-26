@@ -15,6 +15,10 @@ With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
 
+### 2018-09-26: Version 1.3.3 – Clarify use of /service in Singularity
+* (PATCH) Added clarification of the use of the /service mount in Singularity
+  images. See article on [Singularity basics](./service_implementation/basics_singularity.md).
+
 ### 2018-09-12: Version 1.3.2 – Document wsdl peculiarity of Python spyne
 * (PATCH) Added documentation of the peculiar mechanism of wsdl caching when
   using the Python spyne library. See article on [manual service deployment](./service_implementation/deployment_manual.md).

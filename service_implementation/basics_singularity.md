@@ -62,7 +62,10 @@ image is executed on the HPC cluster by the CloudFlow HPC service. `/home` and
 storage which are accessible also by GSS (using, for example, the File Browser
 workflow). They thus allow your packaged application to access all files on the
 HPC storage which are available via GSS. `/service` will be used by your
-packaged application to communicate status reports to the HPC service.
+packaged application to communicate status reports to the HPC service. It can
+furthermore be used for cross-node communication and temporary files which are
+_not_ supposed to be visible to the user, since `/service` is not exposed via
+GSS.
 
 **Important:** In your own recipes, you _always have to create these
 mountpoints_. If you don't, your image will _not_ work on the CloudFlow
