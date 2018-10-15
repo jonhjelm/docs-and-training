@@ -202,7 +202,7 @@ your personal credentials and execute it there.
 To test an image under circumstances as close as possible to those when running
 as part of a CloudFlow workflow, please use the following call command:
 ```bash
-singularity exec --cleanenv \
+singularity exec \
     -H <HOME>:/home -B <SCRATCH>:/scratch -B <SERVICE>:/service \
     <IMAGE> <COMMAND> <PARAMETERS>
 ```
@@ -236,7 +236,7 @@ mkdir temp_home
 mkdir temp_scratch
 mkdir temp_service
 
-singularity exec --cleanenv \
+singularity exec \
     -H $(pwd)/temp_home:/home \
     -B $(pwd)/temp_scratch:/scratch \
     -B $(pwd)/temp_service:/service \
@@ -257,8 +257,9 @@ debugging and logs](./basics_hpc_logs.md) for details.
 
 ### Testing on an HPC cluster
 If you'd like to test an image directly on an HPC cluster, upload it to the
-login node and execute `ml Singularity` to load the Singularity module before
-making the above calls.
+login node and execute `ml Singularity/<version>` to load the Singularity module
+before making the above calls. Make sure that the loaded version fits to your
+image. You can list all available modules via `ml av`.
 
 ## Uploading and registering a Singularity image
 Once you have successfully developed and tested a Singularity image, you need

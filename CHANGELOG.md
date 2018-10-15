@@ -15,6 +15,14 @@ With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
 
+### 2018-10-15: Version 2.0.0 – Addition of MPI support
+* (MAJOR) In line with major updates to two platform components (refissh and the
+  HPC service), the documentation now includes a description of how to enable
+  MPI for HPC jobs. Since the function signature for HPC-job launches changed,
+  this is a major version upgrade.
+* (MAJOR) Updated the [refissh API documentation](./service_APIs/api_refissh.md)
+  to reflect MPI support and the change in mandatory parameters.
+
 ### 2018-09-26: Version 1.3.3 – Clarify use of /service in Singularity
 * (PATCH) Added clarification of the use of the /service mount in Singularity
   images. See article on [Singularity basics](./service_implementation/basics_singularity.md).
