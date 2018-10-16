@@ -82,6 +82,7 @@ proper MPI support.
 _Anselm cluster:_
 * `OpenMPI/1.10.7-GCC-6.3.0-2.27`
 * `OpenMPI/2.1.0-GCC-6.3.0-2.27`
+* `OpenMPI/2.1.1-GCC-6.3.0-2.27` (recommended)
 * `MPICH/3.2.1-GCC-6.3.0-2.27`
 * `impi/2018.3.222-iccifort-2018.3.222-GCC-8.1.0-2.30`
 * `mvapich2/1.9-icc`
