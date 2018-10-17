@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `1.3.3`
+Current documentation version: `2.0.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -72,7 +72,7 @@ All documentation here deals with things done "in code" (as opposed to via
 the graphical tools provided on the portal).
 
 ### General concepts
-* (new in v1.3.0) [Available parameters](./service_implementation/available_parameters.md):
+* [Available parameters](./service_implementation/available_parameters.md):
   The workflow manager offers a set of "global" parameters which are available
   to every service. Here, we take a closer look at these parameters and their
   main use cases.
@@ -109,7 +109,7 @@ the graphical tools provided on the portal).
     for a high-level description of applications and their required interface.
   * [Code example (Python): Dialog](code_examples/Python/app_simple):
     Simplest possible example application containing a one-button dialog.
-  * (new in v1.3.0) [Code example (Python): Debugger](code_examples/Python/app_debugger):
+  * [Code example (Python): Debugger](code_examples/Python/app_debugger):
     Debug application for workflows; pauses a workflow and displays parameter
     contents.
 
@@ -118,7 +118,7 @@ the graphical tools provided on the portal).
   * [Service-deployment concept](service_implementation/deployment_strategy.md):
   Learn about the CloudFlow deployment strategy here.
 
-  * (updated in v1.3.2) For development: [Manual service deployment on dedicated VMs](service_implementation/deployment_manual.md):
+  * For development: [Manual service deployment on dedicated VMs](service_implementation/deployment_manual.md):
     During service development, close control over the deployment of the Docker
     containers may be required. Read here how to do this on a dedicated virtual
     machine.
@@ -152,7 +152,7 @@ the graphical tools provided on the portal).
     resources without any change to the computation code. This article explains
     the concepts and technical background of this solution.
 
-  * (updated in v1.3.3) [Packaging software in Singularity images](service_implementation/basics_singularity.md):
+  * (updated in v2.0.0) [Packaging software in Singularity images](service_implementation/basics_singularity.md):
     All software that should be run on the HPC resources accessible through the
     CloudFlow platform must be wrapped into Singularity images which are then
     executed as isolated containers on an HPC cluster. Learn how to create,
@@ -168,8 +168,8 @@ the graphical tools provided on the portal).
     layers of abstraction between the running application and the user. This
     article gives some hints on debugging and loggin.
 
-  * [Singularity and MPI applications](service_implementation/advanced_hpc_mpi.md):
-    (not written yet) Learn how to prepare your Singularity image for parallel
+  * (new in v2.0.0) [Singularity and MPI applications](service_implementation/advanced_hpc_mpi.md):
+    Learn how to prepare your Singularity image for parallel
     execution using MPI.
 
   * [GPU support for Singularity images](service_implementation/advanced_hpc_gpu.md):
@@ -212,7 +212,7 @@ hooked up to make a workflow. This section deals with all things done
   keep in mind when performing such upgrades.
 
 ### Using the HPC service
-* [Overview over the generic HPC service](workflow_creation/HPC_service.md):
+* (updated in v2.0.0) [Overview over the generic HPC service](workflow_creation/HPC_service.md):
   Introduces the generic HPC service and showcases how it can be used to
   execute Singularity images on the available HPC resources.
 
@@ -239,7 +239,7 @@ hooked up to make a workflow. This section deals with all things done
   Want to show some HTML during a workflow? Need a user decision somewhere inside
   the workflow? DFKI's utility suite offers ready-made services just for that.
 
-* (new in v1.3.0) [Parameter debugger](code_examples/Python/app_debugger/README.md):
+* [Parameter debugger](code_examples/Python/app_debugger/README.md):
   This simple application offers the option to pause a workflow and display any
   parameters that are currently in use. Great for debugging failing workflows
   or services. Offered as a code example with complete source code.

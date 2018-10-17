@@ -134,17 +134,38 @@ variables.
 ### `POST $URL/jobs/<service_ID>` : start a new job
 For a unique and not yet known service ID, a new job is started on the scheduler.
 The request data has to contain the following json-formatted job specifications:
-```
+```json
 {
-"image_name": "hetcomp/sing_test",
-"commandline": "/runscript.sh",
-"parameters": "nothing important",
+"image_name": "my_image.simg",
+"commandline": "python",
+"parameters": "/app/start.py par1 par2",
 "queue": "qexp",
 "N_nodes": 1,
 "N_cores": 24,
-"max_runtime": 5
+"max_runtime": 5,
+"singularity_version": "2.4.2"
 }
 ```
+`singularity_version` indicates which version of the Singularity module should
+be loaded on the HPC cluster. Obviously, only available version numbers should
+be indicated here.
+
+To start an MPI-enabled job, the following three additional parameters have to
+be provided:
+```json
+{
+...
+"MPI_lib": "OpenMPI/2.1.1-GCC-6.3.0-2.27",
+"N_mpiprocs": 16,
+"MPI_np": 16
+...
+}
+```
+* `MPI_lib` is the full name of the MPI module to be loaded on the HPC cluster.
+* `N_mpiprocs` is the number of MPI processes to reserve per reserved cluster 
+  node.
+* `MPI_np` is the total number of MPI processes to start. Usually, this number
+  equals `N_nodes * N_mpiprocs`.
 
 #### Status codes:
 * *200* if successful
@@ -274,23 +295,23 @@ folder.
 export URL=127.0.0.1:5000/refissh
 
 # List files and folders
-curl -H "X-Auth-Header: $token" -X GET $URL/files/
-curl -H "X-Auth-Header: $token" -X GET $URL/files/some_folder
+curl -H "X-Auth-Token: $token" -X GET $URL/files/
+curl -H "X-Auth-Token: $token" -X GET $URL/files/some_folder
 
 # Download a file
-curl -H "X-Auth-Header: $token" -X GET -o out_file.file $URL/files/some_file.file
+curl -H "X-Auth-Token: $token" -X GET -o out_file.file $URL/files/some_file.file
 
 # Create a folder
-curl -H "X-Auth-Header: $token" -X POST -H “Content-Type: application/directory” $URL/files/some/nonexisting/folder
+curl -H "X-Auth-Token: $token" -X POST -H “Content-Type: application/directory” $URL/files/some/nonexisting/folder
 
 # Upload a new file, here, a png image
-curl -H "X-Auth-Header: $token" -X POST -H “Content-Type: image/png” --data-binary @image.png $URL/files/existing/folder/image.png
+curl -H "X-Auth-Token: $token" -X POST -H “Content-Type: image/png” --data-binary @image.png $URL/files/existing/folder/image.png
 
 # Update an existing file
-curl -H "X-Auth-Header: $token" -X PUT -H “Content-Type: image/png” --data-binary @image.png $URL/files/existing/folder/image.png
+curl -H "X-Auth-Token: $token" -X PUT -H “Content-Type: image/png” --data-binary @image.png $URL/files/existing/folder/image.png
 
 # Delete a file or folder
-curl -H "X-Auth-Header: $token" -X DELETE $URL/files/existing/folder/or/file.file
+curl -H "X-Auth-Token: $token" -X DELETE $URL/files/existing/folder/or/file.file
 ```
 
 ## Jobs API
@@ -301,7 +322,7 @@ export URL=127.0.0.1:5000/refissh
 curl -H "X-Auth-Token: $token" -X GET $URL/jobs/
 
 # Start a new job with a new unique service ID
-curl -H "X-Auth-Token: $token" -X POST -d @payload $URL/jobs/<service_ID>
+curl -H "X-Auth-Token: $token" -H "Content-Type: application/json" -X POST -d @payload $URL/jobs/<service_ID>
 
 # Get the status of a currently running job
 curl -H "X-Auth-Token: $token" -X GET $URL/jobs/<service_ID>

@@ -1,6 +1,9 @@
 # Overview over the generic HPC service
 This document gives an overview over the CloudFlow HPC service and describes how
-to use it to execute Singularity images on an HPC cluster.
+to use it to execute Singularity images on an HPC cluster. Please note that this
+article refers to version 4 of the HPC service, introduced on Oct. 16th 2018.
+The previous documentation is still available as [legacy
+documentation](./HPC_service_old.md).
 
 _Note:_ You might want to read the [instructions on how to create and register
 Singularity images](../service_implementation/basics_singularity.md) first.
@@ -9,15 +12,16 @@ Singularity images](../service_implementation/basics_singularity.md) first.
 There is a separate instance of the HPC service deployed for each of the
 available HPC clusters. Use the following URIs in the workflow editors to add
 one of them to your workflow:
-* Anselm cluster: `http://www.cloudifacturing.eu/async/sintef/hpcLaunch_Anselm.owl#hpcLaunch_Service`
-* Salomon cluster: `http://www.cloudifacturing.eu/async/sintef/hpcLaunch_Salomon.owl#hpcLaunch_Service`
+* Anselm cluster: `http://www.cloudifacturing.eu/async/sintef/hpcLaunch-4-Anselm.owl#hpcLaunch_Service`
+* Salomon cluster: `http://www.cloudifacturing.eu/async/sintef/hpcLaunch-4-Salomon.owl#hpcLaunch_Service`
 
 The following screenshot shows the service inside the workflow editor:
 <p align="center">
-  <img src="img_hpc/wfe_screenshot.png"
+  <img src="img_hpc/wfe_screenshot_v4.png"
    alt="Minimal connections made to the file-chooser service" width="500px"/>
 </p>
 
+### Input parameters
 The complete set of input parameters is explained in the following table:
 
 | Parameter name | Wiring required? | Description |
@@ -31,13 +35,15 @@ The complete set of input parameters is explained in the following table:
 | `numNodes` | yes | Number of nodes to reserve for the job. |
 | `numCores` | yes | Number of CPUs to reserve on each node. Note that each cluster-queue combination has a minimum and maximum value for this parameter. |
 | `maxDurationInMinutes` | yes | Maximum runtime after which a job will be aborted automatically. |
+| `SingularityVersion` | yes | Version of the Singularity module to load for execution. Currently available on IT4I's clusters are `2.3.1`, `2.3.2`, `2.4.2`, `2.4.4`, `2.5.1`. Make sure to load a version compatible with your image version. Singularity is backward-compatible but not forward-compatible.) |
+| `MPILibrary` | no | Module name of the MPI library to load for execution. See section on MPI jobs below for details. |
+| `numMPIProcsPerNode` | no | Number of MPI processes to reserve per reserved node. See section on MPI jobs below for details. |
+| `numMPIProcsTotal` | no | Total number of MPI processes to execute. See section on MPI jobs below for details. |
 
-The above parameters are combined and passed to the queueing software on the
-cluster. Note that the image name, command line, and parameters result in the
-following Singularity execution command:
-```shell
-singularity exec --cleanenv [...] <imageName> <commandline> <parameters> [...]
-```
+The above parameters are combined and passed as a job script to the queueing
+software on the cluster. Note that the resulting job script and call command are
+different depending on whether the MPI-related input parameters are specified or
+not.
 
 **Example:**
 If your Singularity execution call is `singularity exec my_image.simg python
@@ -45,6 +51,66 @@ If your Singularity execution call is `singularity exec my_image.simg python
 * imageName: `my_image.simg`
 * commandline: `python`
 * parameters: `/app/my_software.py inp.file -c 120`
+
+#### Non-MPI jobs
+For non-MPI-enabled job executions, make sure to leave all three MPI-related
+parameters (`MPILibrary`, `numMPIProcsPerNode`, and `numMPIProcsTotal`) empty.
+
+The input parameters are then combined into the following job script:
+```bash
+#! /bin/bash
+...
+#PBS -q {queue}
+#PBS -l select={numNodes}:ncpus={numCores}
+
+ml Singularity/{SingularityVersion}
+singularity exec \
+    -H {home}:/home -B {scratch}:/scratch -B {service}:/service \
+    {imageName} {commandline} {parameters} >> {logfile} 2>&1
+```
+The bindings for `/home`, `/scratch`, and `/service` are explained in the
+article on [Singularity basics](../service_implementation/basics_singularity.md).
+
+#### MPI jobs
+For MPI-enabled jobs, all three MPI-related input parameters must be specified.
+The following list shows selected MPI libraries available on IT4I's clusters.
+For a list of _all_ currently available libraries, please contact IT4I directly.
+
+Please note that according to [Singularity's documentation](http://singularity.lbl.gov/docs-hpc), OpenMPI version 2.1.0 should be used for
+proper MPI support.
+
+_Anselm cluster:_
+* `OpenMPI/1.10.7-GCC-6.3.0-2.27`
+* `OpenMPI/2.1.0-GCC-6.3.0-2.27`
+* `OpenMPI/2.1.1-GCC-6.3.0-2.27` (recommended)
+* `MPICH/3.2.1-GCC-6.3.0-2.27`
+* `impi/2018.3.222-iccifort-2018.3.222-GCC-8.1.0-2.30`
+* `mvapich2/1.9-icc`
+
+_Salomon cluster:_
+* `OpenMPI/1.10.7-GCC-7.1.0-2.28`
+* `OpenMPI/2.1.0-GCC-6.3.0-2.27`
+* `MPICH/3.2.1-GCC-6.3.0-2.27`
+* `MPI_NET/1.2.0-intel-2016.01`
+* `MVAPICH2/2.1-iccifort-2015.3.187-GNU-5.1.0-2.25`
+* `impi/2018.3.222-iccifort-2018.3.222-GCC-8.1.0-2.30`
+
+For MPI-enabled jobs, the following job script is created:
+```bash
+#! /bin/bash
+...
+#PBS -q {queue}
+#PBS -l select={numNodes}:ncpus={numCores}:mpiprocs={numMPIProcsPerNode}
+
+ml Singularity/{SingularityVersion}
+ml {MPILibrary}
+mpirun -np {numMPIProcsTotal} singularity exec \
+    -H {home}:/home -B {scratch}:/scratch -B {service}:/service \
+    {imageName} {commandline} {parameters} >> {logfile} 2>&1
+```
+
+Note that in contrast to the non-MPI job script, Singularity is here executed
+as the argument to the `mpirun` command which sets up the MPI environment.
 
 ### Output arguments
 | Parameter name | Wiring required? | Description |
