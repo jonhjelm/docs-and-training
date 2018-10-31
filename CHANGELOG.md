@@ -16,9 +16,8 @@ With each version, a git tag and an accompanying GitHub release will be created.
 ## Changelog
 ### 2018-10-31: Version 2.1.0 – Addition of Nvidia support
 * (MINOR) Singularity Nvidia support is now automatically activated when IT4I's
-* `qviz` queue is selected. 
-  See the [HPC-service documentation](./workflow_creation/HPC_service.md) for
-  details.
+  `qviz` queue is selected.  See the [HPC-service
+  documentation](./workflow_creation/HPC_service.md) for details.
 
 ### 2018-10-15: Version 2.0.0 – Addition of MPI support and Singularity versioning
 * (MAJOR) The HPC service's launch method now has four more documented input
