@@ -27,12 +27,12 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `2.0.0`
+Current documentation version: `2.1.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
 ## Contributing
-Everyone is welcome to contribute to this documentation center. Typos,
+Everyone is *welcome* to contribute to this documentation center. Typos,
 clarifications, interesting code examples, or also just questions – anything is
 valuable. To contribute, choose one of the following options:
 * Fork the repository, add your changes and create a pull request.
@@ -212,7 +212,7 @@ hooked up to make a workflow. This section deals with all things done
   keep in mind when performing such upgrades.
 
 ### Using the HPC service
-* (updated in v2.0.0) [Overview over the generic HPC service](workflow_creation/HPC_service.md):
+* (updated in v2.1.0) [Overview over the generic HPC service](workflow_creation/HPC_service.md):
   Introduces the generic HPC service and showcases how it can be used to
   execute Singularity images on the available HPC resources.
 

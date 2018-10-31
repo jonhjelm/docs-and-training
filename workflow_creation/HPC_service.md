@@ -112,6 +112,22 @@ mpirun -np {numMPIProcsTotal} singularity exec \
 Note that in contrast to the non-MPI job script, Singularity is here executed
 as the argument to the `mpirun` command which sets up the MPI environment.
 
+#### Jobs with Nvidia support
+To enable Nvidia support for GPU computing, additional options need to be
+passed to Singularity. Currently, this is enabled automatically whenever the
+IT4I `qviz` queue is used. In this case, the job script (MPI or standard) is
+extended by the following line:
+```bash
+#! /bin/bash
+...
+mpirun [MPI options] singularity exec \
+    --nv -B /var/lib:/var/lib -B /usr/lib64:/usr/lib64
+    ...
+```
+
+The `--nv` option tells Singularity to load the necessary Nvidia libraries and
+drivers.
+
 ### Output arguments
 | Parameter name | Wiring required? | Description |
 | -------------- | --------- | ----------- |
