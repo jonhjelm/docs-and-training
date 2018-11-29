@@ -287,8 +287,8 @@ To register an image which is available on the HPC-cluster storage, you need to
 use the Images SOAP API of the CloudFlow HPC service(s). Descriptions of the
 Images web services for the available clusters are found under the following
 URLs:
-* IT4I Anselm cluster: `https://api.hetcomp.org/hpc_anselm/Images?wsdl`
-* IT4I Salomon cluster: `https://api.hetcomp.org/hpc_salomon/Images?wsdl`
+* IT4I Anselm cluster: `https://api.hetcomp.org/hpc-4-anselm/Images?wsdl`
+* IT4I Salomon cluster: `https://api.hetcomp.org/hpc-4-salomon/Images?wsdl`
 
 Use these URLs to create SOAP clients and call their `registerImage()` method
 with the following parameters:
