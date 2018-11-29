@@ -14,6 +14,10 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2018-11-29: Version 2.1.1
+* (PATCH) Updated endpoints of the HPC-service Images endpoint for registration
+  of Singularity images.
+
 ### 2018-10-31: Version 2.1.0 – Addition of Nvidia support
 * (MINOR) Singularity Nvidia support is now automatically activated when IT4I's
   `qviz` queue is selected.  See the [HPC-service

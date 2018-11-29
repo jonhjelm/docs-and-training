@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `2.1.0`
+Current documentation version: `2.1.1`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -152,7 +152,7 @@ the graphical tools provided on the portal).
     resources without any change to the computation code. This article explains
     the concepts and technical background of this solution.
 
-  * (updated in v2.0.0) [Packaging software in Singularity images](service_implementation/basics_singularity.md):
+  * (updated in v2.0.1) [Packaging software in Singularity images](service_implementation/basics_singularity.md):
     All software that should be run on the HPC resources accessible through the
     CloudFlow platform must be wrapped into Singularity images which are then
     executed as isolated containers on an HPC cluster. Learn how to create,
