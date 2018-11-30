@@ -14,6 +14,10 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2018-11-30: Version 2.2.0
+* (MINOR) Updated [refissh API documentation](./service_APIs/api_refissh.md) to
+  reflect latest refissh version
+
 ### 2018-11-29: Version 2.1.1
 * (PATCH) Updated endpoints of the HPC-service Images endpoint for registration
   of Singularity images.

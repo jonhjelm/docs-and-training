@@ -47,26 +47,138 @@ It is further assumed that `$URL` contains the refissh deployment URL.
 it is generally _not_ necessary to interact with any of the refissh APIs. 
 Instead, high-level services such as GSS or the HPC service should be used.
 
-
 ## Files API
 
 ### `HEAD $URL/files/some/file/or/folder` : get resource type
-Returns the resource type of the given path, which can be `FILE`, `FOLDER`, or
-`NOTEXIST`.
+Returns the resource type of the given path as a plain-text string, which can
+be `FILE`, `FOLDER`, or `NOTEXIST`.
 
 #### Status codes:
 * *200* if resource is a file
 * *204* if resource is a folder
 * *404* if resource doesn't exist
 
-### `GET $URL/files/some/folder` : list directory contents
+### `GET $URL/files/some/folder`: list directory contents
 Returns a list of the contents of the given resource path, which must be a
 folder. The returned list is a json representation of a list of GSS
 ResourceInformation objects.
 
+#### URL parameters:
+* `view`: optional parameter to define the amount of information to be included
+  in the resource-information objects, set to `full` (`...?view=full`) to get
+  file size and date of last modification
+
 #### Status codes:
 * *200* if successful
 * *404* if resource doesn't exist
+
+#### Example for the IT4I Anselm cluster:
+*Request*:
+```
+curl -H "X-Auth-Token: $tk" $URL/files/home/singularity_images
+```
+
+*Response*:
+```json
+[
+    {
+        "visualName": "register_points_with_model.simg",
+        "uniqueName": "it4i_anselm://home/singularity_images/register_points_with_model.simg",
+        "type": "FILE",
+        "queryForName": false,
+        "createDescription": {
+            "supported": false
+        },
+        "readDescription": {
+            "supported": true,
+            "httpMethod": "GET",
+            "headers": [
+                {
+                    "key": "X-Auth-Token",
+                    "value": "..."
+                }
+            ],
+            "sessionTokenField": "Deprecated",
+            "url": "https://api.hetcomp.org/refissh-4-anselm/files/home/singularity_images/home/singularity_images/register_points_with_model.simg"
+        },
+        "updateDescription": {
+            "supported": true,
+            "httpMethod": "PUT",
+            "headers": [
+                {
+                    "key": "X-Auth-Token",
+                    "value": "..."
+                }
+            ],
+            "sessionTokenField": "Deprecated",
+            "url": "https://api.hetcomp.org/refissh-4-anselm/files/home/singularity_images/home/singularity_images/register_points_with_model.simg"
+        },
+        "deleteDescription": {
+            "supported": true,
+            "httpMethod": "DELETE",
+            "headers": [
+                {
+                    "key": "X-Auth-Token",
+                    "value": "..."
+                }
+            ],
+            "sessionTokenField": "Deprecated",
+            "url": "https://api.hetcomp.org/refissh-4-anselm/files/home/singularity_images/home/singularity_images/register_points_with_model.simg"
+        },
+        "metaReadDescription": {
+            "supported": true,
+            "httpMethod": "HEAD",
+            "headers": [
+                {
+                    "key": "X-Auth-Token",
+                    "value": "..."
+                }
+            ],
+            "sessionTokenField": "Deprecated",
+            "url": "https://api.hetcomp.org/refissh-4-anselm/files/home/singularity_images/home/singularity_images/register_points_with_model.simg"
+        }
+    },
+    {
+        "visualName": "archive",
+        "uniqueName": "it4i_anselm://home/singularity_images/archive",
+        "type": "FOLDER",
+        "queryForName": false,
+        "createDescription": {
+            "supported": false
+        },
+        "readDescription": {
+            "supported": false
+        },
+        "updateDescription": {
+            "supported": false
+        },
+        "deleteDescription": {
+            "supported": true,
+            "httpMethod": "DELETE",
+            "headers": [
+                {
+                    "key": "X-Auth-Token",
+                    "value": "..."
+                }
+            ],
+            "sessionTokenField": "Deprecated",
+            "url": "https://api.hetcomp.org/refissh-4-anselm/files/home/singularity_images/home/singularity_images/archive"
+        },
+        "metaReadDescription": {
+            "supported": true,
+            "httpMethod": "HEAD",
+            "headers": [
+                {
+                    "key": "X-Auth-Token",
+                    "value": "..."
+                }
+            ],
+            "sessionTokenField": "Deprecated",
+            "url": "https://api.hetcomp.org/refissh-4-anselm/files/home/singularity_images/home/singularity_images/archive"
+        }
+    }
+]
+```
 
 ### `GET $URL/files/some/file.ext` : download a file
 Performs a binary download of the file at the given path.
@@ -81,18 +193,18 @@ application/directory"` as an additional header with the call.
 
 #### Status codes:
 * *201* if successful
-* *400* if no `"Content-Type"` header was given
 * *405* if folder already exists
 * *405* if parent folder doesn't exist or if POST was attempted in root
   folder and root folder is configured immutable
 
 ### `POST $URL/files/non/existing/file` : upload a file
-Expects the file to be uploaded as the request data in binary form. Also pass
-a fitting `"Content-Type"` header with the call.
+Expects the file to be uploaded as the request data in binary form. Also pass a
+fitting `"Content-Type"` header with the call. Use `"Content-Type:
+application/octet-stream"` for binary data. If no such header is given,
+`application/octet-stream` is assumed.
 
 #### Status codes:
 * *201* if successful
-* *400* if no `"Content-Type"` header was given
 * *405* if file already exists
 * *405* if parent folder doesn't exist or if POST was attempted in root
   folder and root folder is configured immutable
@@ -106,7 +218,8 @@ doesn't exist.
 * *405* if file doesn't exist
 
 ### `DELETE $URL/files/already/existing/file/or/folder` : delete a file/folder
-Deletes the file or folder at the given path. Will delete non-empty folders.
+Deletes the file or folder at the given path. Will also delete non-empty
+folders including their content.
 
 #### Status codes:
 * *204* if successful
@@ -202,6 +315,7 @@ message.
 * *200* if successful
 * *400* if json is malformed
 * *405* if job state is not RUNNING
+
 
 ### `DELETE $URL/jobs/<service_ID>` : abort job
 Stops execution of a running job.

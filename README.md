@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `2.1.1`
+Current documentation version: `2.2.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -261,4 +261,4 @@ have a look at our API references:
 * [Workflow editor](service_APIs/api_wfe.md)
 * [Authentication manager](service_APIs/api_authentication.md)
 * [GSS](service_APIs/api_gss.md)
-* [refissh](service_APIs/api_refissh.md)
+* (updated in v2.2.0) [refissh](service_APIs/api_refissh.md)
