@@ -17,7 +17,7 @@ gss_ID = "it4i_anselm://home/abortable_waiter.simg"
 gss.update(gss_ID, tk, "abortable_waiter.simg")
 
 print("Registering image ...")
-images = HpcImagesClient("https://api.hetcomp.org/hpc_anselm/Images?wsdl")
+images = HpcImagesClient("https://api.hetcomp.org/hpc-4-anselm/Images?wsdl")
 # Change to images.upload_image for the first upload
 images.update_image(tk, "waiter_abortable.simg", gss_ID)
 

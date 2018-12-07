@@ -3,8 +3,8 @@ import time
 import sys
 import logging
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("Notifications monitor")
+logging.basicConfig(format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s', level=logging.INFO)
+logger = logging.getLogger("Not. monitor")
 
 
 def main():
