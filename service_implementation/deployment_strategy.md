@@ -38,7 +38,5 @@ This makes it much fast than virtualizations, and starting a Docker container
 is often as good as instantaneous.
 
 ## How to deploy
-The exact deployment procedure is done in two ways: manually during development,
-where being "close to the code" is important, and automated for production use.
-Read further on [manual](./deployment_manual.md) and
-[automated](./deployment_automated.md) deployment.
+The exact deployment procedure is described in the [service-deployment
+manual](./deployment_automated.md).
