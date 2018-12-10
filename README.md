@@ -27,7 +27,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `2.2.1`
+Current documentation version: `3.0.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -118,7 +118,7 @@ the graphical tools provided on the portal).
   * [Service-deployment concept](service_implementation/deployment_strategy.md):
   Learn about the CloudFlow deployment strategy here.
 
-  * [Service-deployment manual](service_implementation/deployment_automated.md):
+  * (new in v3.0.0) [Service-deployment manual](service_implementation/deployment_automated.md):
     Describes how services can be deployed in CloudFlow
 
 
@@ -146,7 +146,7 @@ the graphical tools provided on the portal).
     resources without any change to the computation code. This article explains
     the concepts and technical background of this solution.
 
-  * (updated in v2.0.1) [Packaging software in Singularity images](service_implementation/basics_singularity.md):
+  * [Packaging software in Singularity images](service_implementation/basics_singularity.md):
     All software that should be run on the HPC resources accessible through the
     CloudFlow platform must be wrapped into Singularity images which are then
     executed as isolated containers on an HPC cluster. Learn how to create,
@@ -162,7 +162,7 @@ the graphical tools provided on the portal).
     layers of abstraction between the running application and the user. This
     article gives some hints on debugging and loggin.
 
-  * (new in v2.0.0) [Singularity and MPI applications](service_implementation/advanced_hpc_mpi.md):
+  * [Singularity and MPI applications](service_implementation/advanced_hpc_mpi.md):
     Learn how to prepare your Singularity image for parallel
     execution using MPI.
 
@@ -255,4 +255,4 @@ have a look at our API references:
 * [Workflow editor](service_APIs/api_wfe.md)
 * [Authentication manager](service_APIs/api_authentication.md)
 * [GSS](service_APIs/api_gss.md)
-* (updated in v2.2.0) [refissh](service_APIs/api_refissh.md)
+* [refissh](service_APIs/api_refissh.md)

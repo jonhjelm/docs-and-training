@@ -14,6 +14,11 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2018-12-10: Version 3.0.0
+* (MAJOR) Service deployment is now fully automatic, see the [deployment
+  manual](./service_implementation/deployment_automated.md).
+  Manual deployment on dedicated VMs is now deprecated.
+
 ### 2018-12-07: Version 2.2.1
 * (PATCH) Improved logging and updated an endpoint URL in the abortable-waiter
   Singularity code example
