@@ -180,6 +180,14 @@ curl -H "X-Auth-Token: $tk" $URL/files/home/singularity_images
 ]
 ```
 
+### `GET $URL/files/some/file/or/folder?view=resinfo` : get resource information
+Returns the resource information for a single file or folder. (Result is
+identical to a single element of the folder listing shown above.)
+
+#### Status codes:
+* *200* if successful
+* *404* if resource doesn't exist
+
 ### `GET $URL/files/some/file.ext` : download a file
 Performs a binary download of the file at the given path.
 

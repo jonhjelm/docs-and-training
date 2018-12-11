@@ -14,6 +14,10 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2018-12-11: Version 3.1.0
+* (MINOR) Updated [refissh API documentation](./service_APIs/api_refissh.md) to
+  reflect latest refissh version
+
 ### 2018-12-10: Version 3.0.0
 * (MAJOR) Service deployment is now fully automatic, see the [deployment
   manual](./service_implementation/deployment_automated.md).
