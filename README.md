@@ -30,7 +30,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `3.1.0`
+Current documentation version: `3.2.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -128,7 +128,7 @@ the graphical tools provided on the portal).
   * [Service-deployment concept](service_implementation/deployment_strategy.md):
   Learn about the CloudFlow deployment strategy here.
 
-  * (new in v3.0.0) [Service-deployment manual](service_implementation/deployment_automated.md):
+  * [Service-deployment manual](service_implementation/deployment_automated.md):
     Describes how services can be deployed in CloudFlow
 
 
