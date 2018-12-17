@@ -5,34 +5,32 @@ import os
 import subprocess
 import base64
 import datetime
-from flask import Flask
-from flask import request
-from flask_spyne import Spyne
+import logging
+
+from spyne import Application, srpc, ServiceBase, Unicode, Integer, Boolean
 from spyne.protocol.soap import Soap11
-from spyne.model.primitive import Unicode, Integer, Boolean
-from werkzeug.contrib.fixers import ProxyFix
+from spyne.model.fault import Fault
 
-app = Flask(__name__)
-spyne = Spyne(app)
-app.wsgi_app = ProxyFix(app.wsgi_app)
+from clfpy import AuthClient, ExtraParameters
 
+# Define the target namespace
+TNS = "waiter.sintef.no"
+# Define the name under which the service will be deployed
+SERVICENAME = "Waiter"
 
 # Read environment variables to obtain configuration values
 WAITER_LOG_FOLDER = os.environ["WAITER_LOG_FOLDER"]
 
 
-@app.route('/')
-def root():
-    """Static page on root to avoid error 404"""
-    return 'Nothing to see here.'
+class TokenValidationFailedFault(Fault):
+    """Raised when validation of the session token fails"""
+    pass
 
 
-class WaiterService(spyne.Service):
+class WaiterService(ServiceBase):
     """The actual waiter asynchronous service."""
-    __service_url_path__ = '/Waiter'
-    __in_protocol__ = Soap11(validator='soft')
-    __out_protocol__ = Soap11()
 
+    auth_wsdl = ''
 
 
 def create_html_progresspage(progress):
@@ -50,3 +48,11 @@ def create_html_progresspage(progress):
         "</body>"
 
     return html
+
+
+def create_app():
+    """Creates an Application object containing the waiter service."""
+    app = Application([WaiterService], TNS,
+                      in_protocol=Soap11(validator='soft'), out_protocol=Soap11())
+
+    return app

@@ -1,5 +1,5 @@
 # Workflows and services on the CloudFlow platform
-In a nutshell, the CloudFlow platform is a _workflow execution tool_. Here,
+In a nutshell, the CloudFlow platform is a _workflow execution engine_. Here,
 a _workflow_ is defined as a set of calculations, simulations, or analytics
 tasks which are executed for some specific user input. A typical workflow could
 look like this:

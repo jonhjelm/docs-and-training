@@ -13,8 +13,11 @@ import base64
 import datetime
 import logging
 
-from spyne import Application, srpc, ServiceBase, Unicode, Integer, Boolean
+from spyne import Application, rpc, ServiceBase, Unicode, Integer, Boolean
 from spyne.protocol.soap import Soap11
+from spyne.model.fault import Fault
+
+from clfpy import AuthClient, ExtraParameters
 
 # Define the target namespace
 TNS = "waiter.sintef.no"
@@ -25,15 +28,27 @@ SERVICENAME = "Waiter"
 WAITER_LOG_FOLDER = os.environ["WAITER_LOG_FOLDER"]
 
 
+class TokenValidationFailedFault(Fault):
+    """Raised when validation of the session token fails"""
+    pass
+
+
 class WaiterService(ServiceBase):
     """The actual waiter asynchronous service."""
     # Note that the class name does not influence the deployment endpoint
     # under which the service will be reachable. It will, however, appear
     # in the wsdl file.
 
-    @srpc(Unicode, Unicode, Integer, _returns=(Unicode, Unicode),
-          _out_variable_names=("status_base64", "result"))
-    def startWaiter(serviceID, sessionToken, secondsToWait=300):
+    auth_wsdl = ''
+
+    # We use the @rpc decorator here (instead of @srpc like in the Calculator
+    # example) to have access to Spyne's context argument 'ctx'. Via that
+    # context, we can access class properties (used here to save the
+    # authentication-manager endpoint).
+    @rpc(Unicode, Unicode, Unicode, Integer, _returns=(Unicode, Unicode),
+          _out_variable_names=("status_base64", "result"),
+          _throws=[TokenValidationFailedFault])
+    def startWaiter(ctx, serviceID, sessionToken, extraParameters, secondsToWait):
         """Starts a waiter script as a separate process and returns immediately.
 
         In a more realistic scenario, this is where a longer computation etc.
@@ -41,6 +56,25 @@ class WaiterService(ServiceBase):
         which waits for a while while regularly updating a status file.
         """
         logging.info("startWaiter() called with service ID {}".format(serviceID))
+
+        # Check that the session token is valid and abort with a SOAP fault if
+        # it's not. To that end, we use the clfpy library both to extract the
+        # authentication endpoint from the extraParameters input argument and
+        # to communicate with that endpoint. We also save the authentication-
+        # manager endpoint in a class property which we can re-use in methods
+        # that don't have the extraParameters as an argument.
+        ep = ExtraParameters(extraParameters)
+        ctx.descriptor.service_class.auth_wsdl = ep.get_auth_WSDL_URL()
+        auth = AuthClient(ep.get_auth_WSDL_URL())
+        if not auth.validate_session_token(sessionToken):
+            logging.error("Token validation failed")
+            error_msg = "Session-token validation failed"
+            raise TokenValidationFailedFault(faultstring=error_msg)
+
+        # Add default value for waiting time
+        if secondsToWait is None:
+            logging.info("Setting default value for waiting time")
+            secondsToWait = 60
 
         # Create a temporary folder to store the status files in.
         # Note that we use the service ID as a unique identifier. Since this
@@ -58,6 +92,7 @@ class WaiterService(ServiceBase):
         # Spawn new process running the waiter script.
         # We pass the status and result file to the script to ensure that the
         # waiter logs to the correct place.
+        logging.info("Starting waiter script")
         command = ['python', 'wait_a_while.py', str(secondsToWait),
                    statusfile, resultfile]
         subprocess.Popen(command)
@@ -72,9 +107,9 @@ class WaiterService(ServiceBase):
 
         return (status, result)
 
-    @srpc(Unicode, Unicode, _returns=(Unicode, Unicode),
+    @rpc(Unicode, Unicode, _returns=(Unicode, Unicode),
           _out_variable_names=("status_base64", "result"))
-    def getServiceStatus(serviceID, sessionToken):
+    def getServiceStatus(ctx, serviceID, sessionToken):
         """Status-query method which is called regularly by WFM.
 
         Here, a more realistic service would query the status of a calculation
@@ -83,6 +118,14 @@ class WaiterService(ServiceBase):
         bar.
         """
         logging.info("getServiceStatus() called with service ID {}".format(serviceID))
+
+        # We obtain the authentication-manager endpoint from a class property
+        # and check that the session token is valid
+        auth = AuthClient(ctx.descriptor.service_class.auth_wsdl)
+        if not auth.validate_session_token(sessionToken):
+            logging.error("Token validation failed")
+            error_msg = "Session-token validation failed"
+            raise TokenValidationFailedFault(faultstring=error_msg)
 
         # Create correct file paths from service ID. By using the unique
         # service ID, we can address the right waiter process in case this
@@ -97,6 +140,7 @@ class WaiterService(ServiceBase):
             current_status = f.read().strip()
 
         if current_status == "100":
+            logging.info("Waiting completed")
             status = "COMPLETED"
             # Read result page from waiter
             with open(resultfile) as f:
@@ -116,11 +160,18 @@ class WaiterService(ServiceBase):
         status = base64.b64encode(create_html_progressbar(int(current_status)).encode()).decode()
         return (status, result)
 
-    @srpc(Unicode, Unicode, _returns=Boolean, _out_variable_name="success")
-    def abortService(serviceID, sessionToken):
+    @rpc(Unicode, Unicode, _returns=Boolean, _out_variable_name="success")
+    def abortService(ctx, serviceID, sessionToken):
         """Aborts the currently running service (not implemented, returns false)
         """
         logging.info("abortService() called with service ID {}".format(serviceID))
+
+        # We obtain the authentication-manager endpoint from a class property
+        # and check that the session token is valid
+        auth = AuthClient(ctx.descriptor.service_class.auth_wsdl)
+        if not auth.validate_session_token(sessionToken):
+            error_msg = "Session-token validation failed"
+            raise TokenValidationFailedFault(faultstring=error_msg)
 
         # This method offers the option to abort long-running asynchronous
         # services. In this example, we do not implement this functionality

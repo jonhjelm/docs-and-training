@@ -1,22 +1,21 @@
 Python example for a CloudFlow application
 ==========================================
 
-This is the simplest possible example of a CloudFlow application service written
-in Python.
+This is the simplest possible example of a CloudFlow application service
+written in Python.
 
 It contains a Python-based SOAP service which exposes a single method called
-`startDialog`. This method fits the workflow manager's expectations for a
+`showDialog`. This method fits the workflow manager's expectations for a
 CloudFlow application and can therefore be registered in the workflow editor.
 When called, this method delivers a static HTML website which simply contains
 a button to continue the workflow.
 
 ## Try it out
 The application itself is registered on the CloudiFacturing platform under
-`http://sintef/apps/startDialog.owl#startDialog_Service`.
+`http://demo/apps/showDialog.owl#showDialog_Service`.
 
 An example workflow using this application is registered under
-`http://sintef/workflow/simple_dialog.owl#Simple_dialog` ("Simple_Dialog" on
-the portal's front page).
+`http://demo/workflow/Demo_Dialog.owl#Demo_Dialog`.
 
 ## Prerequisites
 To build, run, and test this skeleton service, you only need to have Docker
@@ -41,10 +40,9 @@ application source code.
 To compile service source code, pack it into a Docker container, and run the
 container, run
 ```
-./rebuildandrun.sh <port>
+./rebuildandrun.sh
 ```
-Choose a port number that is available on your machine or leave it away to
-default to port 8080.
+The service will listen on port 80 of your machine.
 
 On the first run, this might take a while since the base container images need
 to be downloaded and dependencies need to be installed. Subsequent builds will
@@ -55,7 +53,7 @@ returns immediately and that logs are not immediately visible.
 
 Alternatively, run the container interactively via:
 ```
-docker run -p <port>:80 --env-file=env calculator
+docker run -p 80:80 --env-file=env calculator
 ```
 Again, choose a fitting port number.
 
@@ -75,6 +73,12 @@ cd test_client
 ./build.sh      # run this only once
 ./run.sh        # run this every time you want to test
 ```
+Note that for every run, you will be asked to enter your username, project, and
+password.
+
+The results of the test will be written into the file `test.html`, which you
+can open in any browser. Note that the button on the HTML page will _not_ work,
+since this test page has not been created from within a running workflow.
 
 You can make changes to `test_dialog.py` to test other methods or other
 deployment locations. Rebuilding the container is not necessary after such

@@ -12,11 +12,19 @@ import logging
 
 from spyne import Application, srpc, ServiceBase, Unicode, Integer, Boolean
 from spyne.protocol.soap import Soap11
+from spyne.model.fault import Fault
+
+from clfpy import AuthClient, ExtraParameters
 
 # Define the target namespace
 TNS = "app-debugger.sintef.no"
 # Define the name under which the service will be deployed
 SERVICENAME = "Debugger"
+
+
+class TokenValidationFailedFault(Fault):
+    """Raised when validation of the session token fails"""
+    pass
 
 
 class DebuggerService(ServiceBase):
@@ -40,7 +48,7 @@ class DebuggerService(ServiceBase):
         Unicode, # Label 5
         _returns=Unicode,
         _out_variable_name="status_base64")
-    def displayParameters(serviceID, sessionToken, extraParameters,
+    def parameterDebugger(serviceID, sessionToken, extraParameters,
         in1="", label1="in1", 
         in2="", label2="in2", 
         in3="", label3="in3", 
@@ -49,14 +57,21 @@ class DebuggerService(ServiceBase):
         """
         Starts the debugger application.
         """
-        logging.info("startDialog() called with service ID {}".format(serviceID))
+        logging.info("parameterDebugger() called with service ID {}".format(serviceID))
 
-        eP_parsed = parse_extra_parameters(extraParameters)
+        # Validate token
+        ep = ExtraParameters(extraParameters)
+        auth = AuthClient(ep.get_auth_WSDL_URL())
+        if not auth.validate_session_token(sessionToken):
+            logging.error("Token validation failed")
+            error_msg = "Session-token validation failed"
+            raise TokenValidationFailedFault(faultstring=error_msg)
 
+        # Create application HTML
         html = HTML.format(
             sid=serviceID,
             stk=sessionToken,
-            wfm_endpoint=eP_parsed["WFM"],
+            wfm_endpoint=ep.get_WFM_endpoint(),
             eP=extraParameters,
             in1=in1,
             in2=in2,
@@ -158,15 +173,3 @@ RES = """<ServiceOutputs>
 </ServiceOutputs>
 """
 RES_B64 = base64.b64encode(RES.encode()).decode()
-
-
-def parse_extra_parameters(extra_pars):
-    """Parses an extra-parameters string into a dict.
-
-    The extra parameters as delivered from the workflow manager are encoded in
-    a single string of the format "key1=value1,key2=value2,key3=value3,...".
-    Important: The string contains another comma at the very end.
-    """
-    print(extra_pars)
-    return {pair.split('=')[0]: pair.split('=')[1] for pair in
-            extra_pars.split(',')[:-1]}

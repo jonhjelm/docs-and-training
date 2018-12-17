@@ -4,10 +4,16 @@
 import os
 import sys
 import base64
+import getpass
 
 from suds.client import Client
 from suds.cache import NoCache
 from suds import WebFault, MethodNotFound
+
+from clfpy import AuthClient
+
+auth_endpoint = 'https://api.hetcomp.org/authManager/AuthManager?wsdl'
+extra_pars = "auth={},WFM=dummy,".format(auth_endpoint)
 
 
 def soap_call(wsdl_url, methodname, method_args):
@@ -28,12 +34,7 @@ def soap_call(wsdl_url, methodname, method_args):
 
 
 def main():
-    try:
-        port = int(sys.argv[1])
-        print("Using port {}".format(port))
-    except:
-        print("Couldn't get port from commandline argument, using 8080.")
-        port = 8080
+    port = 80
 
     try:
         context_root = os.environ["CONTEXT_ROOT"]
@@ -41,11 +42,18 @@ def main():
         print("Error: environment variable CONTEXT_ROOT not set.")
         exit(1)
 
-    url = "http://localhost:{}{}/Dialog/Dialog?wsdl".format(port, context_root)
+    url = "http://localhost:{}{}/Dialog?wsdl".format(port, context_root)
     print("wsdl URL is {}".format(url))
 
+    print("Obtaining session token")
+    user = input("Enter username: ")
+    project = input("Enter project: ")
+    password = getpass.getpass(prompt="Enter password: ")
+    auth = AuthClient(auth_endpoint)
+    token = auth.get_session_token(user, project, password)
+
     print("Calling startDialog()")
-    response = soap_call(url, "startDialog", ["serviceID1", "sessionToken", "WFM=https://blablabla.com/WFM?wsdl,"])
+    response = soap_call(url, "showDialog", ["serviceID1", token, extra_pars])
     html = base64.b64decode(response["status_base64"]).decode()
     with open("test.html", 'w') as fout:
         fout.write(html)

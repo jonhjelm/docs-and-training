@@ -2,13 +2,13 @@ Python-based CloudFlow application for workflow debugging
 =========================================================
 This CloudFlow application offers tools for debugging workflows.
 
-## `displayParameters` service
-Currently, only one application is available, registered under the following URI:
+## `parameterDebugger` service
+This application is registered under the following URI:
 ```
-http://sintef/apps/displayParameters.owl#displayParameters_Service
+http://core/apps/parameterDebugger.owl#parameterDebugger_Service
 ```
-This application pauses the workflow and offers to display any output parameters
-created so far.
+This application pauses the workflow and offers to display any output
+parameters created so far.
 
 The following picture shows the service integrated in a bigger workflow. The
 `gss_transformationMatrix` output parameter of the previous workflow step is
@@ -58,10 +58,9 @@ application source code.
 To compile service source code, pack it into a Docker container, and run the
 container, run
 ```
-./rebuildandrun.sh <port>
+./rebuildandrun.sh
 ```
-Choose a port number that is available on your machine or leave it away to
-default to port 8080.
+The service will listen on port 80 of your machine
 
 On the first run, this might take a while since the base container images need
 to be downloaded and dependencies need to be installed. Subsequent builds will
@@ -72,7 +71,7 @@ returns immediately and that logs are not immediately visible.
 
 Alternatively, run the container interactively via:
 ```
-docker run -p <port>:80 --env-file=env app-debugger
+docker run -p 80:80 --env-file=env app-debugger
 ```
 Again, choose a fitting port number.
 
@@ -94,7 +93,11 @@ cd test_client
 ```
 
 The test client saves the application output to `test.html`, which you can 
-review with your browser.
+review with your browser. Note that the button on this test page won't work,
+since the application has not been started from within a running workflow.
+
+Note also that you need to enter your username, project, and password for each
+test run to create a valid session token.
 
 You can make changes to `test_debugger.py` to test other methods or other
 deployment locations. Rebuilding the container is not necessary after such

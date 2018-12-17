@@ -1,12 +1,32 @@
 # Libraries for high-level GSS access
-While the [tutorial on file access](../tutorials/services/python_imageconverter.md)
-is good for understanding how GSS works, it makes no sense to code the
-communication with GSS and the storage endpoint so elaborately every
-single time. Instead, one would want to wrap the code for uploads, downloads etc.
-into a library and the simply make library calls.
+If you need to access files via GSS in your services, and if your services are
+implemented in Python like most of the code examples here, it is highly
+recommended to use the `clfpy` Python library
+(https://github.com/CloudiFacturing/clfpy). The following paragraphs give a
+minimal example of how to use `clfpy`, for more detailed examples, visit the
+library's GitHub pages.
 
-Luckily, such libraries are available in different languages. Head over to the
-[client-library repository](https://github.com/CloudiFacturing/client_libs)
-and learn more about those libraries.
+If you cannot use this library, you can of course also create your own library
+which interfaces with the [GSS API](../service_APIs/api_gss.md). It's also
+worth while to check out some of the [other client
+libraries](https://github.com/CloudiFacturing/client_libs). However, most of
+these are currently not maintained actively.
 
-TODO: Add code example which uses cfpy.
+## File access in Python using clfpy
+The following snippet gives you a quick idea of how file access can work inside
+your services. The snippet assumes that
+* a valid session token is available in the variable `token`,
+* the GSS endpoint is stored in `gss_endpoint` (the GSS endpoint is one of the
+  [_extraParameters_](../service_implementation/available_parameters.md) which
+  is passed into any workflow),
+* a GSS ID has been passed to the service and is stored in `gss_ID`.
+
+```python
+from clfpy import GssClient
+
+# ...
+
+gss = GssClient(gss_endpoint)
+download_destination = "/tmp/newfile.bin"
+gss.download_to_file(gss_ID, token, download_destination)
+```

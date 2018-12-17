@@ -12,9 +12,11 @@ tutorials for advanced topics in service development.
 - [Contributing](#contributing)
 - [Platform overview](#platform-overview)
 - [Service implementation: concepts, examples, tutorials](#service-implementation-concepts-examples-tutorials)
+  - [General concepts](#general-concepts)
   - [CloudFlow Synchronous services](#cloudflow-synchronous-services)
   - [CloudFlow Aynchronous services](#cloudflow-aynchronous-services)
   - [CloudFlow Applications](#cloudflow-applications)
+  - [Service deployment](#service-deployment)
   - [SOAP services](#soap-services)
   - [File access](#file-access)
   - [Using HPC resources](#using-hpc-resources)
@@ -23,6 +25,7 @@ tutorials for advanced topics in service development.
   - [Basic workflow editing](#basic-workflow-editing)
   - [Using the HPC service](#using-the-hpc-service)
   - [Available utility services](#available-utility-services)
+  - [Workflow debugging](#workflow-debugging)
   - [Advanced topics](#advanced-topics)
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
@@ -45,7 +48,14 @@ New to the CloudFlow platform? Read all about its concepts and background here.
 
 * [Getting access](infrastructure_overview/getting_access.md): Need access to
   the CloudFlow platform in CloudiFacturing? Look here.
-  
+
+* [Demos](infrastructure_overview/demos.md): If you want to get your hands
+  dirty immediately and try out some demo workflows on the platform, look here.
+
+* [Users, projects, and authentication](./infrastructure_overview/authentication.md):
+  Gives a short overview of how user authentication and data-access restriction
+  works on the CloudFlow platform.
+
 * [Workflows and services in the CloudFlow cloud – an overview](infrastructure_overview/workflows_and_services.md):
   Gives a compact overview over the concepts behind CloudFlow and what services
   and workflows are and how they are executed. Also explains the nomenclature
@@ -128,16 +138,14 @@ the graphical tools provided on the portal).
   through the workflow manager.
 
 ### File access
-  * [Tutorial: Low-level file access (showcased via a simple image converter)](tutorials/services/python_imageconverter.md):
-    Learn how to programmatically access files via GSS by implementing a simple
-    synchronous image conversion service. This tutorial also teaches you an
-    understanding of how GSS works, but it won't show you production-quality
-    code.
+  * If you haven't done so already, it is recommended to read the general
+    principles of [accessing cloud storage](infrastructure_overview/storage.md)
+    on the CloudFlow platform.
   * [High-level file access using GSS libraries](service_implementation/basics_gss_libraries.md):
-    In practice, one most likely wants to hide the interplay of SOAP and REST
-    calls when accessing GSS behind some kind of library. This article gives
-    an overview over existing libraries and their usage.
-    
+    While it is perfectly possible to directly interact with the GSS API, it is
+    highly recommended to use the provided GSS client libraries for file access
+    in CloudFlow. This article gives an overview over existing libraries and
+    their usage.
 
 ### Using HPC resources
   * [HPC access through the CloudFlow platform](service_implementation/basics_hpc.md):
@@ -187,6 +195,10 @@ hooked up to make a workflow. This section deals with all things done
 "graphically" via the tools provided on the portal.
 
 ### Basic workflow editing
+* Don't forget to have a look at the [demo
+  workflows](./infrastructure_overview/demos.md)
+  to learn from some pre-defined workflow examples.
+
 * [Tutorial: Overview over the portal GUI](tutorials/workflows/basics_portal_overview.md):
   In this tutorial you will get to know the portal GUI, start a workflow and
   inspect its results.
@@ -206,7 +218,7 @@ hooked up to make a workflow. This section deals with all things done
   keep in mind when performing such upgrades.
 
 ### Using the HPC service
-* (updated in v2.1.0) [Overview over the generic HPC service](workflow_creation/HPC_service.md):
+* [Overview over the generic HPC service](workflow_creation/HPC_service.md):
   Introduces the generic HPC service and showcases how it can be used to
   execute Singularity images on the available HPC resources.
 
@@ -233,6 +245,8 @@ hooked up to make a workflow. This section deals with all things done
   Want to show some HTML during a workflow? Need a user decision somewhere inside
   the workflow? DFKI's utility suite offers ready-made services just for that.
 
+### Workflow debugging
+
 * [Parameter debugger](code_examples/Python/app_debugger/README.md):
   This simple application offers the option to pause a workflow and display any
   parameters that are currently in use. Great for debugging failing workflows
@@ -256,3 +270,4 @@ have a look at our API references:
 * [Authentication manager](service_APIs/api_authentication.md)
 * [GSS](service_APIs/api_gss.md)
 * [refissh](service_APIs/api_refissh.md)
+* [servicectl](service_APIs/api_servicectl.md)

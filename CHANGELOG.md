@@ -14,6 +14,20 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2018-12-??: Version ????
+* (MINOR) Removed deprecated image-converter example and re-wrote info on GSS
+  libraries.
+* (MINOR) Added documentation of [in-service token validation](./service_implementation/advanced_authentication.md)
+* (MINOR) Added [servicectl API documentation](./service_APIs/api_servicectl.md)
+* (MINOR) Created new section on workflow debugging
+* (MINOR) Added readme for the asynchronous-service code example
+* (MINOR) Added overview page of [demo workflows](./infrastructure_overview/demos.md)
+* (PATCH) Updated deployment path and port for debugger code example
+* (PATCH) Removed remaining CAxMan elements from calculator tutorial
+* (PATCH) Added token validation to code examples
+* (PATCH) Removed note on dedicated VMs in [Getting Access](./infrastructure_overview/getting_access.md)
+* (PATCH) Updated table of contents on the main page
+
 ### 2018-12-11: Version 3.1.0
 * (MINOR) Updated [refissh API documentation](./service_APIs/api_refissh.md) to
   reflect latest refissh version

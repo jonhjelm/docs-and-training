@@ -11,11 +11,19 @@ import logging
 
 from spyne import Application, srpc, ServiceBase, Unicode, Integer, Boolean
 from spyne.protocol.soap import Soap11
+from spyne.model.fault import Fault
+
+from clfpy import AuthClient, ExtraParameters
 
 # Define the target namespace
-TNS = "app-dialog.sintef.no"
+TNS = "dialog-app.sintef.no"
 # Define the name under which the service will be deployed
 SERVICENAME = "Dialog"
+
+
+class TokenValidationFailedFault(Fault):
+    """Raised when validation of the session token fails"""
+    pass
 
 
 class DialogService(ServiceBase):
@@ -25,15 +33,29 @@ class DialogService(ServiceBase):
 
     @srpc(Unicode, Unicode, Unicode, _returns=(Unicode, Unicode),
           _out_variable_names=("status_base64", "result"))
-    def startDialog(serviceID, sessionToken, extraParameters):
+    def showDialog(serviceID, sessionToken, extraParameters):
         """
         Starts the dialog application.
         """
         logging.info("startDialog() called with service ID {}".format(serviceID))
 
-        eP_parsed = parse_extra_parameters(extraParameters)
+        # Check that the session token is valid and abort with a SOAP fault if
+        # it's not. To that end, we use the clfpy library both to extract the
+        # authentication endpoint from the extraParameters input argument and
+        # to communicate with that endpoint.
+        ep = ExtraParameters(extraParameters)
+        auth = AuthClient(ep.get_auth_WSDL_URL())
+        if not auth.validate_session_token(sessionToken):
+            logging.error("Token validation failed")
+            error_msg = "Session-token validation failed"
+            raise TokenValidationFailedFault(faultstring=error_msg)
 
-        status = base64.b64encode(create_html_dialog(serviceID, sessionToken, eP_parsed).encode()).decode()
+        # The entire application, which will be visible to the user running the
+        # workflow, is packed in the status report created in this method.
+        # Here, we create a simple HTML page with a button to continue the
+        # workflow.
+        status = base64.b64encode(create_html_dialog(serviceID, sessionToken,
+                                  ep.get_WFM_endpoint()).encode()).decode()
         result = "UNSET"
 
         return (status, result)
@@ -47,6 +69,9 @@ def create_app():
 
 # HTML code which is delivered to the workflow manager. In this example, this
 # HTML code contains the complete application.
+# Important is the JavaScript part with a SOAP request to the workflow
+# manager's serviceExecutionFinished() method. With this request, the user
+# tells the workflow manager to continue in the workflow.
 DIALOG = """<html>
 <head>
 <script type="text/javascript">
@@ -87,25 +112,17 @@ RES = "<ServiceOutputs><result>Dialog finished</result></ServiceOutputs>"
 RES_B64 = base64.b64encode(RES.encode()).decode()
 
 
-def create_html_dialog(serviceID, sessionToken, eP):
-    """Creates a very simple html dialog."""
+def create_html_dialog(serviceID, sessionToken, wfm_endpoint):
+    """Creates a very simple html dialog.
+    
+    We pack the required parameters for making the request to the workflow
+    manager's serviceExecutionFinished method right into this html dialog.
+    """
     html = DIALOG.format(
         sid=serviceID,
         stk=sessionToken,
-        wfm_endpoint=eP["WFM"],
+        wfm_endpoint=wfm_endpoint,
         result=RES_B64,
     )
 
     return html
-
-
-def parse_extra_parameters(extra_pars):
-    """Parses an extra-parameters string into a dict.
-
-    The extra parameters as delivered from the workflow manager are encoded in
-    a single string of the format "key1=value1,key2=value2,key3=value3,...".
-    Important: The string contains another comma at the very end.
-    """
-    print(extra_pars)
-    return {pair.split('=')[0]: pair.split('=')[1] for pair in
-            extra_pars.split(',')[:-1]}

@@ -1,6 +1,5 @@
 # CONTEXT_ROOT defines the deployment location relative to the host.
-# Set this variable to the routing path of your VM/service.
-CONTEXT_ROOT=/sintef/waiter
+CONTEXT_ROOT=/demo-waiter
 
 # Further variables can be used to configure the service without the need of
 # rebuilding its Docker container.

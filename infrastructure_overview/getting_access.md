@@ -12,9 +12,3 @@ include the following information:
 * Full name
 * Email address
 * Associated experiment
-
-## How to obtain virtual machines for service development
-During the development stages of your CloudFlow web services, it is advised to
-use individual virtual machine instances for easier debugging. If you require
-a VM, write a request email to Robert (robert.schittny@sintef.no) including a
-short description of the service you are developing.

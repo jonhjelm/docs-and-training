@@ -1,3 +1,2 @@
 # CONTEXT_ROOT defines the deployment location relative to the host.
-# Set this variable to the routing path of your VM/service.
-CONTEXT_ROOT=/sintef-dialog
+CONTEXT_ROOT=/demo-dialog

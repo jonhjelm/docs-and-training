@@ -37,6 +37,8 @@ editor.
     in service development.
   * `"newWorkflowUrl"`: URL to the portal function which starts a new workflow.
     Not commonly used in service development.
+  * `"auth"`: WSDL URL for the authentication manager. Necessary when session
+    tokens should be validated inside a service.
 
 ## How to access them?
 Simply create input parameters `serviceID`, `sessionToken`, and `extraParameters`

@@ -1,7 +1,26 @@
 Python example for a synchronous service
 ========================================
 
-This is a very simple example of a synchronous service written in Python.
+This is a very simple example of a synchronous service written in Python. It
+implements a simple calculator behind a SOAP web interface and represents
+services with defined, short execution times.
+
+For details on the implementation, also read the [corresponding
+tutorial](../../tutorials/services/python_sync_calculator.md).
+
+## Try it out
+The calculator methods are deployed as demo services on the platform under the
+following service URIs:
+```
+http://demo/sync/Calculator_add.owl#add_Service
+http://demo/sync/Calculator_subtract.owl#subtract_Service
+http://demo/sync/Calculator_multiply.owl#multiply_Service
+```
+You can use these services in your workflows.
+
+There is also a demo workflow using the calculator service, you can find it on
+the portal home page under "Demo_Calculator
+(http://demo/workflow/Demo_Calculator.owl#Demo_Calculator)".
 
 ## Prerequisites
 To build, run, and test this skeleton service, you only need to have Docker
@@ -15,9 +34,16 @@ use a local Python environment.
 ### Configuration
 Prior to running the service, have a look at the file `env`. This file defines
 environment variables which will be passed into the container. The first one,
-`CONTEXT_ROOT`, defines the deployment path of the app relative to root.
-Essentially, this needs to be set to the relative path under which the VM
-hosting the service is reachable.
+`CONTEXT_ROOT`, defines the deployment path of the app relative to root. In
+CloudFlow, this path is always made up of two elements:
+```
+CONTEXT_ROOT=/<project>-<service_name>
+```
+Here, `<project>` is the project name you log in with, and `<service_name>` is
+for you to choose. Please note that `<project>-<service_name>` must have a
+maximum length of 32 characters and must consist only of lowercase letters,
+digits, and hyphens.
+
 
 You can define further configuration variables which then can be used in the
 application source code.
@@ -67,5 +93,5 @@ changes.
 ## Use this example as a template
 To use this example as a template for your own service development, simply copy
 the source code to another location and start editing. To understand the
-structure of the code, start with `main.py`, continue with `frontend.py`, and
-finally read `CalculatorService.py`.
+structure of the code, start with `main.py` and then read
+`CalculatorService.py`.

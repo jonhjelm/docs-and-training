@@ -3,10 +3,16 @@
 
 import os
 import sys
+import getpass
 
 from suds.client import Client
 from suds.cache import NoCache
 from suds import WebFault, MethodNotFound
+
+from clfpy import AuthClient
+
+auth_endpoint = 'https://api.hetcomp.org/authManager/AuthManager?wsdl'
+extra_pars = "auth={},".format(auth_endpoint)
 
 
 def soap_call(wsdl_url, methodname, method_args):
@@ -26,27 +32,20 @@ def soap_call(wsdl_url, methodname, method_args):
     return response
 
 
-def start(url):
-
+def start(url, token):
     print("Starting service")
-    response = soap_call(url, "startWaiter", ["serviceID1", "sessionToken", "60"])
+    response = soap_call(url, "startWaiter", ["serviceID1", token, extra_pars, "60"])
     print(response)
 
 
-def status(url):
-
+def status(url, token):
     print("Calling getServiceStatus:")
-    response = soap_call(url, "getServiceStatus", ["serviceID1", "sessionToken"])
+    response = soap_call(url, "getServiceStatus", ["serviceID1", token])
     print(response)
 
 
 def main():
-    try:
-        port = int(sys.argv[1])
-        print("Using port {}".format(port))
-    except:
-        print("Couldn't get port from commandline argument, using 8080.")
-        port = 8080
+    port = 80
 
     try:
         context_root = os.environ["CONTEXT_ROOT"]
@@ -54,17 +53,24 @@ def main():
         print("Error: environment variable CONTEXT_ROOT not set.")
         exit(1)
 
-    url = "http://localhost:{}{}/waiter/Waiter?wsdl".format(port, context_root)
+    url = "http://localhost:{}{}/Waiter?wsdl".format(port, context_root)
     print("wsdl URL is {}".format(url))
 
-    if len(sys.argv) != 3:
-        print("Expected [start|status] as second argument.")
+    if len(sys.argv) != 2:
+        print("Expected [start|status] as argument.")
         exit(1)
 
-    if sys.argv[2] == 'start':
-        start(url)
-    elif sys.argv[2] == 'status':
-        status(url)
+    print("Obtaining session token")
+    user = input("Enter username: ")
+    project = input("Enter project: ")
+    password = getpass.getpass(prompt="Enter password: ")
+    auth = AuthClient(auth_endpoint)
+    token = auth.get_session_token(user, project, password)
+
+    if sys.argv[1] == 'start':
+        start(url, token)
+    elif sys.argv[1] == 'status':
+        status(url, token)
     else:
         print('Unknown argument.')
 

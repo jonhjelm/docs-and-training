@@ -1,12 +1,19 @@
-Python example for an HPC pre-processor
-========================================
-This is a sample preprocessor service for the HPC launcher.
+Python example for an asynchronous service
+==========================================
 
-It is currently deployed for the IT4I Anselm cluster under `http://demo/sync/hpcprepWaiter.owl#hpcprepWaiter_Service` and used in the
-demo workflow `http://demo/workflow/Demo_HPC_Abortable_Waiter_prep.owl#Demo_HPC_Abortable_Waiter_prep`.
+This is a very simple example of an asynchronous service written in Python. It
+does nothing but to wait for a specified amount of time, but uses the same
+concepts and techniques required for wrapping a longer-running calculation in
+a CloudFlow asynchronous service.
+
+It also protects all methods by checking that the supplied session token is
+valid.
+
+For details on the implementation, also read the [corresponding
+tutorial](../../tutorials/services/python_async_waiter.md).
 
 ## Prerequisites
-To build, run, and test this  service, you only need to have Docker
+To build, run, and test this skeleton service, you only need to have Docker
 installed on your machine. All required software is already bundled in Docker
 containers.
 
@@ -17,13 +24,18 @@ use a local Python environment.
 ### Configuration
 Prior to running the service, have a look at the file `env`. This file defines
 environment variables which will be passed into the container. The first one,
-`CONTEXT_ROOT`, defines the deployment path of the app relative to root.
-Essentially, this needs to be set to the relative path under which the VM
-hosting the service is reachable.
+`CONTEXT_ROOT`, defines the deployment path of the app relative to root. In
+CloudFlow, this path is always made up of two elements:
+```
+CONTEXT_ROOT=/<project>-<service_name>
+```
+Here, `<project>` is the project name you log in with, and `<service_name>` is
+for you to choose. Please note that `<project>-<service_name>` must have a
+maximum length of 32 characters and must consist only of lowercase letters,
+digits, and hyphens.
 
-The other configuration variables are the number of nodes and number of cores to
-reserve on the HPC cluster. You can of course define further configuration 
-values if needed.
+You can define further configuration variables which then can be used in the
+application source code.
 
 ### Build and run
 To compile service source code, pack it into a Docker container, and run the
@@ -31,7 +43,7 @@ container, run
 ```
 ./rebuildandrun.sh
 ```
-The service will listen on port 80 of your machine.
+The container will listen on port 80 of your machine.
 
 On the first run, this might take a while since the base container images need
 to be downloaded and dependencies need to be installed. Subsequent builds will
@@ -42,7 +54,7 @@ returns immediately and that logs are not immediately visible.
 
 Alternatively, run the container interactively via:
 ```
-docker run -p 80:80 --env-file=env waiterprep
+docker run -p 80:80 --env-file=env calculator
 ```
 Again, choose a fitting port number
 
@@ -59,16 +71,18 @@ Docker container for executing the test client.
 To use the Python container, run
 ```
 cd test_client
-./build.sh      # run only once
-./run.sh        # run every time you want to test
+./build.sh                # run only once
+./run.sh [start|status]   # run every time you want to test
 ```
 
 You can make changes to `test_service.py` to test other methods or other
 deployment locations. Rebuilding the container is not necessary after such
 changes.
 
+Note that you will have to enter your username, project, and password for each
+test run in order to obtain a valid session token.
+
 ## Use this example as a template
 To use this example as a template for your own service development, simply copy
 the source code to another location and start editing. To understand the
-structure of the code, start with `main.py`, and afterwards read
-`WaiterPrep.py`.
+structure of the code, start with `main.py` and then read `Waiter.py`.

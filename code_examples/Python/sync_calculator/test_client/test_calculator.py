@@ -33,8 +33,8 @@ def main():
         port = int(sys.argv[1])
         print("Using port {}".format(port))
     except:
-        print("Couldn't get port from commandline argument, using 8080.")
-        port = 8080
+        print("Couldn't get port from commandline argument, using 80.")
+        port = 80
 
     try:
         context_root = os.environ["CONTEXT_ROOT"]

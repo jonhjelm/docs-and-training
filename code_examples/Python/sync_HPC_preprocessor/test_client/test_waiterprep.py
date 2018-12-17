@@ -3,10 +3,16 @@
 
 import os
 import sys
+import getpass
 
 from suds.client import Client
 from suds.cache import NoCache
 from suds import WebFault, MethodNotFound
+
+from clfpy import AuthClient
+
+auth_endpoint = 'https://api.hetcomp.org/authManager/AuthManager?wsdl'
+extra_pars = "auth={},".format(auth_endpoint)
 
 
 def soap_call(wsdl_url, methodname, method_args):
@@ -29,12 +35,7 @@ def soap_call(wsdl_url, methodname, method_args):
 def main():
     """Makes a series of test calls and prints their outputs."""
 
-    try:
-        port = int(sys.argv[1])
-        print("Using port {}".format(port))
-    except:
-        print("Couldn't get port from commandline argument, using 8080.")
-        port = 8080
+    port = 80
 
     try:
         context_root = os.environ["CONTEXT_ROOT"]
@@ -42,13 +43,20 @@ def main():
         print("Error: environment variable CONTEXT_ROOT not set.")
         exit(1)
 
+    print("Obtaining session token")
+    user = input("Enter username: ")
+    project = input("Enter project: ")
+    password = getpass.getpass(prompt="Enter password: ")
+    auth = AuthClient(auth_endpoint)
+    token = auth.get_session_token(user, project, password)
+
     # URL of the SOAP service to test. Modify this if the deployment location
     # changes.
     url = "http://localhost:{}{}/WaiterPrep?wsdl".format(port, context_root)
     print("wsdl URL is {}".format(url))
 
     print("Calling preprocessor with 45 seconds waiting time:")
-    response = soap_call(url, "waiter_prep", [45])
+    response = soap_call(url, "hpcprepWaiter", [token, extra_pars, 45])
     print(response)
 
 
