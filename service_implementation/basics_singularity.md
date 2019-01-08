@@ -283,6 +283,29 @@ To upload your image to GSS, you can use one of the following methods:
   (https://github.com/CloudiFacturing/client_libs)
 
 ### Registering your image
+#### ... with the clfpy CLI
+The easiest way of registering your image is by using the command-line
+interface (CLI) of the [`clfpy` Python
+library](https://github.com/CloudiFacturing/clfpy). Make sure you have the
+latest version of the library installed (`pip install --upgrade clfpy`) and
+start the CLI (`clfpy_cli` from anywhere in a console).
+
+You now have two options for registering an image:
+1. From within the GSS client (`client gss`), navigate to the folder with the
+   image you want to register and execute `img_register FILENAME`. The image
+   will then be registered under the same name as the source file name.
+2. From within the images client (`client images`), execute `register GSS_URI
+   TARGET_NAME`.  Here, `GSS_URI` is the GSS URI of the image saved on GSS
+   (`it4i_anselm://home/my_image.simg` or similar) and `TARGET_NAME` is the
+   name the registered image should have. Remember the `.simg` ending for the
+   target name.
+
+#### ... programmatically with the clfpy library
+To programmatically register images, use the ImagesClient client of the clfpy
+library. In `clfpy/tests/test_hpc.py` of the library source code, you'll find a
+working example of how to upload and register an image.
+
+#### ... with the Images SOAP API
 To register an image which is available on the HPC-cluster storage, you need to
 use the Images SOAP API of the CloudFlow HPC service(s). Descriptions of the
 Images web services for the available clusters are found under the following
@@ -295,11 +318,6 @@ with the following parameters:
 * `token`: valid authentication token
 * `image_name`: name to use for the registered image (use this for versioning)
 * `image_source`: GSS URI of the image to register
-
-_Note:_ The [`clfpy` Python library](https://github.com/CloudiFacturing/clfpy)
-for CloudFlow platform access includes a client for accessing the Images API of
-the HPC service. In `clfpy/tests/test_hpc.py`, you'll also find a working 
-example of how to upload and register an image.
 
 ## How to move on
 Once you have successfully registered an image with the HPC service, you can use

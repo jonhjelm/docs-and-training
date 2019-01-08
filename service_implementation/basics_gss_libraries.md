@@ -30,3 +30,10 @@ gss = GssClient(gss_endpoint)
 download_destination = "/tmp/newfile.bin"
 gss.download_to_file(gss_ID, token, download_destination)
 ```
+
+## Interactive file access using the clfpy CLI
+The clfpy library comes with an interactive command-line interface (CLI) which
+also includes a GSS client. To use this client, make sure you have the latest
+version of clfpy installed (`pip install --upgrade clfpy`), start the CLI
+(execute `clfpy_cli` from any console), and select the GSS client (`client gss`
+in the CLI).

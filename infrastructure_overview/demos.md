@@ -54,6 +54,16 @@ workflow).
 Also see the accompanying full [dialog code
 example](../code_examples/Python/app_simple).
 
+### Input GUI
+**Workflow name and URI:** Demo_InputGUI (http://demo/workflow/Demo_InputGUI.owl#Demo_InputGUI)<br/>
+**Requires login with demo project:** No
+
+This workflow demonstrates the [generic input-GUI
+application](../workflow_creation/utilities_auto_gui.md) provided by
+Fraunhofer.  This application creates an HTML input form from an Excel sheet
+defining required user input.  Use this application to query multiple user
+input with a single service.
+
 ### HPC waiter
 **Workflow name and URI:** Demo_HPC_Waiter (http://demo/workflow/Demo_HPC_Waiter.owl#Demo_HPC_Waiter)<br/>
 **Requires login with demo project:** Yes (Singularity image registered with the demo project)

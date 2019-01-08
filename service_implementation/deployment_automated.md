@@ -43,8 +43,10 @@ service deployment. It is a RESTful web service deployed under:
 https://api.hetcomp.org/servicectl-1/
 ```
 Additionally, the CloudFlow Python library clfpy
-(https://github.com/CloudiFacturing/clfpy) comes with a client for servicectl.
-In the examples given here, we will be using this client.
+(https://github.com/CloudiFacturing/clfpy) comes with a client for servicectl
+for programmatic access as well as with an interactive command-line interface.
+In the examples given here, usage of both the clfpy client and the command-line
+interface (CLI) will be demonstrated.
 
 ### Where are code examples?
 For a minimal example of creating, deploying, monitoring, and deleting a
@@ -79,6 +81,7 @@ using the clfpy library. Here, it is assumed that such a token is stored in the
 environment variable `CFG_TOKEN`.
 
 ### 1 Create a new, empty service
+#### clfpy services client
 To create a new, empty service, one only needs to choose a name and call the
 `create_new_service()` method of clfpy's services client:
 ```python
@@ -105,7 +108,35 @@ The response object contains links to the service itself (as a relative link
 within the services-client API) as well as to the deployment URL where the
 service will be reachable once it's deployed.
 
+#### clfpy CLI
+Make sure you have the latest version of the clfpy library installed. (You can
+execute `pip install --upgrade clfpy` to do so.) The library provides an
+executable named `clfpy_cli` which should be available from the console after
+installation.
+
+Log into the CloudFlow platform bei either simply starting `clfpy_cli` (you
+will be asked for your user credentials), or set the environment variables
+`CFG_USER`, `CFG_PROJECT`, and `CFG_PASSWORD` before starting `clfpy_cli`.
+
+Select the services client inside the CLI:
+```
+client services
+```
+The CLI prompt will change to `user@project – SERVICES: `.
+Note that the CLI allows tab completion of most commands and provides help for
+all commands. Execute `help` for details.
+
+Then, create a new service with the following command:
+```
+create_new test-service
+```
+Answer with "N" to the question on a custom health check.
+
+Afterwards, use the command `ls` (list) to see your currently registered
+services and their deployment URLs.
+
 ### 2 Obtain Docker login credentials
+#### clfpy services client
 The following snippet assumes that it is run after the snippet in the previous
 section.
 ```python
@@ -118,7 +149,12 @@ together with the new service. `creds` contains the following elements:
 * `user`
 * `password`
 
+#### clfpy CLI
+In the CLI, this step is performed automatically when you push a Docker image
+to a service's repository.
+
 ### 3 Push a Docker image to the service repository
+#### clfpy services client
 With the elements in the `creds` object mentioned above, you can perform the
 following sequence of Docker commands to build, tag, and push a Docker image
 to the service repository:
@@ -142,7 +178,19 @@ docker_source_folder = '/path/to/a/folder/containing/a/Dockerfile'
 srv.build_and_push_docker_image(token, name, docker_source_folder, creds, tag='1.1.0')
 ```
 
+#### clfpy CLI
+Execute the following command (replace the place holder with the path to the
+Docker source folder):
+```
+push_docker_image test-service <docker_source_folder>
+```
+You will see the output of Docker within the CLI, which will automatically
+build, tag, and push the Docker image in the folder you provided. Note that the
+CLI currently always tags your images with `latest`. If you want to use custom
+tags, you need to use the clfpy services client.
+
 ### 4 Update the service with a service definition
+#### clfpy services client
 The following snippet updates a service, which triggers currently running
 instances of the service to be stopped and replaced by a new instance. This
 new instance can have a new Docker image, or simply new configuration
@@ -199,7 +247,18 @@ returned when creating the service (section 1 above). It is important to tell
 the Docker container to listen for connections on the same route as where the
 service is deployed. Otherwise, no connections will ever reach the service.
 
+#### clfpy CLI
+The CLI performs the setup of the service definition for you after the
+following command:
+```
+update test-service
+```
+You will be asked for memory reservation, memory limit, container port, and the
+path to an environment-definition file. See section above for explanations of
+these parameters.
+
 ## Listing available services
+#### clfpy services client
 The following method prints a list of all available services:
 ```
 >>> srv.print_service_list(token)
@@ -221,7 +280,11 @@ printed list:
 r = srv.list_services(token)
 ```
 
+#### clfpy CLI
+Execute the `ls` command.
+
 ## Monitoring a service's status
+#### clfpy services client
 To check whether a service has started correctly, you can obtain a detailed
 status report:
 ```
@@ -298,11 +361,17 @@ method instead:
 r = srv.get_service_status(token, name)
 ```
 
+#### clfpy CLI
+Execute `status <service_name>`
+
 ## Monitoring a service's log files
 In contrast to monitoring a service's _status_, which gives information about
 the general health state of a service as seen from the outside, the _Docker
 log files_ provide important information on what is happening inside a service
-container. You can print log files with the following ServicesClient method:
+container.
+
+#### clfpy services client
+You can print log files with the following ServicesClient method:
 ```
 >>> srv.print_service_logs(token, 'newservice')
 
@@ -348,7 +417,11 @@ sometimes can make it difficult to find more relevant log events. One option
 around this is to increase the interval between two consecutive health checks.
 See the section on "Defining custom health checks" below for details.
 
+#### clfpy CLI
+Execute `logs <service_name>`.
+
 ## Deleting a service
+#### clfpy services client
 Finally, to delete a service, call:
 ```python
 srv.delete_service(name)
@@ -356,6 +429,9 @@ srv.delete_service(name)
 This stops any running service instances and deletes all resources associated
 with the service. Note that this includes all logs and repository images. You
 will have to re-push images if you re-create a service after deleting it.
+
+#### clfpy CLI
+Execute `remove <service_name>`.
 
 ## Defining custom health checks
 When creating a new service, a standard health check is defined. In this
@@ -393,3 +469,5 @@ Notes
   (`'200,201'`) or ranges (`'200-299'`) as well.
 * `interval` (must be an integer) is the number of seconds between two
   consecutive health checks.
+* In the clfpy CLI, answer "y" to the question on a custom health check. The
+  CLI will ask you for all necessary input afterwards.
