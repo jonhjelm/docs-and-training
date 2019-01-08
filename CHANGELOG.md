@@ -14,7 +14,7 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
-### 2019-01-??: WIP
+### 2019-01-08: Version 3.3.0
 * (MINOR) Added documentation of the clfpy CLI where appropriate.
 * (MINOR) Added command-line-interface examples to the [deployment
   manual](./service_implementation/deployment_automated.md).
