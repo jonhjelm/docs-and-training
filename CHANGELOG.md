@@ -14,6 +14,11 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-01-10: Version 3.4.0
+* (MINOR) Added code example for Fraunhofer's [input-GUI
+  generation](./code_examples/Python/app_generic_gui)
+  and [corresponding documentation](./workflow_creation/utilities_auto_gui.md).
+
 ### 2019-01-08: Version 3.3.0
 * (MINOR) Added documentation of the clfpy CLI where appropriate.
 * (MINOR) Added command-line-interface examples to the [deployment
