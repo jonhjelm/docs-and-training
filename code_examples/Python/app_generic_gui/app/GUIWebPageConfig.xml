@@ -1,0 +1,11 @@
+<pageConfiguration>
+    <params>
+        <param name="layout">top2bottom</param> <!-- Specify the order of GUI elements (top2bottom or left2right)-->
+        <param name="orientation">single</param>
+		<param name="margin">20</param>
+		<param name="margin_direction">left</param>
+		<param name="title_size">4</param> <!-- from 1 (large) to 6 (small) -->
+		<param name="heading_size">5</param> <!-- from 1 (large) to 6 (small) -->
+		<param name="font_size">14px</param> <!-- Size for text other than title and headings -->
+    </params>
+</pageConfiguration>

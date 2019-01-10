@@ -1,0 +1,19 @@
+-------------------------------
+ GUI App Generic License
+-------------------------------
+
+Copyright (c) 2018 by Fraunhofer IGD. 
+
+This application is for use in the CloudiFactoring project only.
+All rights are reserved by Fraunhofer IGD, Darmstadt, Germany.
+In particular, this application may only be distributed and
+redistributed by Fraunhofer IGD.
+
+In no event, Fraunhofer IGD provides any warranty regarding this
+application. Fraunhofer IGD shall not be liable for any damage caused
+by this application.
+
+Changes to the source code are only permitted with the explicit
+approval of Fraunhofer IGD. Whenever Fraunhofer IGD grants changes
+to the source code wih explicit instructions, the person commiting
+these changes has to follow these instructions accurately.

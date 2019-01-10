@@ -1,0 +1,12 @@
+dict2xml==1.6
+Flask==1.0.2
+keystoneauth1==3.11.1
+python_novaclient==11.1.0
+profilehooks==1.10.0
+simplejson==3.16.0
+spyne==2.12.14
+suds_jurko==0.6
+Werkzeug==0.14.1
+xlrd==1.1.0
+xmltodict==0.11.0
+lxml==4.2.5

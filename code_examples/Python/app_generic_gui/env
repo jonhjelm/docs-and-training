@@ -1,0 +1,17 @@
+# CONTEXT_ROOT defines the deployment location relative to the host.
+# Set this variable such that it fits to the URL under which the VM hosting the
+# app can be reached.
+CONTEXT_ROOT=/gui-app
+
+# Define deployment parameters and config file names
+# Service name
+SERVICE_NAME=GUIApp
+
+# Target name space
+TNS=tns
+
+# Configuration file for layout
+PAGE_CONFIG=GUIWebPageConfig.xml
+
+# XLS sheet to specify GUI elements
+XLS_PARAM_SHEET=GUIAppParameters.xlsx

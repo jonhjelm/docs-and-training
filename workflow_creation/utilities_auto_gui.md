@@ -1,96 +1,123 @@
-# Parameter Extraction for CloudiFacturing Generic User Input asynchronous Web Application
+Parameter Extraction for CloudiFacturing Generic User Input asynchronous Web Application
+===
 
-Web applications used for priting often rely on end user input. However, the input parameters and their range have to be specified by the workflow provider to prevent malicious parameters.
-One suitable way to provide these input parameters are files provided in the form of a spreadsheet (like xls, ods and xlsx).
-These inputs provided in the file are extracted as parameters, converted to HTML5 tags and available for the end user via a web page. This GUI enables users to interactively change the values or check for correctness before submitting it for processing.
+Web applications typically rely on end user input.
+In order to prevent malicious parameter inputs, workflow providers have to 
+specify valid parameter ranges for inputs.
+A suitable way to allow for parameter configuration are spreadsheet files.
+For this purpose, this repository provides the _GenericGUIApplication_ 
+GUI web application in [_code\_examples/Python/app\_generic\_gui_](../code_examples/Python/app_generic_gui).
+It allows for interactive parameter specification. When the application runs, 
+it initially constructs appropriate GUI elements for the specified parameters.
+These GUI elements are incorporated into a web page, which will be presented to the user.
+The remainder of this document describes the requirements, 
+configuration and deployment of the application.
 
-## Setting up the Web Application
+1 Requirements
+---
 
-This section describes how to configure the asynchronous web application for generation of GUI in CAxMan portal.
+You only require to have docker installed.
+The docker container installs all required packages automatically and runs the application.
 
-### Prerequisites
+2 Configuration
+---
+In order to configure the web application, three different configuration files are used.
+The following sections describe each of them.
 
-The module is developed and tested for python 2.7. So, a python environement for the execution is necessary.
+#### 2.1 __Environment Variable File for Service Deployment Parameters:__ 
+The _env_ file specifies environment variables for the docker container.
+When the application runs, it reads these environment variables.
+The _env_ file contains all parameters for service deployment and also specifies 
+the used configuration files for web site construction.
+The listing below shows a complete _env_ file for service deployment configuration.
 
-In order to run this module we need to install the following python 2.7 listed in **requirements.txt**. This file is present under the project folder.
-The dependencies can be installed using the following command:
-
-```python
-pip install -r requirements.txt
 ```
-However, if **pip** is absent. It can installed using the following command:
+# CONTEXT_ROOT defines the deployment location relative to the host.
+# Set this variable such that it fits to the URL under which the VM hosting the
+# app can be reached.
+CONTEXT_ROOT=/gui-app
 
-```python
-python get-pip.py
+# Define deployment parameters and config file names
+# Service name
+SERVICE_NAME=GUIApp
+
+# Target name space
+TNS=tns
+
+# Configuration file for layout
+PAGE_CONFIG=GUIWebPageConfig.xml
+
+# XLS sheet to specify GUI elements
+XLS_PARAM_SHEET=GUIAppParameters.xlsx
 ```
 
-The application can also depend on the following helper files in the parent folder:
+#### 2.2 Excel Sheet for GUI Elements:
+The [_app_](../code_examples/Python/app_generic_gui/app) directory also contains an excel sheet, which lists all gui elements.
+It allows to specify *element name*, *element type*, *unit of measurement*, *default value*, 
+*min/max values*, *checked* state and the name of the *output parameter* for the workflow manager. 
+The min/max parameters can be used to prevent users from specifying malicious 
+parameters but are not mandatory. 
+The checked state option is only used for checkable elements, i.e., checkboxes and radiobuttons. 
+The unit of measurement option can be used to present the unit, e.g., milimeters, of the parameter to the user. 
+Note that the unit of measurement option is mandatory for radiobuttons, 
+since the application assigns radiobuttons of the same unit to the same group. 
+For an complete example of a valid excel stylesheet 
+checkout the *GUIAppParameters.xlsx* file in the [_app_](../code_examples/Python/app_generic_gui/app) directory.
 
-1. fileHelper.py - used to parse the spreadsheet and configuriation file
-2. sessionHelper.py - used to validate the current session token
+Currently the application supports the following data types:
++ **title**: The title of the web page. This shall be set first.
++ **heading**: Any heading to inform users about the semantics of GUI elements
++ **integer**: Integer input field
++ **decimal**: Float input field
++ **string**: String input field
++ **3 decimals**: Three contiguous decimal input fields
++ **6 decimals**: Six contiguous decimal input fields
++ **radiobutton**: A single radiobutton. 
+To form groups of radiobuttons specify same unit of measurement. 
+Set the value of the *checked* field to *YES* for an initially checked radiobutton.
++ **checkbox**: A single checkbox. 
+Set the value of the *checked* field to *YES* for an initially checked checkbox.
 
-### Set Up
+#### 2.3 Configuration File for Web Page Layout:
+The [_app_](../code_examples/Python/app_generic_gui/app) directory contains a configuration file for the web site layout parameters such as font size or title size.
+This file solely configures the appearence of the web site and typically does not have to be changed.
+The listing below shows a complete layout configuration file.
 
-The first step is to set up the service in the CAxMAn WFM. The documenation of setting up a service is already available.
-
-In addition, **extraParameters** has to be connected to the newly created service. Those parameters contian information about the location of the workflow manager.
-
-Next, the user has to specify a configuration file written in .xml. This is used to initialize the server and attach the main application to this module.
-The configuration file details are shown in the sample as follows:
-```xml
-<?xml version="1.0"?>
-<config>
-	<serverConfiguration>
-		<location>http://localhost</location>
-		<port>8080</port>
-		<action>http://localhost</action>
-		<namespace>default</namespace>
-		<prefix>ns0</prefix>
-		<trace>True</trace>
-		<ns>True</ns>
-		<name>Cavity Creation Configuration UI</name>
-	</serverConfiguration>
-	<serviceConfiguration>
-		<file>CAxManPrintingParameters.xlsx</file>
-		<script>webApp_UserInput</script>
-	</serviceConfiguration>
-</config>
+```XML
+<pageConfiguration>
+    <params>
+        <param name="layout">top2bottom</param> <!-- Specify the order of GUI elements (top2bottom or left2right)-->
+        <param name="orientation">single</param>
+		<param name="margin">20</param>
+		<param name="margin_direction">left</param>
+		<param name="title_size">4</param> <!-- from 1 (large) to 6 (small) -->
+		<param name="heading_size">5</param> <!-- from 1 (large) to 6 (small) -->
+		<param name="font_size">14px</param> <!-- Size for text other than title and headings -->
+    </params>
+</pageConfiguration>
 ```
-In the tag **serverConfiguration** is used to read the *location*, *port*, *action*, *namespace*, *prefix*, *trace*, *ns*, *name*. These fields are used by the portal to identify the *service* before launching the application.
 
-1. **location** : The URL of the service.
-2. **port** : The port of the service.
-3. **action** : Specfies where to lookUp the service using the URL.
-4. **name**: Name of the Particular Service/Application.
+3 Deployment
+---
+This section describes the local deployment of the _GenericGUIApplication_.
+Note that this description is only valid for local deployment.
+For deployment on the CloudFlow platform, see the [deployment manual](../service_implementation/deployment_automated.md).
 
-The default values should be just fine for the rest of the fields.
+Before service deployment ensure that docker is installed and the service configuration is correct.
+The deployment of the application just amounts to building and starting the docker container.
+From the directory containing the _GenericGUIApplication_ execute the following:
 
-The tag **serviceConfiguration** specifies the application module (here webApp_UserInput.py) and the spreadsheet (here CAxManPritingParameters.xlsx) that is needed to initialize the application.
-
-### List of currently Supported Datatypes.
-
-Mapping w.r.t to the types and dimensions( as specified in *Unit of Measurements* ) provided in the SpeadSheet.
-
-1. **string** - string
-2. **decimal** - integer or floating point based on default values
-3. **3 decimals** - 3 fields having integer or floating point based on default values
-4. **6 decimals** - 6 fields havaing integer or floating point based on default values
-
-The web application is responsible for creation and validation of the fields. It also checks if the field is mandatory, minimum and maximum allowed values.
-
-## Running the Application
-
-The following steps are for using the the Generic Web Application interface for developing the CAxMan applications:
-
-1. Fork or copy the module *Web_Application_Generic*.
-2. Install the **Prerequisites**.
-3. Check if the dependencies are present in the parent path *"/PythonTools"*.
-4. Setting Up the *serverConfiguration* for the server.
-5. Setting Up the *serviceConfiguration* for the Application. This includes providing the path to the application module in the **script** tag and input file if any in **file** tag.
-6. Finally Launch the application service using the followingn command:
-```python
-python webAppInterface.py
 ```
-7. The application when accessed in the CAxMan portal should display the generated GUI.
-8. On submission it passes the parameters to the workflow manager. Parameter by parameter. Consequently, you can connect different parameters with different services. Submission **is only allowed, if** all parameters are in their allowed range.
+docker build -t <container_name> .
+docker run -d -p <host_port>:80 --env-file=env --name <container_name> <container_name>
+```
 
+The application runs automatically on the docker container.
+Subsequently, register the application on the CloudiFactoring platform.
+The wsdl location of the service evaluates to _http://domain_name/path/to/location/CONTEXT_ROOT/SERVICE_NAME/SERVICE_NAME?wsdl_.
+When the service is registered, add it to the appropriate worflow.
+
+Finally, connect the outputs of the GUI application with the input ports of the appropriate services.
+
+A demo version of this service is deployed under the URI http://demo/apps/startInputGUI.owl#startInputGUI_Service.
+Furthermore, a demo workflow using this service is available under the name Demo_InputGUI (URI http://demo/workflow/Demo_InputGUI.owl#Demo_InputGUI).
