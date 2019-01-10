@@ -30,7 +30,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `3.4.0`
+Current documentation version: `3.5.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -230,6 +230,10 @@ hooked up to make a workflow. This section deals with all things done
 * [Pre- and post-processor services](workflow_creation/HPC_prepost.md):
   Explains how one can interface with the generic HPC service by writing pre-
   and post-processor services.
+
+* [Launching HPC jobs in the background](workflow_creation/HPC_background.md):
+  Explains how HPC jobs can be launched in the background, such that other
+  parts of the workflow can run in parallel.
 
 ### Available utility services
 * [File selection using the FileChooser service](workflow_creation/utilities_filechooser.md):

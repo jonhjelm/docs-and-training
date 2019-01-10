@@ -14,6 +14,9 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-01-10: Version 3.5.0
+* (MINOR) Added documentation on how to [launch background HPC jobs](./workflow_creation/HPC_background.md)
+
 ### 2019-01-10: Version 3.4.0
 * (MINOR) Added code example for Fraunhofer's [input-GUI
   generation](./code_examples/Python/app_generic_gui)
