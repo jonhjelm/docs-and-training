@@ -107,3 +107,20 @@ services are necessary.
 See [here](../workflow_creation/HPC_prepost.md) for details on pre- and
 post-processors. Also see the accompanying [HPC preprocessor code
 example](../code_examples/Python/sync_HPC_preprocessor).
+
+### Point-cloud alignment
+**Workflow name and URI:** Demo_PointCloud_Alignment (http://demo/workflow/Demo_PointCloud_Alignment.owl#Demo_PointCloud_Alignment)<br/>
+**Requires login with demo project:** Yes (Singularity image registered with the demo project and example data is stored on the demo storage)
+
+This workflow is a real-world example taken from the context of additive
+manufacturing. It compares a CAD model and a point cloud obtained by
+3D-scanning an object 3D-printed after that CAD model, aligning point cloud and
+model and calculating the distance of each point to the model surface.
+
+To execute this workflow, please log into the `demo` project, where example
+data sets are available.
+
+The workflow will take you through input-file selection, a manual pre-alignment
+step where you can preview CAD model and point cloud in an interactive,
+browser-based viewer, an HPC job execution, and finally an interactive results
+viewer.
