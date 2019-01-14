@@ -14,6 +14,10 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-01-14: Version 3.6.1
+* (PATCH) Added note on project names with underscores to the [deployment
+  manual](./service_implementation/deployment_automated.md).
+
 ### 2019-01-11: Version 3.6.0
 * (MINOR) Added point-cloud alignment workflow to [demo
   overview](./infrastructure_overview/demos.md).

@@ -14,7 +14,8 @@ Once deployed, all services are available under the following deployment path:
 https://srv.hetcomp.org/<project>-<service_name>
 ```
 Here, `<project>` is the project name you log in with into the CloudFlow
-portal. For experiment partners, this is most likely `"experiment_#"`.
+portal. For experiment partners, this is most likely `"experiment#"`
+(underscores from the original project name are removed here).
 `<service_name>` is a name that you choose when creating a new service.
 
 ### Do I have to configure my service for being deployed?
