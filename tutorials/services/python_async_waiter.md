@@ -2,7 +2,7 @@
 In this tutorial, you will take an existing piece of software (in this case,
 it's a very simply Python script which doesn't do anything else but to wait
 for a while) and wrap a simple asynchronous service around it, so that the
-software can be used on the CloudFlow platform. In a more realistic scenario,
+software can be used on the SemWES platform. In a more realistic scenario,
 the software would be anything which takes a longer time to complete and where
 intermediate status updates should be displayed to the user during service
 execution.
@@ -22,9 +22,9 @@ terminal there.
 ### Adapt the webservice's context root
 As for the [calculator-service tutorial](python_sync_calculator.md), the first
 thing to do is to adapt the existing code so that it will run and be reachable
-after you have deployed it on the CloudFlow platform.  Therefore, you have to
+after you have deployed it on the SemWES platform.  Therefore, you have to
 tell the service its _relative deployment path_ or _context root_. In
-CloudFlow, this path is always made up of two elements:
+SemWES, this path is always made up of two elements:
 ```
 CONTEXT_ROOT=/<project>-<service_name>
 ```
@@ -59,7 +59,7 @@ validation.
 In the following, we will add two webmethods to the so far empty
 `WaiterService` class: one to start the asynchronous service, and one to obtain
 its current exection status. Both these functions will be called by the
-workflow manager when the webservice is registered as a CloudFlow asynchronous
+workflow manager when the webservice is registered as a SemWES asynchronous
 service.
 
 ## Step 3: Add a start method to the webservice skeleton
@@ -123,7 +123,7 @@ just created:
 ```
 Both the `ExtraParameters` and the `AuthClient` classes are members of the
 `clfpy` library, which is created specifically for interacting with the
-CloudFlow platform. The code skeleton already imports the necessary parts of
+SemWES platform. The code skeleton already imports the necessary parts of
 the library.
 
 We first extract the authentication manager's endpoint URL from the
@@ -138,7 +138,7 @@ available in the other methods we need to create for an asynchronous service.
 Token validation is now complete and we can continue with the second step from
 the list above.
 
-_Important:_ Note that a CloudFlow service can be run several times in
+_Important:_ Note that a SemWES service can be run several times in
 parallel.  It is therefore important that subsequent status-query calls to the
 service return information from the correct long-running background process
 (the waiter script in this example). The workflow manager assigns a unique
@@ -355,10 +355,10 @@ Calling getServiceStatus:
 ```
 
 ## Conclusion and further reading
-Congratulations! You have successfully created an asynchronous CloudFlow
+Congratulations! You have successfully created an asynchronous SemWES
 workflow which includes proper token-based access restriction and reports an
 HTML status page.
 
-If you want to, you can now deploy the service on the CloudFlow platform and
+If you want to, you can now deploy the service on the SemWES platform and
 afterwards integrate it into a workflow. Head over to the [deployment
 manual](../../service_implementation/deployment_automated.md) for details.

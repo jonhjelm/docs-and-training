@@ -35,7 +35,7 @@ use a local Python environment.
 Prior to running the service, have a look at the file `env`. This file defines
 environment variables which will be passed into the container. The first one,
 `CONTEXT_ROOT`, defines the deployment path of the app relative to root. In
-CloudFlow, this path is always made up of two elements:
+SemWES, this path is always made up of two elements:
 ```
 CONTEXT_ROOT=/<project>-<service_name>
 ```

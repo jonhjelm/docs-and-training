@@ -3,16 +3,16 @@ There are plenty of different cloud-based file storage systems "out there", but
 the more one wants to use at a time, the more challenging it gets. One will need
 to manage several sets of credentials as well as several different access APIs.
 
-The CloudFlow platform, however, provides the ability to use several different
+The SemWES platform, however, provides the ability to use several different
 storage solutions without having to worry about different APIs or credentials at
 all. To accomplish this, Generic Storage Services or GSS have been introduced in
-the CloudFlow project.
+the SemWES project.
 
 ## Principles of GSS
 The aim of GSS is to abstract all the specifics of different storage solutions
 away and instead offer a single, unified entrypoint API for file access. GSS is
 a SOAP web service which acts in two distinctly different ways:
-1. GSS can act as a _middle man_ between a service on the CloudFlow platform
+1. GSS can act as a _middle man_ between a service on the SemWES platform
    which needs to access files and a storage provider. This means that the
    service which wants to access data calls a method of GSS, which then makes a
    call to the specific storage provider and subsequently delivers the response
@@ -34,8 +34,8 @@ understanding though, have a look at the tutorial on [low-level file
 access](tutorials/services/python_imageconverter.md) or take a closer look at
 the source code of one of the libraries.
 
-## File and folder representation on the CloudFlow platform
-Any file or folder which is accessible via GSS on the CloudFlow platform is
+## File and folder representation on the SemWES platform
+Any file or folder which is accessible via GSS on the SemWES platform is
 identified by a URI of the following form:
 ```
 <backend>://<location>

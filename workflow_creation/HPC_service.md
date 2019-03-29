@@ -1,5 +1,5 @@
 # Overview over the generic HPC service
-This document gives an overview over the CloudFlow HPC service and describes how
+This document gives an overview over the SemWES HPC service and describes how
 to use it to execute Singularity images on an HPC cluster. Please note that this
 article refers to version 4 of the HPC service, introduced on Oct. 16th 2018.
 The previous documentation is still available as [legacy
@@ -137,7 +137,7 @@ drivers.
 ## Further reading
 * _GSS &harr; file path conversion:_ Most likely, your HPC job will process some
   input files and create some output files as well. Since files are represented
-  by GSS URIs on the CloudFlow platform but by ordinary file paths in the HPC
+  by GSS URIs on the SemWES platform but by ordinary file paths in the HPC
   environment, it is necessary to [convert between these two
   representations](HPC_gss_conversion.md).
 

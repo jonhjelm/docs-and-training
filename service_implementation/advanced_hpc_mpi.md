@@ -2,7 +2,7 @@
 _Note:_ This section can greatly benefit from the users. Did you gain some
 experience on the topic? Then please consider sharing your insights.
 
-For executing MPI-enabled HPC jobs, you need to call the CloudFlow HPC service
+For executing MPI-enabled HPC jobs, you need to call the SemWES HPC service
 in the right way (see corresponding documentation
 [here](../workflow_creation/HPC_service.md)) and also make proper use of MPI
 inside your Singularity container.

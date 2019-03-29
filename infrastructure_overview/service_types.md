@@ -1,14 +1,14 @@
-# Service types in the CloudFlow platform
-The CloudFlow platform currently knows three types of CloudFlow services. It is
+# Service types in the SemWES platform
+The SemWES platform currently knows three types of SemWES services. It is
 important to understand the differences between those types in order to choose
 the right type for a certain use case.
 
-_Important:_ In this document, "service" generally refers to a CloudFlow
+_Important:_ In this document, "service" generally refers to a SemWES
 service rather than a webservice. A single webservice application may contain
-several webmethods which can be used as different types of CloudFlow
+several webmethods which can be used as different types of SemWES
 services.
 
-_Note:_ All CloudFlow services are [SOAP services](https://en.wikipedia.org/wiki/SOAP),
+_Note:_ All SemWES services are [SOAP services](https://en.wikipedia.org/wiki/SOAP),
 meaning that they must expose their functionality via SOAP webmethods.
 
 ## TLDR (Too Long, Didn't Read)
@@ -46,7 +46,7 @@ Curious what distinguishes the three service types from each other and why the
 rules above are as they are? Read on.
 
 ## Synchronous services
-Synchronous services are the simplest types of CloudFlow services. They are
+Synchronous services are the simplest types of SemWES services. They are
 wrappers of single SOAP webservice methods which, when called, do something, and
 then immediately return their results. They do not require any pre-defined
 input or out values.
@@ -274,7 +274,7 @@ Here, `output_parameter_#` must match the names of the further output values
 defined by the application's startup method.
 
 ### A note on application design
-Generally, a CloudFlow application can come in two flavours:
+Generally, a SemWES application can come in two flavours:
 1. The complete application is a single HTML page (with embedded JavaScript) and
    is delivered as a whole in the `status_base64` return argument of the 
    application's startup method. Then, obviously, all the application's logic

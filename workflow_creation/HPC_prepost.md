@@ -26,7 +26,7 @@ hard-coded input parameters, such as depicted in the next image:
 Head over to the code examples for a documented [sample HPC preprocessor](../code_examples/Python/sync_HPC_preprocessor/) to download and adapt.
 
 Note that a workflow often starts with the selection of some input files,
-which result in CloudFlow GSS URIs and _not_ in file paths which can be
+which result in SemWES GSS URIs and _not_ in file paths which can be
 understood in the HPC environment. You should therefore use corresponding
 [converter services](HPC_gss_conversion.md) which convert these GSS URIs to 
 file paths, which will in return be the _input_ for the pre-processing service.
@@ -34,7 +34,7 @@ file paths, which will in return be the _input_ for the pre-processing service.
 ## Post-processing services
 A post-processing service takes the HPC job's result string (i.e., the HPC
 service's `output` argument) and converts it to some format which can be further
-processed on the CloudFlow platform.
+processed on the SemWES platform.
 
 Examples:
 * If the output is a single value or number which can be understood "as is" by

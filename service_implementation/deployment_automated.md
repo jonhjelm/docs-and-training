@@ -1,5 +1,5 @@
 # Service-deployment manual
-In CloudFlow, services are deployed in a highly automated fashion. As a
+In SemWES, services are deployed in a highly automated fashion. As a
 developer, you will not have to manually start and stop Docker containers. You
 also won't have to (in fact, you cannot) log into the VM where your services
 will be running. This manual describes all necessary steps for deploying and
@@ -13,7 +13,7 @@ Once deployed, all services are available under the following deployment path:
 ```
 https://srv.hetcomp.org/<project>-<service_name>
 ```
-Here, `<project>` is the project name you log in with into the CloudFlow
+Here, `<project>` is the project name you log in with into the SemWES
 portal. For experiment partners, this is most likely `"experiment#"`
 (underscores from the original project name are removed here).
 `<service_name>` is a name that you choose when creating a new service.
@@ -38,12 +38,12 @@ Yes. Service names have to
 * have at most 32 characters, including the `<project>-` prefix.
 
 ### What is the interface for service deployment?
-In CloudFlow, the platform service `servicectl` takes care of the automatic
+In SemWES, the platform service `servicectl` takes care of the automatic
 service deployment. It is a RESTful web service deployed under:
 ```
 https://api.hetcomp.org/servicectl-1/
 ```
-Additionally, the CloudFlow Python library clfpy
+Additionally, the SemWES Python library clfpy
 (https://github.com/CloudiFacturing/clfpy) comes with a client for servicectl
 for programmatic access as well as with an interactive command-line interface.
 In the examples given here, usage of both the clfpy client and the command-line
@@ -77,7 +77,7 @@ sections for details.
 
 In the following sub-sections, the four steps above will be explained in
 detail, with code stubs using the clfpy library for every step. For all API
-calls, a valid CloudFlow session token is required which can also be acquired
+calls, a valid SemWES session token is required which can also be acquired
 using the clfpy library. Here, it is assumed that such a token is stored in the
 environment variable `CFG_TOKEN`.
 
@@ -115,7 +115,7 @@ execute `pip install --upgrade clfpy` to do so.) The library provides an
 executable named `clfpy_cli` which should be available from the console after
 installation.
 
-Log into the CloudFlow platform bei either simply starting `clfpy_cli` (you
+Log into the SemWES platform bei either simply starting `clfpy_cli` (you
 will be asked for your user credentials), or set the environment variables
 `CFG_USER`, `CFG_PROJECT`, and `CFG_PASSWORD` before starting `clfpy_cli`.
 
@@ -217,7 +217,7 @@ The service-definition object requires the following fields:
 * `memory-reservation` (int): The amount of memory reserved for the service on
   the hosting VM. Make sure to set this to the lowest realistic number, as it
   affects how many services can be started on a single VM, and thus how many
-  VMs need to be available for hosting CloudFlow services. (You as a user won't
+  VMs need to be available for hosting SemWES services. (You as a user won't
   see anything of these VMs.) Use the `docker stats` command locally to
   determine how much your service needs. Note that this is not a hard limit, so
   the service will be allowed to allocate more memory.
@@ -270,7 +270,7 @@ newservice-5
 test-service
   Deployment path: https://srv.hetcomp.org/cloudifacturing-test-service
 ```
-Note that all services known to CloudFlow for the current project are listed,
+Note that all services known to SemWES for the current project are listed,
 even if these services have never been started or if their repositories don't
 contain any Docker images.
 
@@ -323,7 +323,7 @@ Health-check interval: 30
 Health-check status codes: 200-499
 Target 1/1: i-08e5f0237d99e018d, Port: 32840, Health: healthy
 ```
-CloudFlow uses Amazon Web Services (AWS) and their elastic container services
+SemWES uses Amazon Web Services (AWS) and their elastic container services
 for service deployment. The status messages and events in this report are
 therefore specific to AWS. Indicators for a successfully started service are:
 * a running count of 1,
@@ -449,7 +449,7 @@ service will get stuck in a restart loop.
 
 Upon service creation, you can also define a custom health check, where you can
 define the health-check path, the accepted response codes, and the interval
-between two consecutive health checks. For the SOAP services used in CloudFlow,
+between two consecutive health checks. For the SOAP services used in SemWES,
 one can for example check if the wsdl service definition is available. To
 define a custom health check, pass the `health_check` argument when creating a
 new service:

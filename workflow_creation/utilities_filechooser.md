@@ -1,5 +1,5 @@
 # File selection using the File Chooser service
-Workflows in CloudiFacturing typically communicate with one of the provided
+Workflows in SemWES typically communicate with one of the provided
 cloud storages. The interactions towards the files themselves are typically
 handled through GSS (Generic Storage Services), but this requires that the
 services already know where a file is stored or, alternatively, which folder it
@@ -8,7 +8,7 @@ and folders that will be used in a workflow, the File Chooser application has
 been developed.
 
 The File Chooser is a web application which is meant to be used as a step in
-CloudiFacturing workflows, serving as a GUI towards the cloud storage solutions
+SemWES workflows, serving as a GUI towards the cloud storage solutions
 offered in the project. It also provides a user-friendly and natural way to
 obtain unique GSS names which can be used as input to other services later in
 the workflow chain.

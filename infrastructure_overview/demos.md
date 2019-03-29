@@ -1,9 +1,9 @@
 # Demo workflows
 Try these demo workflows to get a quick impression of what can be done on the
-CloudFlow platform.
+SemWES platform.
 
 Note: It is recommended to have a basic knowledge of the different [service
-types](./service_types.md) on the CloudFlow platform when executing the demo
+types](./service_types.md) on the SemWES platform when executing the demo
 workflows, as it will lead to a better understanding of what these workflows
 actually do.
 
@@ -68,7 +68,7 @@ input with a single service.
 **Workflow name and URI:** Demo_HPC_Waiter (http://demo/workflow/Demo_HPC_Waiter.owl#Demo_HPC_Waiter)<br/>
 **Requires login with demo project:** Yes (Singularity image registered with the demo project)
 
-This workflow demonstrates CloudFlow's interface to an HPC cluster. It starts
+This workflow demonstrates SemWES's interface to an HPC cluster. It starts
 a simple HPC job on IT4I's Anselm cluster and reports the job's status back to
 the user. The job itself is not doing anything meaningful, as it is meant for
 demonstration only.

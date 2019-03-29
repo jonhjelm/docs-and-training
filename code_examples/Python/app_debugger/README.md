@@ -1,6 +1,6 @@
-Python-based CloudFlow application for workflow debugging
+Python-based SemWES application for workflow debugging
 =========================================================
-This CloudFlow application offers tools for debugging workflows.
+This SemWES application offers tools for debugging workflows.
 
 ## `parameterDebugger` service
 This application is registered under the following URI:

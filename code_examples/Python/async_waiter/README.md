@@ -4,7 +4,7 @@ Python example for an asynchronous service
 This is a very simple example of an asynchronous service written in Python. It
 does nothing but to wait for a specified amount of time, but uses the same
 concepts and techniques required for wrapping a longer-running calculation in
-a CloudFlow asynchronous service.
+a SemWES asynchronous service.
 
 It also protects all methods by checking that the supplied session token is
 valid.
@@ -25,7 +25,7 @@ use a local Python environment.
 Prior to running the service, have a look at the file `env`. This file defines
 environment variables which will be passed into the container. The first one,
 `CONTEXT_ROOT`, defines the deployment path of the app relative to root. In
-CloudFlow, this path is always made up of two elements:
+SemWES, this path is always made up of two elements:
 ```
 CONTEXT_ROOT=/<project>-<service_name>
 ```

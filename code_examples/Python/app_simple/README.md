@@ -1,12 +1,12 @@
-Python example for a CloudFlow application
+Python example for a SemWES application
 ==========================================
 
-This is the simplest possible example of a CloudFlow application service
+This is the simplest possible example of a SemWES application service
 written in Python.
 
 It contains a Python-based SOAP service which exposes a single method called
 `showDialog`. This method fits the workflow manager's expectations for a
-CloudFlow application and can therefore be registered in the workflow editor.
+SemWES application and can therefore be registered in the workflow editor.
 When called, this method delivers a static HTML website which simply contains
 a button to continue the workflow.
 

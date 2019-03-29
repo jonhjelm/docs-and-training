@@ -101,7 +101,7 @@ The listing below shows a complete layout configuration file.
 ---
 This section describes the local deployment of the _GenericGUIApplication_.
 Note that this description is only valid for local deployment.
-For deployment on the CloudFlow platform, see the [deployment manual](../service_implementation/deployment_automated.md).
+For deployment on the SemWES platform, see the [deployment manual](../service_implementation/deployment_automated.md).
 
 Before service deployment ensure that docker is installed and the service configuration is correct.
 The deployment of the application just amounts to building and starting the docker container.

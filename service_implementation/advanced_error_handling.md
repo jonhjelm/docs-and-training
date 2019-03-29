@@ -1,5 +1,5 @@
 # Error handling in SOAP services
-On the CloudFlow platform, all workflows consist of a series of _SOAP calls_ to
+On the SemWES platform, all workflows consist of a series of _SOAP calls_ to
 the individual web services used in the workflow. If an error occurs during
 processing these calls, the corresponding answer is a _SOAP fault_. This fault
 message will arrive at the workflow manager and cause the workflow to fail.

@@ -1,6 +1,6 @@
 # Getting access
 ## Where to find the portal
-The CloudFlow platform portal in CloudiFacturing is available under
+The SemWES platform portal in CloudiFacturing is available under
 https://api.hetcomp.org.
 
 Note that the portal is a development version which will eventually be replaced.

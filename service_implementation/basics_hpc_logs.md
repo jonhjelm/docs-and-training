@@ -1,11 +1,11 @@
 # Logging and debugging for HPC applications
-Debugging HPC jobs running in CloudFlow can be difficult. The jobs run as
+Debugging HPC jobs running in SemWES can be difficult. The jobs run as
 Singularity containers on a cluster not directly accessible, "hidden" behind
-several abstraction layers of the CloudFlow platform.
+several abstraction layers of the SemWES platform.
 
 To make the development and debugging of Singularity images as smooth as 
 possible, here are a few hints:
-1. When the CloudFlow HPC service executes a Singularity image on an HPC
+1. When the SemWES HPC service executes a Singularity image on an HPC
    cluster, it pipes all stdout and stderr output to a log file which is written
    to the corresponding HPC storage. Via GSS, this file will be available under 
    `<storage_identifier>/home/hpc_logs/<timestamp>_<service_ID>.log`, where the
@@ -20,6 +20,6 @@ possible, here are a few hints:
    for details.
 
 3. Get an IT4I account for testing and development. While you will have to
-   register your image via the CloudFlow platform to include it in a workflow,
+   register your image via the SemWES platform to include it in a workflow,
    it can be very helpful to be able to run the image directly on the cluster
    for testing purposes. Contact IT4I if you would like to have an account.

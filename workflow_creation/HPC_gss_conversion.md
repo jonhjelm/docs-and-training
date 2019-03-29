@@ -1,12 +1,12 @@
 # Converting from GSS URIs to HPC-cluster file paths and back
-When services on the CloudFlow platform exchange files and folders, they do that
+When services on the SemWES platform exchange files and folders, they do that
 not by transferring data back and forth between web services. Instead, they
 transfer only URIs which are understood by the Generic Storage Service GSS, and
 GSS is utilized when interaction with the actual data becomes necessary.
 
 On an HPC cluster, however, GSS URIs don't mean anything. Also, since the 
 available storage in CloudiFacturing is this very HPC cluster's storage, taking
-detours through GSS makes no sense. At the interface between CloudFlow services
+detours through GSS makes no sense. At the interface between SemWES services
 (which handle GSS URIs) and HPC jobs (which handle absolute cluster file paths),
 a conversion between the two concepts needs to be made. To do so, converter 
 services are available for each HPC cluster.

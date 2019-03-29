@@ -14,9 +14,9 @@ open a terminal there.
 
 ### Adapt the webservice's context root
 The first thing to do is to adapt the existing code so that the calculator will
-run and be reachable after you have deployed it on the CloudFlow platform.
+run and be reachable after you have deployed it on the SemWES platform.
 Therefore, you have to tell the service its _relative deployment path_ or
-_context root_. In CloudFlow, this path is always made up of two elements:
+_context root_. In SemWES, this path is always made up of two elements:
 ```
 CONTEXT_ROOT=/<project>-<service_name>
 ```
@@ -147,7 +147,7 @@ should see the additional terminal output for the division.
 Congratulations! You successfully deployed a synchronous webservice locally and
 extended it by a new webmethod.
 
-If you want to, you can now deploy the service on the CloudFlow platform and
+If you want to, you can now deploy the service on the SemWES platform and
 afterwards integrate it into a workflow. Head over to the [deployment
 manual](../../service_implementation/deployment_automated.md)
 

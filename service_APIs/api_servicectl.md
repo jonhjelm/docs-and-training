@@ -1,7 +1,7 @@
-# CloudFlow servicectl
-CloudFlow servicectl is a service offering a REST API to control third-party
-services on the CloudFlow platform. It is used to create and deploy auxiliary
-services on the CloudFlow platform such as HPC pre-processors or graphical
+# SemWES servicectl
+SemWES servicectl is a service offering a REST API to control third-party
+services on the SemWES platform. It is used to create and deploy auxiliary
+services on the SemWES platform such as HPC pre-processors or graphical
 input-parameter masks. Services are deployed as Docker containers, the images
 of which are pushed to repositories created for each service.
 
@@ -10,7 +10,7 @@ of which are pushed to repositories created for each service.
 ### Assumptions
 1. `<URL>` is the deployment URL of servicectl
 2. All requests are performed with an `X-Auth-Token` header and a valid
-   CloudFlow session token.
+   SemWES session token.
 
 ### Generic status codes
 All API calls return error 400 if no authentication token was provided and

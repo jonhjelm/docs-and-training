@@ -4,8 +4,8 @@ refissh is a web service which provides management of files, Singularity
 images, and HPC jobs through an SSH server (typically an HPC provider's login
 node), hidden behind a REST API.
 
-refissh is part of the CloudFlow infrastructure stack and was developed with
-the CloudiFacturing project in mind. It therefore relies on the CloudFlow
+refissh is part of the SemWES infrastructure stack and was developed with
+the CloudiFacturing project in mind. It therefore relies on the SemWES
 authentication services for user authentication.
 
 Quick links to API functions:

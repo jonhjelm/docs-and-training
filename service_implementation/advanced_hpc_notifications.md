@@ -3,10 +3,10 @@ Sometimes, communication with a running HPC job can be important. For example,
 one might want to restart a simulation or gracefully cancel it when a certain
 level of convergence has been reached. At the same time, one often does _not_
 want to forcefully abort the whole workflow which contains the HPC job (which is
-the only option available through the portal). To this end, the CloudFlow
+the only option available through the portal). To this end, the SemWES
 platform allows to send notifications as string messages to a running service.
 
-For a job running via the CloudFlow HPC service, this communication involves two
+For a job running via the SemWES HPC service, this communication involves two
 concepts:
 1. The HPC-job's status report (which is an html page generated within the 
    Singularity image) needs to provide controls (for example a "Cancel" button)
@@ -47,7 +47,7 @@ This html snippet creates a button which, when clicked, calls the method
 `notify_running_job()` with the message `"ABORT"`.
 
 _Important:_ You do _not_ have to implement `notify_running_job()` yourself!
-This JavaScript method is provided by the CloudFlow HPC service which runs your
+This JavaScript method is provided by the SemWES HPC service which runs your
 job and is "injected" into the status html before it is forwarded to the
 workflow manager. Note that this injection works only if your html status has a
 `<head>` tag, so make sure to write valid html.

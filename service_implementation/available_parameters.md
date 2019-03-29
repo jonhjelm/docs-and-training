@@ -1,4 +1,4 @@
-# Available "global" parameters for CloudFlow services
+# Available "global" parameters for SemWES services
 When executing a workflow, the workflow manager automatically creates a set of
 globally available parameters which can be accessed by any service – given that
 corresponding input parameters are created and wired correclty in the workflow
@@ -13,8 +13,8 @@ editor.
   its execution, the service ID can be used to name such files or a folder
   containing them.
 
-* `sessionToken`: The session token is generated when you log onto the CloudFlow
-  portal is the entity which grants you access to the CloudFlow platform. Use
+* `sessionToken`: The session token is generated when you log onto the SemWES
+  portal is the entity which grants you access to the SemWES platform. Use
   the session token if your service needs to access other services which require
   authentication (for example [GSS](../infrastructure_overview/storage.md) for 
   file access).

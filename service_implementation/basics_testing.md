@@ -1,6 +1,6 @@
 # Testing SOAP services
-When developing SOAP services for CloudFlow, one naturally wants to test the
-services without having to deploy and integrate them in the CloudFlow platform
+When developing SOAP services for SemWES, one naturally wants to test the
+services without having to deploy and integrate them in the SemWES platform
 (especially since debugging through running workflows is _extremely_
 cumbersome). One therefore needs tools for independent testing of the services.
 This article portrays a few of those tools.

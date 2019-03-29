@@ -1,11 +1,11 @@
-# Upgrading CloudFlow services
-Sometimes, a service which is already deployed and registered on the CloudFlow
+# Upgrading SemWES services
+Sometimes, a service which is already deployed and registered on the SemWES
 platform has to be upgraded. This article lists things to keep in mind when 
 doing such updates.
 
 ## Updates without API changes
 If an update does not touch the services API, i.e., the number and names of
-input and output parameters, no special care has to be taken. CloudFlow will
+input and output parameters, no special care has to be taken. SemWES will
 continue calling your service just as it has done before.
 
 ## Updates introducing new input or output parameters
