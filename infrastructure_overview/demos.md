@@ -120,7 +120,23 @@ model and calculating the distance of each point to the model surface.
 To execute this workflow, please log into the `demo` project, where example
 data sets are available.
 
-The workflow will take you through input-file selection, a manual pre-alignment
-step where you can preview CAD model and point cloud in an interactive,
-browser-based viewer, an HPC job execution, and finally an interactive results
-viewer.
+As illustrated in the following (slightly simplified) sketch, the workflow will
+take you through input-file selection, a manual pre-alignment step where you
+can preview CAD model and point cloud in an interactive, browser-based viewer,
+an HPC job execution, and finally an interactive results viewer.
+
+<p align="center">
+  <img src="demos_img/pcalign_overview.png"
+   alt="Schematic architecture of the point-cloud alignment workflow" width="500px"/>
+</p>
+
+#### Input file formats
+* CAD model: STEP (.stp)
+* Point cloud: .pts extension; expects a simple text file with three
+  space-separated, dimension-less coordinates per line (X, Y, Z) representing a
+  single point
+
+#### Output file formats
+* Point distances: PLY (Polygon File Format) containing four float values per
+  line: the point coordinates (X, Y, Z) and the signed distance of that point
+  to the closest CAD surface

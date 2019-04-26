@@ -14,6 +14,10 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-04-26: Version 3.7.0
+* (MINOR) Extended documentation of the point-cloud alignment workflow in the
+  [demo overview](./infrastructure_overview/demos.md).
+
 ### 2019-03-29: Version 3.6.2
 * (PATCH) Re-branded "CloudFlow" to "SemWES" throughout the documentation
 
