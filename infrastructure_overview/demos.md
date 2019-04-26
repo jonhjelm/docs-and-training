@@ -131,7 +131,7 @@ an HPC job execution, and finally an interactive results viewer.
 </p>
 
 #### Input file formats
-* CAD model: STEP (.stp)
+* CAD model: GoTools g2 (https://github.com/SINTEF-Geometry/GoTools/wiki/GoTools-g2-file-format)
 * Point cloud: .pts extension; expects a simple text file with three
   space-separated, dimension-less coordinates per line (X, Y, Z) representing a
   single point
