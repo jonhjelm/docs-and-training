@@ -11,9 +11,3 @@ RUN apk add --update --virtual build-dep make gcc musl-dev python-dev libxml2-de
 # Copy app into container
 COPY app/ /app
 COPY PythonTools/ PythonTools/
-
-# Create entrypoint script which ensures to set the right mountpoint
-COPY docker_entrypoint.sh /my_entrypoint.sh
-ENTRYPOINT ["sh", "/my_entrypoint.sh"]
-
-CMD ["/usr/bin/supervisord"]
