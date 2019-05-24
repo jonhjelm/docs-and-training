@@ -75,41 +75,14 @@ The creation of a new service contains the following steps:
 Afterwards, the service's status and log files can be monitored, see the next
 sections for details.
 
-In the following sub-sections, the four steps above will be explained in
-detail, with code stubs using the clfpy library for every step. For all API
-calls, a valid SemWES session token is required which can also be acquired
-using the clfpy library. Here, it is assumed that such a token is stored in the
-environment variable `CFG_TOKEN`.
+In the following, these steps are explained _twice_: once with code stubs using
+the clfpy library and once using the clfpy command-line interface.
 
-### 1 Create a new, empty service
-#### clfpy services client
-To create a new, empty service, one only needs to choose a name and call the
-`create_new_service()` method of clfpy's services client:
-```python
-import os
+### Using the clfpy command-line interface
+Using clfpy's command-line interface is by far the easiest way to manage your
+services. We therefore recommend this approach.
 
-import clfpy
-
-interface_url = 'https://api.hetcomp.org/servicectl-1/'
-token = os.environ['CFG_TOKEN']
-name = 'test-service'
-
-srv = clfpy.ServicesClient(interface_url)
-r = srv.create_new_service(token, name)
-```
-The response object, `r`, is a Python `dict`:
-```python
->>> pprint(r)
-{'links': [{'href': '/services/test-service', 'rel': 'self'},
-           {'href': 'https://srv.hetcomp.org/cloudifacturing-test-service',
-            'rel': 'deployment'}],
- 'name': 'test-service'}
-```
-The response object contains links to the service itself (as a relative link
-within the services-client API) as well as to the deployment URL where the
-service will be reachable once it's deployed.
-
-#### clfpy CLI
+#### 1 Create a new, empty service
 Make sure you have the latest version of the clfpy library installed. (You can
 execute `pip install --upgrade clfpy` to do so.) The library provides an
 executable named `clfpy_cli` which should be available from the console after
@@ -136,8 +109,70 @@ Answer with "N" to the question on a custom health check.
 Afterwards, use the command `ls` (list) to see your currently registered
 services and their deployment URLs.
 
-### 2 Obtain Docker login credentials
-#### clfpy services client
+#### 2 Obtain Docker login credentials
+In the CLI, this step is performed automatically when you push a Docker image
+to a service's repository.
+
+#### 3 Push a Docker image to the service repository
+Execute the following command (replace the place holder with the path to the
+Docker source folder):
+
+```
+push_docker_image test-service <docker_source_folder>
+```
+You will see the output of Docker within the CLI, which will automatically
+build, tag, and push the Docker image in the folder you provided. Note that the
+CLI currently always tags your images with `latest`. If you want to use custom
+tags, you need to use the clfpy services client.
+
+#### 4 Update the service with a service definition (starts the service)
+This step creates a service definition and, more importantly, starts the
+service with the latest Docker image you pushed.  The CLI performs the setup of
+the service definition for you after the following command:
+```
+update test-service
+```
+You will be asked for memory reservation, memory limit, container port, and the
+path to an environment-definition file. See section above for explanations of
+these parameters.
+
+### Using the clfpy services client
+We recommend using the clfpy services client only if you want to automate your
+service management with Python scripts. For all other use cases, we recommend
+using the clfpy command-line interface (see above).
+
+For all API calls, a valid SemWES session token is required which can also be
+acquired using the clfpy library. Here, it is assumed that such a token is
+stored in the environment variable `CFG_TOKEN`.
+
+#### 1 Create a new, empty service
+To create a new, empty service, one only needs to choose a name and call the
+`create_new_service()` method of clfpy's services client:
+```python
+import os
+
+import clfpy
+
+interface_url = 'https://api.hetcomp.org/servicectl-1/'
+token = os.environ['CFG_TOKEN']
+name = 'test-service'
+
+srv = clfpy.ServicesClient(interface_url)
+r = srv.create_new_service(token, name)
+```
+The response object, `r`, is a Python `dict`:
+```python
+>>> pprint(r)
+{'links': [{'href': '/services/test-service', 'rel': 'self'},
+           {'href': 'https://srv.hetcomp.org/cloudifacturing-test-service',
+            'rel': 'deployment'}],
+ 'name': 'test-service'}
+```
+The response object contains links to the service itself (as a relative link
+within the services-client API) as well as to the deployment URL where the
+service will be reachable once it's deployed.
+
+#### 2 Obtain Docker login credentials
 The following snippet assumes that it is run after the snippet in the previous
 section.
 ```python
@@ -150,12 +185,8 @@ together with the new service. `creds` contains the following elements:
 * `user`
 * `password`
 
-#### clfpy CLI
-In the CLI, this step is performed automatically when you push a Docker image
-to a service's repository.
 
-### 3 Push a Docker image to the service repository
-#### clfpy services client
+#### 3 Push a Docker image to the service repository
 With the elements in the `creds` object mentioned above, you can perform the
 following sequence of Docker commands to build, tag, and push a Docker image
 to the service repository:
@@ -179,19 +210,8 @@ docker_source_folder = '/path/to/a/folder/containing/a/Dockerfile'
 srv.build_and_push_docker_image(token, name, docker_source_folder, creds, tag='1.1.0')
 ```
 
-#### clfpy CLI
-Execute the following command (replace the place holder with the path to the
-Docker source folder):
-```
-push_docker_image test-service <docker_source_folder>
-```
-You will see the output of Docker within the CLI, which will automatically
-build, tag, and push the Docker image in the folder you provided. Note that the
-CLI currently always tags your images with `latest`. If you want to use custom
-tags, you need to use the clfpy services client.
 
-### 4 Update the service with a service definition
-#### clfpy services client
+#### 4 Update the service with a service definition (starts the service)
 The following snippet updates a service, which triggers currently running
 instances of the service to be stopped and replaced by a new instance. This
 new instance can have a new Docker image, or simply new configuration
@@ -248,15 +268,6 @@ returned when creating the service (section 1 above). It is important to tell
 the Docker container to listen for connections on the same route as where the
 service is deployed. Otherwise, no connections will ever reach the service.
 
-#### clfpy CLI
-The CLI performs the setup of the service definition for you after the
-following command:
-```
-update test-service
-```
-You will be asked for memory reservation, memory limit, container port, and the
-path to an environment-definition file. See section above for explanations of
-these parameters.
 
 ## Listing available services
 #### clfpy services client

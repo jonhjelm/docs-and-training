@@ -14,6 +14,11 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-05-24: Version 3.8.0
+* (MINOR) Re-organized the [deployment
+  manual](./service_implementation/deployment_automated.md) to make it easier
+  to follow.
+
 ### 2019-05-23: Version 3.7.1
 * (PATCH) Bugfix in all Python code examples: `rebuildandrun.sh` doesn't result
   in a running container, logs say that `/etc/nginx/conf.d/nginx.conf` is not
