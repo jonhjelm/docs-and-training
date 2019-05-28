@@ -1,0 +1,3 @@
+Using port 667
+wsdl URL is http://localhost:667/cloudifacturing-cat/Cat?wsdl
+Testing getCat:
