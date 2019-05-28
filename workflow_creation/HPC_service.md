@@ -31,7 +31,7 @@ The complete set of input parameters is explained in the following table:
 | `imageName` | yes | Name of the Singularity image to execute. The image must have been registered before usage. |
 | `commandline` | yes | The shell command to execute inside the Singularity image, without any parameters. |
 | `parameters` | yes | The parameters to the command specified in `commandline`. |
-| `queue` | yes | The cluster's queue to run the job on. |
+| `queue` | yes | The cluster's queue to run the job on. See https://docs.it4i.cz/general/resources-allocation-policy/ for available queue names.|
 | `numNodes` | yes | Number of nodes to reserve for the job. |
 | `numCores` | yes | Number of CPUs to reserve on each node. Note that each cluster-queue combination has a minimum and maximum value for this parameter. |
 | `maxDurationInMinutes` | yes | Maximum runtime after which a job will be aborted automatically. |

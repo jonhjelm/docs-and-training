@@ -291,11 +291,13 @@ latest version of the library installed (`pip install --upgrade clfpy`) and
 start the CLI (`clfpy_cli` from anywhere in a console).
 
 You now have two options for registering an image:
-1. From within the GSS client (`client gss`), navigate to the folder with the
-   image you want to register and execute `img_register FILENAME`. The image
-   will then be registered under the same name as the source file name.
-2. From within the images client (`client images`), execute `register GSS_URI
-   TARGET_NAME`.  Here, `GSS_URI` is the GSS URI of the image saved on GSS
+1. From within the GSS client (`client gss`), navigate to the GSS folder
+   containing your image (make sure it has been uploaded to GSS) and execute
+   `img_register FILENAME`. The image will then be registered under the same
+   name as the source file name.
+2. Make sure you have uploaded your image via the GSS client. From within the
+   images client (`client images`), execute `register GSS_URI TARGET_NAME`.
+   Here, `GSS_URI` is the GSS URI of the image saved on GSS
    (`it4i_anselm://home/my_image.simg` or similar) and `TARGET_NAME` is the
    name the registered image should have. Remember the `.simg` ending for the
    target name.
