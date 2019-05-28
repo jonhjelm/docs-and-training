@@ -1,0 +1,7 @@
+# CONTEXT_ROOT defines the deployment location relative to the host.
+# Set this variable to the routing path of your VM/service.
+CONTEXT_ROOT=/demo-hpcprep-demo
+
+# Further configuration
+N_CORES=1
+N_NODES=1

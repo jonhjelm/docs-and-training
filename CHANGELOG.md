@@ -14,6 +14,9 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-05-28: Version 3.9.0
+* (MINOR) Added two more code examples for the Genova code camp.
+
 ### 2019-05-24: Version 3.8.0
 * (MINOR) Re-organized the [deployment
   manual](./service_implementation/deployment_automated.md) to make it easier
