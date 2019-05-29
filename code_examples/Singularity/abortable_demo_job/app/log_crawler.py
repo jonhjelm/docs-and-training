@@ -28,6 +28,9 @@ PROGRESS_BODY='''<body style="margin: 20px; padding: 20px;">
     update once more before the job is aborted.)</p>
     <input type="button" value="Abort" onclick="abort()">
     </div>
+    <div>
+      <img src="https://cataas.com/cat/says/Quite some progress!">
+    </div>
   </body>
 </html>
 '''
