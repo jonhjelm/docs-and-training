@@ -14,6 +14,9 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-05-29: Version 3.10.0
+* (MINOR) Updated tutorials to be used in the CFG Genoa code camp
+
 ### 2019-05-28: Version 3.9.1
 * (PATCH) Added a link to the queues available at IT4I.
 * (PATCH) Clarified Singularity image registration.
