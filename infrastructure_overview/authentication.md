@@ -4,7 +4,7 @@ data-access restriction works in CloudFlow.
 
 ## You always log into a project
 Whenever you log into the portal or otherwise obtain a CloudFlow session token,
-you lok in not only as a user, but also into a project. The same user can be
+you log in not only as a user, but also into a project. The same user can be
 associated with several projects, but a login session is always associated
 with only one project.
 

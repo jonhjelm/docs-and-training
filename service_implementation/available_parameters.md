@@ -1,7 +1,7 @@
 # Available "global" parameters for SemWES services
 When executing a workflow, the workflow manager automatically creates a set of
 globally available parameters which can be accessed by any service – given that
-corresponding input parameters are created and wired correclty in the workflow
+corresponding input parameters are created and wired correctly in the workflow
 editor.
 
 ## Available parameters
@@ -14,10 +14,12 @@ editor.
   containing them.
 
 * `sessionToken`: The session token is generated when you log onto the SemWES
-  portal is the entity which grants you access to the SemWES platform. Use
+  portal by the entity which grants you access to the SemWES platform. Use
   the session token if your service needs to access other services which require
   authentication (for example [GSS](../infrastructure_overview/storage.md) for 
-  file access).
+  file access). The session token should also be used to validate calls to your
+  service, to ensure that only registered users or services can successfully
+  call your service.
 
 * `extraParameters`: This is a comma-separated string of key-value pairs which
   contains a few more parameters which are intended to help you avoid using
@@ -42,7 +44,7 @@ editor.
 
 ## How to access them?
 Simply create input parameters `serviceID`, `sessionToken`, and `extraParameters`
-for your services. When adding them to a workflow inside the workflow manager,
+for your services. When adding them to a workflow inside the workflow editor GUI,
 `sessionToken` and `extraParameters` will be wired automatically. `serviceID`
-must always remain unconnected in the workflow editor, the workflow manager will
+must always remain unconnected in the workflow editor GUI, the workflow manager will
 automatically supply this parameter.

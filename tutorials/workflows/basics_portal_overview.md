@@ -12,7 +12,7 @@ __Workflows__
 
 __Workflow Editor__
 - The Workflow Editor provides functionality to create and edit workflows, to add new services to the portal, and to delete services and workflows from the portal.
-- It will be utilized in the tutorials [Basic workflow editing](tutorials/workflows/basics_editing.md) and [Registration of new services](tutorials/workflows/basics_service_registration.md).
+- It will be utilized in the tutorials [Basic workflow editing](./basics_editing.md) and [Registration of new services](./basics_service_registration.md).
 
 __Log out__
  - Using this button, the current user can be logged out and the browser will be redirected to the login.
@@ -45,4 +45,4 @@ __Log out__
 1. If you click on the workflow's entry you will be redirected to the result page, where you can inspect the results of your workflow again.
 
 ## Conclusion
-Congratulations, you have finished the first tutorial. You should now be able to start workflows and examine their status and result
+Congratulations, you have finished this tutorial. You should now be able to start workflows and examine their status and result

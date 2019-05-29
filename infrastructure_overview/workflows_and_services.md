@@ -25,8 +25,7 @@ with its input data for every step, and collects output data for the next
 service in the workflow.
 
 The following picture shows a simple workflow as displayed in the SemWES
-workflow editor GUI (internally, all services as workflows are described and
-stored using an xml data format):
+workflow editor GUI:
 <p align="center">
   <img src="workflows_and_services_img/workflow_example_annotated.png"
    alt="Execution diagram of a synchronous service" width="800px"/>
@@ -79,7 +78,7 @@ developing services for the SemWES platform stack.
   different webmethods to interact with
 
 * **SemWES service**: A single method of a deployed webservice, registered
-  with the SemWES platform (more precisely, the workflow manager).
+  with the SemWES platform (more precisely, the workflow editor).
 
   Example: A "Calculator" webservice can have several webmethods, such as
   "add", "subtract", "multiply" etc. Each of those webmethods must be 
