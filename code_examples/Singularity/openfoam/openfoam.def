@@ -1,0 +1,44 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%post
+
+  ### folders and files ###
+
+  mkdir /scratch
+  mkdir /service
+
+  ### update & upgrade ###
+
+  apt update
+  apt upgrade -y
+  apt install -y ssh
+
+  ### set-up python3 ###
+
+  apt install -y python3-pip
+  # NOTE: install python dependecies here
+  #       using pip3 as in the line below
+  # pip3 install numpy matplotlib
+
+  ### install openfoam ###
+
+  apt install -y software-properties-common wget
+  sh -c "wget -O - http://dl.openfoam.org/gpg.key | apt-key add -"
+  add-apt-repository "http://dl.openfoam.org/ubuntu"
+  apt update
+  apt install -y openfoam5
+  echo '. /opt/openfoam5/etc/bashrc' >>$SINGULARITY_ENVIRONMENT
+
+  ### openfoam mod ###
+
+  mv -f /opt/openfoam_mod/bashrc /opt/openfoam5/etc
+  mv -f /opt/openfoam_mod/aliases /opt/openfoam5/etc/config.sh
+  mv -f /opt/openfoam_mod/exec /.singularity.d/actions
+
+
+%files
+ app /
+ openfoam_mod opt/
+
+
