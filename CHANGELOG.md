@@ -14,6 +14,9 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-07-15: Version 3.11.0
+* (MINOR) Added [OpenFoam code example](./code_examples/Singularity/openfoam).
+
 ### 2019-07-11: Version 3.10.1
 * (PATCH) Updated documentation for CUDA-enabled HPC jobs using the qviz queue.
 

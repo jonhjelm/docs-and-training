@@ -17,9 +17,13 @@ Most importantly, MPI will set environment variables for each process which
 indicate its so-called _rank_ in the entirety of processes. Depending on this
 rank, let your container do the different things it has to do.
 
+The [OpenFoam code example](../code_examples/Singularity/openfoam) makes use of
+these rank variables to execute the right commands on the right nodes. Have a
+look at its source code to see how to access the rank from within a Python
+script. Note that even though the code example uses OpenFoam, the MPI mechanics
+can easily be adapted for other use cases.
+
 Please also have a look at [How to communicate with a running HPC
 job](./advanced_hpc_notifications.md) and the [abortable-waiter code
 example](../code_examples/Singularity/abortable_waiter). This should give you a
 good first overview of what your container needs beside the MPI functionality.
-
-A full MPI code example will be added here in the future.
