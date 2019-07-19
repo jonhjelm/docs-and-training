@@ -8,5 +8,8 @@ RUN apk add --update --virtual build-dep make gcc musl-dev python3-dev libxml2-d
   && apk del build-dep \
   && rm -rf /var/cache/apk/*
 
+ENV UWSGI_CHEAPER 1
+ENV UWSGI_PROCESSES 2
+
 # Copy app into container
 COPY app/ /app
