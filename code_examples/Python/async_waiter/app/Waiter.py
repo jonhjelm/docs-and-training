@@ -39,8 +39,6 @@ class WaiterService(ServiceBase):
     # under which the service will be reachable. It will, however, appear
     # in the wsdl file.
 
-    auth_wsdl = ''
-
     # We use the @rpc decorator here (instead of @srpc like in the Calculator
     # example) to have access to Spyne's context argument 'ctx'. Via that
     # context, we can access class properties (used here to save the
@@ -64,7 +62,6 @@ class WaiterService(ServiceBase):
         # manager endpoint in a class property which we can re-use in methods
         # that don't have the extraParameters as an argument.
         ep = ExtraParameters(extraParameters)
-        ctx.descriptor.service_class.auth_wsdl = ep.get_auth_WSDL_URL()
         auth = AuthClient(ep.get_auth_WSDL_URL())
         if not auth.validate_session_token(sessionToken):
             logging.error("Token validation failed")
@@ -88,6 +85,13 @@ class WaiterService(ServiceBase):
             os.mkdir(waiterdir)
         statusfile = os.path.join(waiterdir, 'status.txt')
         resultfile = os.path.join(waiterdir, 'result.txt')
+
+        # Store the auth-manager WSDL URL in a file for later use in
+        # getServiceStatus()
+        wsdlfile = os.path.join(waiterdir, 'wsdl.txt')
+        with open(wsdlfile, 'w') as f:
+            f.write(ep.get_auth_WSDL_URL())
+        logging.info("Stored auth-manager WSDL URL: {}".format(ep.get_auth_WSDL_URL()))
 
         # Spawn new process running the waiter script.
         # We pass the status and result file to the script to ensure that the
@@ -119,14 +123,6 @@ class WaiterService(ServiceBase):
         """
         logging.info("getServiceStatus() called with service ID {}".format(serviceID))
 
-        # We obtain the authentication-manager endpoint from a class property
-        # and check that the session token is valid
-        auth = AuthClient(ctx.descriptor.service_class.auth_wsdl)
-        if not auth.validate_session_token(sessionToken):
-            logging.error("Token validation failed")
-            error_msg = "Session-token validation failed"
-            raise TokenValidationFailedFault(faultstring=error_msg)
-
         # Create correct file paths from service ID. By using the unique
         # service ID, we can address the right waiter process in case this
         # service is called several times in parallel.
@@ -134,10 +130,27 @@ class WaiterService(ServiceBase):
         statusfile = os.path.join(waiterdir, 'status.txt')
         resultfile = os.path.join(waiterdir, 'result.txt')
 
+        # Read wsdl URL from a file
+        wsdlfile = os.path.join(waiterdir, 'wsdl.txt')
+        with open(wsdlfile) as f:
+            auth_wsdl = f.read().strip()
+
+        logging.info("Read WSDL: {}".format(auth_wsdl))
+
+        # Check that the session token is valid
+        auth = AuthClient(auth_wsdl)
+        logging.info("AuthClient created, validating session token")
+        if not auth.validate_session_token(sessionToken):
+            logging.error("Token validation failed")
+            error_msg = "Session-token validation failed"
+            raise TokenValidationFailedFault(faultstring=error_msg)
+        logging.info("Token validation succeeded")
+
         # Read the current status from the waiter logs. Here, that is only a
         # single number between 0 and 100.
         with open(statusfile) as f:
             current_status = f.read().strip()
+        logging.info("Status file read")
 
         if current_status == "100":
             logging.info("Waiting completed")
@@ -156,6 +169,7 @@ class WaiterService(ServiceBase):
         # If not finished, create a status page from the current status
         # This could include more post-processing etc. in a more realistic
         # service
+        logging.info("Waiting not done yet")
         result = "UNSET"
         status = base64.b64encode(create_html_progressbar(int(current_status)).encode()).decode()
         return (status, result)
@@ -168,7 +182,13 @@ class WaiterService(ServiceBase):
 
         # We obtain the authentication-manager endpoint from a class property
         # and check that the session token is valid
-        auth = AuthClient(ctx.descriptor.service_class.auth_wsdl)
+        # Read wsdl URL from a file
+        waiterdir = os.path.join(WAITER_LOG_FOLDER, serviceID)
+        wsdlfile = os.path.join(waiterdir, 'wsdl.txt')
+        with open(wsdlfile) as f:
+            auth_wsdl = f.read().strip()
+
+        auth = AuthClient(auth_wsdl)
         if not auth.validate_session_token(sessionToken):
             error_msg = "Session-token validation failed"
             raise TokenValidationFailedFault(faultstring=error_msg)
