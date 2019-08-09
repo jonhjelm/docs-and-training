@@ -48,7 +48,7 @@ not.
 **Singularity versions on IT4I's cluster**
 Currently available are:
 * Anselm cluster: `2.3.1`, `2.3.2`, `2.4.2`, `2.4.4`, `2.5.1`, `2.6.0`, `3.1.0`
-* Anselm cluster: `2.6.0`, `3.1.0`
+* Salomon cluster: `2.6.0`, `3.1.0`
 
 **Example:**
 If your Singularity execution call is `singularity exec my_image.simg python
