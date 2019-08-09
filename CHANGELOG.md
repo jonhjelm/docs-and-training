@@ -14,6 +14,11 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-08-09: Version 3.11.1
+* (PATCH) Updated available Singularity versions for IT4I clusters.
+* (PATCH) Fixed a bug in the waiter code example which caused it to crash on
+  getServiceStatus() calls.
+
 ### 2019-07-15: Version 3.11.0
 * (MINOR) Added [OpenFoam code example](./code_examples/Singularity/openfoam).
 

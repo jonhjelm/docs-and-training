@@ -35,7 +35,7 @@ The complete set of input parameters is explained in the following table:
 | `numNodes` | yes | Number of nodes to reserve for the job. |
 | `numCores` | yes | Number of CPUs to reserve on each node. Note that each cluster-queue combination has a minimum and maximum value for this parameter. |
 | `maxDurationInMinutes` | yes | Maximum runtime after which a job will be aborted automatically. |
-| `SingularityVersion` | yes | Version of the Singularity module to load for execution. Currently available on IT4I's clusters are `2.3.1`, `2.3.2`, `2.4.2`, `2.4.4`, `2.5.1`. Make sure to load a version compatible with your image version. Singularity is backward-compatible but not forward-compatible.) |
+| `SingularityVersion` | yes | Version of the Singularity module to load for execution. See below for currently available versions on IT4I's clusters. Make sure to load a version compatible with your image version. Singularity is backward-compatible but not forward-compatible.) |
 | `MPILibrary` | no | Module name of the MPI library to load for execution. See section on MPI jobs below for details. |
 | `numMPIProcsPerNode` | no | Number of MPI processes to reserve per reserved node. See section on MPI jobs below for details. |
 | `numMPIProcsTotal` | no | Total number of MPI processes to execute. See section on MPI jobs below for details. |
@@ -44,6 +44,11 @@ The above parameters are combined and passed as a job script to the queueing
 software on the cluster. Note that the resulting job script and call command are
 different depending on whether the MPI-related input parameters are specified or
 not.
+
+**Singularity versions on IT4I's cluster**
+Currently available are:
+* Anselm cluster: `2.3.1`, `2.3.2`, `2.4.2`, `2.4.4`, `2.5.1`, `2.6.0`, `3.1.0`
+* Anselm cluster: `2.6.0`, `3.1.0`
 
 **Example:**
 If your Singularity execution call is `singularity exec my_image.simg python
