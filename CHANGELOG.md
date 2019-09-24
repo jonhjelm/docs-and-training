@@ -14,6 +14,9 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-09-24: Version 3.12.0
+* (MINOR) Added [code example for CUDA applications](./code_examples/Singularity/hellocuda).
+
 ### 2019-08-09: Version 3.11.2
 * (PATCH) Fixed a typo in HPC-service documentation.
 

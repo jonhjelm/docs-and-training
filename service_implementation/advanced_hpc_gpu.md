@@ -1,5 +1,5 @@
 ## Using GPU acceleration
-to be written
 
-What could go in here:
-* `--nv` option?
+### CUDA applications
+For CUDA applications, have a look at the corresponding [CUDA code
+example](../code_examples/Singularity/hellocuda).

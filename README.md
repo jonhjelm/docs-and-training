@@ -30,7 +30,7 @@ tutorials for advanced topics in service development.
 - [Reference documentation of platform services](#reference-documentation-of-platform-services)
 
 ## Documentation version 
-Current documentation version: `3.11.2`
+Current documentation version: `3.12.0`
 
 See the [Changelog](CHANGELOG.md) for versioning details.
 
@@ -175,8 +175,7 @@ the graphical tools provided on the portal).
     execution using MPI.
 
   * [GPU support for Singularity images](service_implementation/advanced_hpc_gpu.md):
-    (not written yet) Learn how to prepare your Singularity image for access of
-    underlying GPU cores.
+    Learn how to prepare your Singularity image for access of underlying GPU cores.
 
 ### Advanced topics
 
