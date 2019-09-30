@@ -117,6 +117,11 @@ mpirun -np {numMPIProcsTotal} singularity exec \
 Note that in contrast to the non-MPI job script, Singularity is here executed
 as the argument to the `mpirun` command which sets up the MPI environment.
 
+#### Jobs with Nvidia support on Anselm's qnvidia queue
+To enable Nvidia support for GPU computin on the Anselm cluster, simply choose
+the `qnvidia` queue. Singularity will then be started with the `--nv` option,
+which loads the necessary Nvidia libraries and drivers.
+
 #### Jobs with Nvidia support on Salomon's qviz queue
 To enable Nvidia support for GPU computing, additional options need to be
 passed to Singularity. Currently, this is enabled automatically whenever the

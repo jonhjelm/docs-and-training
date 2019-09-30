@@ -14,6 +14,10 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2019-09-30: Version 3.13.0
+* (MINOR) Updated info on Nvidia support to the [HPC-service
+  overview](./workflow_creation/HPC_service).
+
 ### 2019-09-24: Version 3.12.0
 * (MINOR) Added [code example for CUDA applications](./code_examples/Singularity/hellocuda).
 
