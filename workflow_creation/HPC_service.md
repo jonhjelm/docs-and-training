@@ -47,8 +47,9 @@ not.
 
 **Singularity versions on IT4I's cluster**
 Currently available are:
-* Anselm cluster: `2.3.1`, `2.3.2`, `2.4.2`, `2.4.4`, `2.5.1`, `2.6.0`, `3.1.0`
-* Salomon cluster: `2.6.0`, `3.1.0`
+* Anselm cluster: `2.3.1`, `2.3.2`, `2.4.2`, `2.4.4`, `2.5.1`, `2.6.0`, `3.1.0`, `3.3.0`, `3.4.1`
+* Salomon cluster: `2.6.0`, `3.1.0`, `3.3.0`, `3.4.1`
+* Salomon cluster with qdgx queue: `3.3.0`, `3.4.1`
 
 **Example:**
 If your Singularity execution call is `singularity exec my_image.simg python
@@ -99,6 +100,12 @@ _Salomon cluster:_
 * `MPI_NET/1.2.0-intel-2016.01`
 * `MVAPICH2/2.1-iccifort-2015.3.187-GNU-5.1.0-2.25`
 * `impi/2018.3.222-iccifort-2018.3.222-GCC-8.1.0-2.30`
+
+_Salomon cluster with qdgx queue:_
+* `OpenMPI/2.1.5-GCC-6.3.0-2.27`
+* `OpenMPI/3.1.4-GCC-6.3.0-2.27`
+* `OpenMPI/4.0.0-GCC-6.3.0-2.27`
+* `impi/2017.4.239-iccifort-2017.7.259-GCC-6.3.0-2.27`
 
 For MPI-enabled jobs, the following job script is created:
 ```bash
