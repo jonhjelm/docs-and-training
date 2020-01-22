@@ -14,6 +14,10 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2020-01-22: Version 3.16.0
+* (MINOR) Added info on default parameters for number of cores and Singularity
+  version in[HPC-service overview](./workflow_creation/HPC_service).
+
 ### 2020-01-21: Version 3.15.0
 * (MINOR) Updated available Singularity versions in the [HPC-service
   overview](./workflow_creation/HPC_service).

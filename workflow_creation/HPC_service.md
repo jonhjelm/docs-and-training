@@ -33,9 +33,9 @@ The complete set of input parameters is explained in the following table:
 | `parameters` | yes | The parameters to the command specified in `commandline`. |
 | `queue` | yes | The cluster's queue to run the job on. See https://docs.it4i.cz/general/resources-allocation-policy/ for available queue names.|
 | `numNodes` | yes | Number of nodes to reserve for the job. |
-| `numCores` | yes | Number of CPUs to reserve on each node. Note that each cluster-queue combination has a minimum and maximum value for this parameter. |
+| `numCores` | no | Number of CPUs to reserve on each node. Note that each cluster-queue combination has a minimum and maximum value for this parameter. If not provided, a default value will be used. This depends on the queue and cluster, but will usually be such that entire nodes are reserved. |
 | `maxDurationInMinutes` | yes | Maximum runtime after which a job will be aborted automatically. |
-| `SingularityVersion` | yes | Version of the Singularity module to load for execution. See below for currently available versions on IT4I's clusters. Make sure to load a version compatible with your image version. Singularity is backward-compatible but not forward-compatible.) |
+| `SingularityVersion` | no | Version of the Singularity module to load for execution. If not given, the lowest available version will be set automatically. See below for currently available versions on IT4I's clusters. Make sure to load a version compatible with your image version. Singularity is backward-compatible but not forward-compatible.) |
 | `MPILibrary` | no | Module name of the MPI library to load for execution. See section on MPI jobs below for details. |
 | `numMPIProcsPerNode` | no | Number of MPI processes to reserve per reserved node. See section on MPI jobs below for details. |
 | `numMPIProcsTotal` | no | Total number of MPI processes to execute. See section on MPI jobs below for details. |
@@ -47,8 +47,8 @@ not.
 
 **Singularity versions on IT4I's cluster**
 Currently available are:
-* Anselm cluster: `3.5.2`
-* Salomon cluster: `3.5.2`
+* Anselm cluster: `3.5.2` (default value if none given)
+* Salomon cluster: `3.5.2` (default value if none given)
 * Salomon cluster with qdgx queue: `3.3.0`, `3.4.1`
 
 **Example:**
