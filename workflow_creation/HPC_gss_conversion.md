@@ -31,3 +31,39 @@ The same services are available for the Salomon cluster. Use the following
 service URIs:
 * GSS URI &rarr; cluster path: http://sintef/sync/convertGssToHpcPath_Salomon.owl#convertGssToHpcPath_Service
 * cluster path &rarr; GSS URI: http://sintef/sync/convertHpcPathToGss_Salomon.owl#convertHpcPathToGss_Service
+
+## Conversion of lists of URIs or paths
+Calling the conversion services repeatedly for several GSS URIs or HPC paths
+can quickly become cumbersome and also slow when the workflow is executed. The
+conversion services therefore also work on json-formatted lists of strings
+where each string is either a GSS URI or an HPC path.
+
+Example of a single GSS URI as input to a conversion service:
+```
+'it4i_anselm://'
+```
+
+Example of a list of GSS URIs as input to a conversion service:
+```
+'["it4i_anselm://", "it4i_anselm://home/", "it4i_anselm://home/file.dat"]'
+```
+
+To facilitate creation of these lists, two auxiliary services exist:
+
+### `stringsToList`
+This service takes up to 10 individual string arguments and merges them into
+a json-formatted list.
+* Service URI: http://sintef/sync/stringsToList.owl#stringsToList_Service
+
+### `listToStrings`
+This service takes a json-formatted list of strings and extracts up to 10
+individual strings from it.
+* Service URI: http://sintef/sync/listToStrings.owl#listToStrings_Service
+
+The following picture shows an example workflow where 4 GSS URIs are merged
+into a list, converted to HPC paths, and converted back to 4 individual
+strings.
+<p align="center">
+  <img src="img_converters/list_manipulation.png"
+   alt="List-manipulation example" width="800px"/>
+</p>

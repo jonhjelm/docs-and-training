@@ -14,6 +14,10 @@ the [semantic-versioning](https://semver.org/) scheme. In a nutshell,
 With each version, a git tag and an accompanying GitHub release will be created.
 
 ## Changelog
+### 2020-01-24: Version 3.17.0
+* (MINOR) Added documentation of list-manipulation services in 
+  [HPC-GSS path converters](./workflow_creation/HPC_gss_conversion).
+
 ### 2020-01-22: Version 3.16.0
 * (MINOR) Added info on default parameters for number of cores and Singularity
   version in[HPC-service overview](./workflow_creation/HPC_service).
