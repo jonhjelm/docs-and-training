@@ -1,0 +1,17 @@
+Bootstrap: docker
+From: lukin0110/docker-vtk-python
+
+# Set up mandatory mount points:
+# /scratch will link to the HPC scratch drive
+# /service will be used for status and result reporting
+# (/home) will be mapped automatically
+%setup
+    mkdir -p ${SINGULARITY_ROOTFS}/scratch
+    mkdir -p ${SINGULARITY_ROOTFS}/service
+%files
+    app /
+
+%post
+    chmod o+r /app/*
+    chmod o+x /app/startup.py
+    
