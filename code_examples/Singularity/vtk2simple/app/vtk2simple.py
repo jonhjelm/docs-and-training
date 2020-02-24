@@ -59,6 +59,11 @@ def writeFile(filename, verts, cellInds):
             out.write(str(cellInds[i,1]) + " ")
             out.write(str(cellInds[i,2]) + "\n")
 
+def isVtk(filename):
+    pre, ext = path.splitext(filename)
+    return( ext == ".vtk")
+
+
 def isConversionNeeded(infile, outfile):
     if (path.isfile(outfile)):
         return (False)
@@ -73,6 +78,8 @@ def changeFileExtension(filename, newExt):
             
 def convertFile(inputfile):
     print("inputfile: \"" + inputfile +"\"")
+    if not isVtk(inputfile):
+        return inputfile
     outputfile = changeFileExtension(inputfile, ".simple")
     print("outputfile: \"" + outputfile + "\"")
     print("#Checking if conversion is needed")
@@ -102,7 +109,7 @@ def convertFileList(inputliststring):
     for i in range(nfiles):
         print("currfile: ", i)
         outputlist[i] = convertFile(inputlist[i])
-        print("outputlist:", outputlist)
+        print("outputlist:", json.dumps(outputlist))
 
     
 def main():

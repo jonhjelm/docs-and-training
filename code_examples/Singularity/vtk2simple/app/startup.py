@@ -16,8 +16,43 @@ logger = logging.getLogger("Startup")
 
 
 def main():
-    # Input arguments
-    filepath = sys.argv[1]
+    # Input arguments are on of the following
+    # 1. one single path
+    # 2. one json list, where each ' ' leads to a new argument
+    # 3. one json list, where each ' ' leads to a new argument, missing '"'
+    #    characters
+    filepath = None
+    filelist = None
+    if sys.argv[1][:2] == '["':
+        # case 2
+        logger.info("case 2")
+        filelist=' '.join(sys.argv[1:])
+    elif sys.argv[1][0] == '[':
+        logger.info("case 3")
+        strings=sys.argv[1:]
+        filelist=""
+        for s in strings:
+            logger.info(s)
+            if s[0]=='[':
+                s=s[0] + '"' + s[1:]
+                logger.info(s)
+            else:
+                s= '"' + s
+            s=s[:-1] + '"' + s[-1]
+            logger.info(s)
+            if len(filelist)!=0:
+                filelist = filelist + " "
+            filelist = filelist + s
+    else:
+        logger.info("case 1")
+        filepath = sys.argv[1]
+
+    if filepath:
+        logger.info("filepath: \"" + filepath + "\"")
+    if filelist:
+        logger.info("filelisth: \"" + filelist + "\"")
+        
+        
 
     # Pre-defined files for communication with the "outside world"
     fn_status = '/service/status.html'
@@ -68,12 +103,10 @@ def main():
     # The main app receives the parameter filepath given to
     # this SOAP method.
     logger.info("Starting vtk2simple")
-    try:
-        json.loads(filepath)
-        command = ['python', '/app/vtk2simple.py', '--filelist', filepath, '--logfile', fn_log]
-    except:
+    if filepath:
         command = ['python', '/app/vtk2simple.py', '--filename', filepath, '--logfile', fn_log]
-#    command = ['echo', '/app/vtk2simple.py', '--filename', filepath, '--logfile', fn_log]
+    else:
+        command = ['python', '/app/vtk2simple.py', '--filelist', filelist, '--logfile', fn_log]
     subprocess.call(command)
     logger.info("Main app finished, terminating processes")
 
