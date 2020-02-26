@@ -14,21 +14,30 @@ def getGrid(file_name):
     reader.Update() # Needed because of GetScalarRange
     return reader.GetOutput()
 
-def getDeviations(grid):
+def getPointDeviations(grid):
     return grid.GetPointData().GetArray(0)
 
-def getDeviation(deviations, ind):
+def getPointDeviation(deviations, ind):
     return deviations.GetTuple1(ind)
 
-def extractVerts(grid):
+def extractVertsWithDeviation(grid):
     len = grid.GetNumberOfPoints()
     verts = np.empty([len, 4])
-    deviations = getDeviations(grid)
+    deviations = getPointDeviations(grid)
     for i in range(0, len):
         point = grid.GetPoint(i)
         for j in range(0,3):
             verts[i, j] = point[j]
-        verts[i, 3] = getDeviation(deviations, i)
+        verts[i, 3] = getPointDeviation(deviations, i)
+    return verts
+
+def extractVertsWithoutDeviation(grid):
+    len = grid.GetNumberOfPoints()
+    verts = np.empty([len, 3])
+    for i in range(0, len):
+        point = grid.GetPoint(i)
+        for j in range(0,3):
+            verts[i, j] = point[j]
     return verts
 
 def extractCellInds(grid):
@@ -42,29 +51,50 @@ def extractCellInds(grid):
             vertinds[i, j] = cell.GetPointId(j)
     return vertinds
 
+def extractCellDeviation(grid):
+    cd = grid.GetCellData()
+    scalars = cd.GetScalars()
+    len = scalars.GetSize()
+    deviations = np.empty([len])
+    for i in range(0, len):
+        deviations[i] = scalars.GetValue(i)
+    return deviations
+
+
 def readGrid():
     return getGrid("/data/movedVK.vtk")
 
-def writeFile(filename, verts, cellInds):
+def writeFile(filename, verts, cellInds, deviations):
     with open(filename, 'w') as out:
-        out.write(str(verts.shape[0]) + "\n")
+        out.write("version 1\n")
+        dataPerVert = verts.shape[1] == 4
+        dataPerTri = not dataPerVert and deviations is not None
+        if dataPerVert:
+            out.write("data_per vert\n")
+        if dataPerTri:
+            out.write("data_per tri\n")
+        out.write("num_verts " + str(verts.shape[0]) + "\n")
         for i in range (0, verts.shape[0]):
-            out.write(str(verts[i,0]) + " ")
-            out.write(str(verts[i,1]) + " ")
-            out.write(str(verts[i,2]) + " ")
-            out.write(str(verts[i,3]) + "\n")
-        out.write(str(cellInds.shape[0]) + "\n")
+            for j in range (0, verts.shape[1]):
+                out.write(str(verts[i,j]) + " ")
+            out.write("\n")
+        out.write("num_tris " + str(cellInds.shape[0]) + "\n")
         for i in range (0, cellInds.shape[0]):
             out.write(str(cellInds[i,0]) + " ")
             out.write(str(cellInds[i,1]) + " ")
-            out.write(str(cellInds[i,2]) + "\n")
-
+            out.write(str(cellInds[i,2]) + " ")
+            if dataPerTri:
+                out.write(str(deviations[i]) + " ")
+            out.write("\n")
+        
+            
 def isVtk(filename):
     pre, ext = path.splitext(filename)
     return( ext == ".vtk")
 
 
 def isConversionNeeded(infile, outfile):
+    return True
     if (path.isfile(outfile)):
         return (False)
     else:
@@ -88,15 +118,25 @@ def convertFile(inputfile):
     if (not conversionNeeded):
         return (outputfile)
     grid = getGrid(inputfile)
-#    scalar_range = grid.GetScalarRange()
+    dataPerVert = grid.GetPointData().GetScalars() != None
+    dataPerTri = not dataPerVert and grid.GetCellData().GetScalars() != None
+
     print("ncells: ", grid.GetNumberOfCells())
     print("npoints: ", grid.GetNumberOfPoints())
+    print("dataPerVert: ",dataPerVert)
+    print("dataPerTri: ",dataPerTri)
     print("#extracting vertices")
-    verts = extractVerts(grid)
+    if dataPerVert:
+        verts = extractVertsWithDeviation(grid)
+    else:
+        verts = extractVertsWithoutDeviation(grid)
     print("#extracting grid")
     cellInds = extractCellInds(grid)
+    cellDeviations = None
+    if dataPerTri:
+        cellDeviations = extractCellDeviation(grid)
     print ("#writing output file");	
-    writeFile(outputfile, verts, cellInds)
+    writeFile(outputfile, verts, cellInds, cellDeviations)
     return(outputfile)
 
 def convertFileList(inputliststring):
